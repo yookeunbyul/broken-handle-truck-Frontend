@@ -3,6 +3,7 @@ export default function Category() {
     <select
       name="menu"
       required
+      onChange={(e) => console.log(e.target.value)}
       className="mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)] border-r-8 border-transparent rounded-lg bg-form p-3"
     >
       <option value="붕어빵">붕어빵</option>
