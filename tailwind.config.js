@@ -12,6 +12,7 @@ module.exports = {
         primary: "#ef5e7a",
         secondary: "#fddb80",
         success: "#5ef263",
+        form: "#f1f5f9", // input, select 배경색
       },
     },
     fontFamily: {
