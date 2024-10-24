@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import user from "../assets/images/user.svg";
-import map from "../assets/images/map.svg";
-import category from "../assets/images/category.svg";
+import UserIcon from "../assets/images/user.svg?react";
+import StarIcon from "../assets/images/star.svg?react";
+import MapIcon from "../assets/images/map.svg?react";
+import CategoryIcon from "../assets/images/category.svg?react";
 
 const BottomNavBar = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { pathname } = useLocation();
+  const [isOwner] = useState(true); // 사장님인지 아닌지
 
   // 라우팅 경로를 처리하는 함수입니다
   const handleClick = (path: string) => {
@@ -18,70 +21,62 @@ const BottomNavBar = () => {
     }
   };
 
-  const isFocused = (path: string) => location.pathname === path;
+  const isFocused = (path: string) => pathname === path;
 
   return (
-    <div className="flex px-4 gap-2 border-t border-t-gray-200 bg-white bg-slate-800">
+    <div className="flex bg-black text-sm sticky bottom-0">
       <div
-        className="flex flex-col w-full px-2 py-4 gap-1 items-center justify-center text-white cursor-pointer"
-        onClick={() => handleClick("/test")}
+        className={[
+          "flex flex-col flex-1 py-4 gap-1 items-center justify-center cursor-pointer",
+          isFocused("/map")
+            ? "text-primary stroke-primary"
+            : "text-white stroke-white",
+        ].join(" ")}
+        onClick={() => handleClick("/map")}
       >
-        <img
-          src={map}
-          width={24}
-          height={24}
-          className={`${
-            isFocused("/test") ? "scale-110 font-black" : "font-normal"
-          }`}
-        />
-        <div
-          className={`${
-            isFocused("/test") ? "scale-110 font-black" : "font-normal"
-          }`}
-        >
-          지도
-        </div>
+        <MapIcon width={24} height={24} />
+        <p>지도</p>
       </div>
       <div
-        className="flex flex-col w-full px-2 py-4 gap-1 items-center justify-center text-white"
-        onClick={() => handleClick("/test")}
+        className={[
+          "flex flex-col flex-1 py-4 gap-1 items-center justify-center cursor-pointer",
+          isFocused("/category")
+            ? "text-primary stroke-primary"
+            : "text-white stroke-white",
+        ].join(" ")}
+        onClick={() => handleClick("/map")}
       >
-        <img
-          src={category}
-          width={24}
-          height={24}
-          className={`${
-            isFocused("/test") ? "scale-110 font-black" : "font-normal"
-          }`}
-        />
-        <div
-          className={`${
-            isFocused("/test") ? "scale-110 font-black" : "font-normal"
-          }`}
-        >
-          카테고리
-        </div>
+        {/* Category 클릭 시 바텀시트 오픈 */}
+        <CategoryIcon width={24} height={24} />
+        <p>카테고리</p>
       </div>
-      <div
-        className="flex flex-col w-full px-2 py-4 gap-1 items-center justify-center text-white"
-        onClick={() => handleClick("/test")}
-      >
-        <img
-          src={user}
-          width={24}
-          height={24}
-          className={`${
-            isFocused("/test") ? "scale-110 font-black" : "font-normal"
-          }`}
-        />
+      {isOwner ? (
         <div
-          className={`${
-            isFocused("/test") ? "scale-110 font-black" : "font-normal"
-          }`}
+          className={[
+            "flex flex-col flex-1 py-4 gap-1 items-center justify-center cursor-pointer",
+            isFocused("/my-truck")
+              ? "text-primary stroke-primary"
+              : "text-white stroke-white",
+          ].join(" ")}
+          onClick={() => handleClick("/my-truck")}
         >
-          내 가게
+          <UserIcon width={24} height={24} />
+          <p>내 가게</p>
         </div>
-      </div>
+      ) : (
+        <div
+          className={[
+            "flex flex-col flex-1 py-4 gap-1 items-center justify-center cursor-pointer",
+            isFocused("/bookmark")
+              ? "text-primary stroke-primary"
+              : "text-white stroke-white",
+          ].join(" ")}
+          onClick={() => handleClick("/bookmark")}
+        >
+          <StarIcon width={24} height={24} />
+          <p>북마크</p>
+        </div>
+      )}
     </div>
   );
 };
