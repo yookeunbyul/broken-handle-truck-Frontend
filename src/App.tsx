@@ -14,10 +14,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route index={true} element={<MainPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/" element={<RootLayout />}>
+          <Route index={true} element={<MainPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/bookmark" element={<BookMarkPage />} />
           <Route path="/detail" element={<DetailPage />} />
