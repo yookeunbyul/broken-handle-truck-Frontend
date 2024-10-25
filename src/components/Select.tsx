@@ -1,12 +1,12 @@
 export default function Category() {
   return (
     <div className="flex flex-col gap-1 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
-      <p className="text-2xl text-white/50 mix-blend-difference">카테고리</p>
+      <p className="text-sm text-white/50 mix-blend-difference">카테고리</p>
       <select
         name="menu"
         required
         onChange={(e) => console.log(e.target.value)}
-        className="w-full border-r-8 border-transparent rounded-lg bg-form p-3"
+        className="text-base w-full border-r-8 border-transparent rounded-lg bg-form p-3"
       >
         <option value="붕어빵">붕어빵</option>
         <option value="어묵">어묵</option>
