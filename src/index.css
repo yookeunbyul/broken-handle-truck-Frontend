@@ -1,32 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 @font-face {
-    font-family: 'Dovemayo_gothic';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Dovemayo_gothic";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
 .react-modal-sheet-container {
-    /* custom styles */
-    position: relative !important;
-    margin: 0 auto !important;
-    max-width: 768px !important;
-    width: 100% !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
+  /* custom styles */
+  position: relative !important;
+  margin: 0 auto !important;
+  max-width: 768px !important;
+  width: 100% !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 .react-modal-sheet-header {
-    /* custom styles */
-    background-color: #323232;
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
+  /* custom styles */
+  background-color: #323232;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
 }
 
 .react-modal-sheet-content {
-    /* custom styles */
-    background-color: #323232;
+  /* custom styles */
+  background-color: #323232;
 }
