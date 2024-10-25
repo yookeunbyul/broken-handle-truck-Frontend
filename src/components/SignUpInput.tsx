@@ -12,10 +12,10 @@ export default function SignUpInput({
   children,
   ...props
 }: SignUpInputProps &
-  (
-    | Omit<React.ComponentPropsWithoutRef<"input">, keyof SignUpInputProps>
-    | "className"
-  )) {
+  Omit<
+    React.ComponentPropsWithoutRef<"input">,
+    keyof SignUpInputProps | "className"
+  >) {
   return (
     <div className="mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)] flex flex-col gap-2">
       <label htmlFor={id} className="text-white">
