@@ -50,7 +50,7 @@ export default function LoginPage() {
                   id="email"
                   label="이메일"
                   type="text"
-                  placeholder="example@gmale.com"
+                  placeholder="example@gmail.com"
                 />
                 {invalid && (
                   <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
