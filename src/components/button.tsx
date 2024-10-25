@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function Button() {
-  const defaultButton = `flex gap-x-4 hover:shadow-lg border rounded-xl text-2xl justify-center ease-in duration-300 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]`;
+  const defaultButton = `flex gap-x-4 hover:shadow-lg border rounded-xl text-base justify-center ease-in duration-300 py-1.5 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]`;
 
   // 선택된 버튼들을 저장하는 배열
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
@@ -22,7 +22,7 @@ export default function Button() {
 
   return (
     <div className="flex flex-col gap-1 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
-      <p className="text-2xl text-white/50 mix-blend-difference">결제 방식</p>
+      <p className="text-sm text-white/50 mix-blend-difference">결제 방식</p>
       <div className="flex gap-x-4 text-2xl text-primary">
         <button
           type="button"
