@@ -20,7 +20,7 @@ export default function Input({
     <div className="mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)] flex flex-col gap-1">
       <label
         htmlFor={id}
-        className="text-sm text-white/50 mix-blend-difference"
+        className="text-xs text-white/50 mix-blend-difference"
       >
         {label}
       </label>
