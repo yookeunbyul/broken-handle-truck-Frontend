@@ -21,34 +21,37 @@ export default function Button() {
   };
 
   return (
-    <div className="flex gap-x-4 text-2xl text-primary mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
-      <button
-        type="button"
-        onClick={() => handleButtonClick("현금")}
-        className={`${defaultButton} ${
-          activeButtons.includes("현금") ? "text-white bg-primary" : ""
-        }`}
-      >
-        현금
-      </button>
-      <button
-        type="button"
-        onClick={() => handleButtonClick("카드")}
-        className={`${defaultButton} ${
-          activeButtons.includes("카드") ? "text-white bg-primary" : ""
-        }`}
-      >
-        카드
-      </button>
-      <button
-        type="button"
-        onClick={() => handleButtonClick("계좌이체")}
-        className={`${defaultButton} ${
-          activeButtons.includes("계좌이체") ? "text-white bg-primary" : ""
-        }`}
-      >
-        계좌이체
-      </button>
+    <div className="flex flex-col gap-1 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
+      <p className="text-2xl text-white/50 mix-blend-difference">결제 방식</p>
+      <div className="flex gap-x-4 text-2xl text-primary">
+        <button
+          type="button"
+          onClick={() => handleButtonClick("현금")}
+          className={`${defaultButton} ${
+            activeButtons.includes("현금") ? "text-white bg-primary" : ""
+          }`}
+        >
+          현금
+        </button>
+        <button
+          type="button"
+          onClick={() => handleButtonClick("카드")}
+          className={`${defaultButton} ${
+            activeButtons.includes("카드") ? "text-white bg-primary" : ""
+          }`}
+        >
+          카드
+        </button>
+        <button
+          type="button"
+          onClick={() => handleButtonClick("계좌이체")}
+          className={`${defaultButton} ${
+            activeButtons.includes("계좌이체") ? "text-white bg-primary" : ""
+          }`}
+        >
+          계좌이체
+        </button>
+      </div>
     </div>
   );
 }
