@@ -13,7 +13,7 @@ export default function Card({ isOpen = false }: CardProps) {
                 </div>
                 <div className="flex flex-col justify-center gap-y-2">
                     <div className="text-xs text-category">카테고리</div>
-                    <div className="text-white font-bold text-sm">이름</div>
+                    <div className="text-white font-bold text-base">이름</div>
                     <div className="text-xs text-category bg-count px-2 py-1 rounded-2xl whitespace-nowrap">
                         최근 방문 <span className="text-white font-bold">0</span>명
                     </div>
@@ -29,7 +29,7 @@ export default function Card({ isOpen = false }: CardProps) {
                 </div>
             </div>
             <div className="text-right">
-                <button className="text-right bg-primary text-xs py-2 px-3 tracking-tight rounded-md text-white font-bold">
+                <button className="text-right bg-primary text-base py-2 px-3 tracking-tight rounded-md text-white font-bold">
                     자세히 보기
                 </button>
             </div>
