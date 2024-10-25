@@ -12,7 +12,7 @@ export default function Comment() {
                     </button>
                 </div>
             </div>
-            <div className="py-5 text-sm text-black">내용</div>
+            <div className="py-5 text-base text-black">내용</div>
         </div>
     );
 }
