@@ -35,7 +35,7 @@ export default function TopBar({ title }: TopBarProps) {
           </div>
         </div>
       )}
-      <p className="flex-1 text-center text-xl text-white">{title}</p>
+      <p className="flex-1 text-center text-lg text-white">{title}</p>
       {pathname === "/detail" && (
         <div className="flex justify-end items-center gap-spacing-05">
           <BookMarkButton isBookmarked={false} onClick={onClickRight} />
