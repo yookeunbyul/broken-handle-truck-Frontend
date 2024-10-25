@@ -1,24 +1,27 @@
 import React from "react";
 
-interface SignUpInputProps {
+interface InputProps {
   id: string;
   label: string;
   children?: React.ReactNode;
 }
 
-export default function SignUpInput({
+export default function Input({
   id,
   label,
   children,
   ...props
-}: SignUpInputProps &
+}: InputProps &
   Omit<
     React.ComponentPropsWithoutRef<"input">,
-    keyof SignUpInputProps | "className"
+    keyof InputProps | "className"
   >) {
   return (
-    <div className="mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)] flex flex-col gap-2">
-      <label htmlFor={id} className="text-white">
+    <div className="mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)] flex flex-col gap-1">
+      <label
+        htmlFor={id}
+        className="text-sm text-white/50 mix-blend-difference"
+      >
         {label}
       </label>
       <div className="relative">
