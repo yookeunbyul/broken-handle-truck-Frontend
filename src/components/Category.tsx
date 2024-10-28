@@ -35,7 +35,7 @@ export default function Category({ isOpen, setOpen }: CategoryProps) {
       initialSnap={1}
     >
       <Sheet.Container>
-        <Sheet.Header />
+        <Sheet.Header className="relative top-[1px]" />
         <Sheet.Content className="overflow-auto">
           <div className="mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
             <p className="text-white font-bold text-lg sm:text-xl py-8">
