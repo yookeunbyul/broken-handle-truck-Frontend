@@ -1,4 +1,4 @@
-import { Category } from "../types/category.ts";
+import { ICategory } from "../types/category.ts";
 
 import C1 from "../assets/images/category/category-1.svg?react";
 import C2 from "../assets/images/category/category-2.svg?react";
@@ -14,7 +14,7 @@ import C11 from "../assets/images/category/category-11.svg?react";
 import C12 from "../assets/images/category/category-12.svg?react";
 import C13 from "../assets/images/category/category-13.svg?react";
 
-const categories: Category[] = [
+const categories: ICategory[] = [
   { title: "붕어빵", ImgComponent: C1 },
   { title: "어묵", ImgComponent: C2 },
   { title: "군고구마", ImgComponent: C3 },

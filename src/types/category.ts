@@ -1,8 +1,8 @@
 import React from "react";
 
-interface Category {
+interface ICategory {
   title: string;
   ImgComponent?: React.FC<{ width?: number; height?: number }>;
 }
 
-export type { Category };
+export type { ICategory };
