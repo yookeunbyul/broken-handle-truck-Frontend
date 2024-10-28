@@ -1,15 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { NavigateOptions, To, useNavigate } from "react-router-dom";
 
 export default function useFadeNavigate() {
-  const _navigate = useNavigate();
+  const navigate = useNavigate();
 
-  return (path: string) => {
+  return (to: To, options: NavigateOptions = {}) => {
     if (document.startViewTransition) {
       document.startViewTransition(() => {
-        _navigate(path);
+        navigate(to, options);
       });
     } else {
-      _navigate(path);
+      navigate(to, options);
     }
   };
 }
