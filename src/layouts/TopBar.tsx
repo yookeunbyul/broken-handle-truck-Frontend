@@ -1,13 +1,14 @@
 import LeftArrowIcon from '../assets/images/leftArrow.svg?react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import BookMarkButton from '../components/BookMarkButton';
+import useFadeNavigate from '../hooks/useFadeNavigate';
 
 type TopBarProps = {
     title?: string;
 };
 
 export default function TopBar({ title }: TopBarProps) {
-    const navigate = useNavigate();
+    const navigate = useFadeNavigate();
     const { pathname } = useLocation();
 
     const onClickLeft = () => {
