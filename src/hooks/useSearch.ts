@@ -4,7 +4,7 @@ export const useSearch = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value); // input change 값 확인용
+    // console.log(e.target.value); // input change 값 확인용
     setSearchTerm(e.target.value);
   };
 

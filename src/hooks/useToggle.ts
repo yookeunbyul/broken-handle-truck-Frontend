@@ -6,7 +6,7 @@ export const useToggle = () => {
   const toggleHandler = () => {
     setIsOn((prev) => !prev);
   };
-  console.log(isOn); // 현재 영업 상태 확인용
+  // console.log(isOn); // 현재 영업 상태 확인용
 
   return { isOn, toggleHandler };
 };
