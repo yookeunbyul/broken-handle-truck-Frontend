@@ -1,15 +1,9 @@
-import { useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import Toggle from "../components/Toggle";
 import Search from "../components/map/Search";
 import MyLocation from "../components/map/MyLocation";
 
 export default function MapPage() {
-  const [isOn, setIsOn] = useState<boolean>(false);
-
-  const toggleHandler = () => {
-    setIsOn((prev) => !prev);
-  };
   return (
     <>
       <Map
@@ -19,11 +13,7 @@ export default function MapPage() {
       >
         <Search />
         <div className="absolute bottom-24 right-3 z-10">
-          <Toggle
-            isOn={isOn}
-            onClick={toggleHandler}
-            text={{ on: "영업중", off: "영업 종료" }}
-          />
+          <Toggle text={{ on: "영업중", off: "영업 종료" }} />
         </div>
         <MyLocation />
       </Map>
