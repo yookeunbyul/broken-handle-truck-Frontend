@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import UserIcon from "../assets/images/user.svg?react";
 import StarIcon from "../assets/images/star.svg?react";
 import MapIcon from "../assets/images/map.svg?react";
 import CategoryIcon from "../assets/images/category.svg?react";
+import useFadeNavigate from "../hooks/useFadeNavigate.ts";
 
 interface BottomNavBarProps {
   isOpenCategory: boolean;
@@ -14,20 +15,14 @@ const BottomNavBar = ({
   isOpenCategory,
   setOpenCategory,
 }: BottomNavBarProps) => {
-  const navigate = useNavigate();
+  const navigate = useFadeNavigate();
   const { pathname } = useLocation();
   const [isOwner] = useState(true); // 사장님인지 아닌지
 
   // 라우팅 경로를 처리하는 함수입니다
   const handleClick = (path: string) => {
     setOpenCategory(false);
-    if (document.startViewTransition) {
-      document.startViewTransition(() => {
-        navigate(path);
-      });
-    } else {
-      navigate(path);
-    }
+    navigate(path);
   };
 
   const isFocused = (path: string) => !isOpenCategory && pathname === path;

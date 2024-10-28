@@ -1,6 +1,6 @@
 import Input from "../components/Input.tsx";
-import { Link } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
+import useFadeNavigate from "../hooks/useFadeNavigate.ts";
 
 interface LoginFormData {
   email: string;
@@ -8,6 +8,8 @@ interface LoginFormData {
 }
 
 export default function LoginPage() {
+  const navigate = useFadeNavigate();
+
   const { control, handleSubmit } = useForm<LoginFormData>({
     defaultValues: {
       email: "",
@@ -100,12 +102,13 @@ export default function LoginPage() {
           <button className="mb-4 bg-primary mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)] py-5 text-white rounded-lg font-bold">
             로그인
           </button>
-          <Link to="/signup">
-            <p className="text-white">
-              계정이 없으신가요?{" "}
-              <strong className="text-primary font-bold">가입하기</strong>
-            </p>
-          </Link>
+          <p
+            className="text-white cursor-pointer"
+            onClick={() => navigate("/signup")}
+          >
+            계정이 없으신가요?{" "}
+            <strong className="text-primary font-bold">가입하기</strong>
+          </p>
         </div>
       </form>
     </div>

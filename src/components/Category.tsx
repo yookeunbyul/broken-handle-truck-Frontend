@@ -1,7 +1,7 @@
 import { Sheet } from "react-modal-sheet";
 import Menu from "./Menu.tsx";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import useFadeNavigate from "../hooks/useFadeNavigate.ts";
 
 interface CategoryProps {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface CategoryProps {
 }
 
 export default function Category({ isOpen, setOpen }: CategoryProps) {
-  const navigate = useNavigate();
+  const navigate = useFadeNavigate();
   // 임시 데이터
   const [categories] = useState<
     { title: string; Img?: React.FC<{ width?: number; height?: number }> }[]
