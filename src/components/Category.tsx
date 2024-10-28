@@ -1,7 +1,7 @@
 import { Sheet } from "react-modal-sheet";
 import Menu from "./Menu.tsx";
-import React, { useState } from "react";
 import useFadeNavigate from "../hooks/useFadeNavigate.ts";
+import { categories } from "../constants/categories.ts";
 
 interface CategoryProps {
   isOpen: boolean;
@@ -10,15 +10,6 @@ interface CategoryProps {
 
 export default function Category({ isOpen, setOpen }: CategoryProps) {
   const navigate = useFadeNavigate();
-  // 임시 데이터
-  const [categories] = useState<
-    { title: string; Img?: React.FC<{ width?: number; height?: number }> }[]
-  >(
-    Array.from({ length: 14 }).fill({ title: "붕어빵" }) as {
-      title: string;
-      Img?: React.FC<{ width?: number; height?: number }>;
-    }[],
-  );
 
   const handleCategoryClick = (target: string) => {
     setOpen(false);
@@ -43,13 +34,13 @@ export default function Category({ isOpen, setOpen }: CategoryProps) {
             </p>
             <Sheet.Scroller>
               <div className="grid grid-cols-[repeat(auto-fit,75px)] gap-x-4 sm:gap-x-10 gap-y-8 justify-between">
-                {categories.map(({ title }, idx) => (
+                {categories.map(({ title, ImgComponent }, idx) => (
                   <div
                     key={`category_${idx}`}
                     className="cursor-pointer"
                     onClick={() => handleCategoryClick(title)}
                   >
-                    <Menu title={title} />
+                    <Menu title={title} ImgComponent={ImgComponent} />
                   </div>
                 ))}
               </div>
