@@ -5,6 +5,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            borderWidth: {
+                1: '1px',
+            },
             colors: {
                 black: '#323232',
                 white: '#ffffff',
@@ -15,6 +18,8 @@ module.exports = {
                 form: '#f1f5f9', // input, select 배경색
                 category: '#ADADAD', //card의 category
                 count: '#525252', //card의 방문수 배경
+                review: '#F1F1F1',
+                comment: '#E0E0E0',
             },
         },
         fontFamily: {
