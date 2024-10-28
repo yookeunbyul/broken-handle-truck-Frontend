@@ -5,13 +5,22 @@ import StarIcon from "../assets/images/star.svg?react";
 import MapIcon from "../assets/images/map.svg?react";
 import CategoryIcon from "../assets/images/category.svg?react";
 
-const BottomNavBar = () => {
+interface BottomNavBarProps {
+  isOpenCategory: boolean;
+  setOpenCategory: (isOpen: boolean | ((prev: boolean) => boolean)) => void;
+}
+
+const BottomNavBar = ({
+  isOpenCategory,
+  setOpenCategory,
+}: BottomNavBarProps) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isOwner] = useState(true); // 사장님인지 아닌지
 
   // 라우팅 경로를 처리하는 함수입니다
   const handleClick = (path: string) => {
+    setOpenCategory(false);
     if (document.startViewTransition) {
       document.startViewTransition(() => {
         navigate(path);
@@ -21,7 +30,7 @@ const BottomNavBar = () => {
     }
   };
 
-  const isFocused = (path: string) => pathname === path;
+  const isFocused = (path: string) => !isOpenCategory && pathname === path;
 
   return (
     <div className="flex bg-black text-xs sticky bottom-0 z-[999999999]">
@@ -40,13 +49,12 @@ const BottomNavBar = () => {
       <div
         className={[
           "flex flex-col flex-1 py-4 gap-1 items-center justify-center cursor-pointer",
-          isFocused("/category")
+          isOpenCategory
             ? "text-primary stroke-primary"
             : "text-white stroke-white",
         ].join(" ")}
-        onClick={() => handleClick("/map")}
+        onClick={() => setOpenCategory((prev) => !prev)}
       >
-        {/* Category 클릭 시 바텀시트 오픈 */}
         <CategoryIcon width={24} height={24} />
         <p>카테고리</p>
       </div>
