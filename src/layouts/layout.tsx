@@ -22,7 +22,9 @@ export default function RootLayout() {
           <Outlet />
         </div>
         <Category isOpen={isOpenCategory} setOpen={setIsOpenCategory} />
-        {!["/", "/login", "/signup", "/detail"].includes(pathname) && (
+        {!["/", "/login", "/signup", "/detail", "/register"].includes(
+          pathname,
+        ) && (
           <BottomNavBar
             isOpenCategory={isOpenCategory}
             setOpenCategory={setIsOpenCategory}
