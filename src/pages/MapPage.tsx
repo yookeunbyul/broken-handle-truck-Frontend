@@ -1,16 +1,30 @@
-import { Map } from "react-kakao-maps-sdk";
+import { useEffect, useRef, useState } from "react";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 import Toggle from "../components/Toggle";
 import Search from "../components/map/Search";
 import MyLocation from "../components/map/MyLocation";
-import { useEffect, useRef, useState } from "react";
+import Card from "../components/Card";
 import { useMyLocation } from "../hooks/useMyLocation";
+
+import truckData from "../mocks/truckDatas.json";
 
 interface Coordinates {
   lat: number;
   lng: number;
 }
 
+export interface MockMarker {
+  id: number;
+  name: string;
+  category: string;
+  coordinates: Coordinates;
+}
+
 export default function MapPage() {
+  // 마커 클릭 여부
+  const [clickMarker, setClickMarker] = useState<MockMarker | null>(null);
+
+  // 초기 위치 설정
   const [mapCenter, setMapCenter] = useState<Coordinates>({
     lat: 37.5563,
     lng: 126.99581,
@@ -50,12 +64,31 @@ export default function MapPage() {
         ref={mapRef}
         className="w-full h-full relative"
         level={4}
+        onClick={() => setClickMarker(null)}
       >
+        {truckData.map((data) => (
+          <MapMarker
+            key={`${data.name}-${data.coordinates}`}
+            position={data.coordinates}
+            title={data.name}
+            onClick={() => {
+              setClickMarker(data);
+            }}
+          />
+        ))}
+
         <Search />
+        {/* 영업 여부 토글은 로그인 여부에 따라서 달라짐 */}
         <div className="absolute bottom-24 right-3 z-10">
           <Toggle text={{ on: "영업중", off: "영업 종료" }} />
         </div>
+
         <MyLocation setMapCenter={handleLocationChange} />
+        {clickMarker ? (
+          <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-5/6">
+            <Card isOpen={false} info={clickMarker} />
+          </div>
+        ) : null}
       </Map>
     </>
   );
