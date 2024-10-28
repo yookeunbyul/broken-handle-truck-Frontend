@@ -1,6 +1,7 @@
 import { Sheet } from "react-modal-sheet";
 import Menu from "./Menu.tsx";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface CategoryProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface CategoryProps {
 }
 
 export default function Category({ isOpen, setOpen }: CategoryProps) {
+  const navigate = useNavigate();
   // 임시 데이터
   const [categories] = useState<
     { title: string; Img?: React.FC<{ width?: number; height?: number }> }[]
@@ -18,6 +20,13 @@ export default function Category({ isOpen, setOpen }: CategoryProps) {
     }[],
   );
 
+  const handleCategoryClick = (target: string) => {
+    setOpen(false);
+    // 카테고리 필터 적용 후 Map으로 이동
+    console.log(target);
+    navigate(`/map`);
+  };
+
   return (
     <Sheet
       isOpen={isOpen}
@@ -27,7 +36,6 @@ export default function Category({ isOpen, setOpen }: CategoryProps) {
     >
       <Sheet.Container>
         <Sheet.Header />
-        <Sheet.Content>{/* Your sheet content goes here */}</Sheet.Content>
         <Sheet.Content className="overflow-auto">
           <div className="mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
             <p className="text-white font-bold text-lg sm:text-xl py-8">
@@ -39,6 +47,7 @@ export default function Category({ isOpen, setOpen }: CategoryProps) {
                   <div
                     key={`category_${idx}`}
                     className="cursor-pointer"
+                    onClick={() => handleCategoryClick(title)}
                   >
                     <Menu title={title} />
                   </div>
