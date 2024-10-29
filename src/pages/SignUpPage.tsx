@@ -5,6 +5,7 @@ import { useState } from "react";
 
 interface SignUpFormData {
   email: string;
+  nickname: string;
   password: string;
   confirmPassword: string;
 }
@@ -54,173 +55,175 @@ export default function SignUpPage() {
 
   return (
     <div className="bg-black h-full flex flex-col justify-center items-center gap-10 relative">
-      <p className="text-3xl font-point text-white py-8">회원가입</p>
+      <p className="text-3xl font-point text-white pt-12 sm:py-8">회원가입</p>
       <form
-        className="w-full flex flex-col gap-8 py-8"
+        className="w-full flex flex-col items-center mb-20"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Controller
-          name="email"
-          control={control}
-          rules={{
-            required: "이메일은 필수 입력 항목입니다.",
-            pattern: {
-              value: /^\S+@\S+$/i,
-              message: "잘못된 이메일 형식입니다.",
-            },
-          }}
-          render={({
-            field: { onChange, value, name },
-            fieldState: { invalid },
-            formState,
-          }) => (
-            <div className="relative">
-              <Input
-                name={name}
-                value={value}
-                onChange={(e) => {
-                  onChange(e);
-                  setIsEmailChecked(false);
-                }}
-                id="email"
-                label="이메일"
-                placeholder="example@gmail.com"
-              >
-                <button
-                  className="bg-primary text-xs text-white px-3 sm:px-6 py-2 rounded-lg"
-                  type="button"
-                  onClick={() => handleCheckEmail(value)}
+        <div className="max-w-screen-sm w-full flex flex-col gap-8 pt-4 sm:py-8">
+          <Controller
+            name="email"
+            control={control}
+            rules={{
+              required: "이메일은 필수 입력 항목입니다.",
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: "잘못된 이메일 형식입니다.",
+              },
+            }}
+            render={({
+              field: { onChange, value, name },
+              fieldState: { invalid },
+              formState,
+            }) => (
+              <div className="relative">
+                <Input
+                  name={name}
+                  value={value}
+                  onChange={(e) => {
+                    onChange(e);
+                    setIsEmailChecked(false);
+                  }}
+                  id="email"
+                  label="이메일"
+                  placeholder="example@gmail.com"
                 >
-                  중복확인
-                </button>
-              </Input>
-              {invalid && (
-                <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
-                  {formState.errors.email?.message}
-                </p>
-              )}
-              {isEmailChecked && (
-                <p className="absolute top-full left-[50px] sm:left-[100px] text-success">
-                  사용할 수 있는 이메일입니다.
-                </p>
-              )}
-            </div>
-          )}
-        />
-        <Controller
-          name="nickname"
-          control={control}
-          rules={{
-            required: "닉네임은 필수 입력 항목입니다.",
-          }}
-          render={({
-            field: { onChange, value, name },
-            fieldState: { invalid },
-            formState,
-          }) => (
-            <div className="relative">
-              <Input
-                name={name}
-                value={value}
-                onChange={onChange}
-                id="nickname"
-                label="닉네임"
-                placeholder="example"
-              />
-              {invalid && (
-                <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
-                  {formState.errors.nickname?.message}
-                </p>
-              )}
-            </div>
-          )}
-        />
-        <Controller
-          name="password"
-          control={control}
-          rules={{
-            required: "비밀번호는 필수 입력 항목입니다.",
-            pattern: {
-              value:
-                /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
-              message: "영문, 숫자, 특수문자 포함 8 ~ 20자로 입력해주세요.",
-            },
-          }}
-          render={({
-            field: { onChange, value, name },
-            fieldState: { invalid, isDirty },
-            formState,
-          }) => (
-            <div className="relative">
-              <Input
-                name={name}
-                value={value}
-                onChange={onChange}
-                id="password"
-                label="비밀번호"
-                type="password"
-                placeholder="**********"
-              >
-                {isDirty && !invalid && (
-                  <CheckIcon
-                    width={24}
-                    height={24}
-                    className="stroke-primary"
-                  />
+                  <button
+                    className="bg-primary text-xs text-white px-3 sm:px-6 py-2 rounded-lg"
+                    type="button"
+                    onClick={() => handleCheckEmail(value)}
+                  >
+                    중복확인
+                  </button>
+                </Input>
+                {invalid && (
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                    {formState.errors.email?.message}
+                  </p>
                 )}
-              </Input>
-              {invalid && (
-                <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
-                  {formState.errors.password?.message}
-                </p>
-              )}
-            </div>
-          )}
-        />
-        <Controller
-          name="confirmPassword"
-          control={control}
-          rules={{
-            required: "비밀번호 확인은 필수 입력 항목입니다.",
-            validate: {
-              matchPassword: (value) =>
-                getValues().password === value ||
-                "비밀번호가 일치하지 않습니다.",
-            },
-          }}
-          render={({
-            field: { onChange, value, name },
-            fieldState: { invalid, isDirty },
-            formState,
-          }) => (
-            <div className="relative">
-              <Input
-                name={name}
-                value={value}
-                onChange={onChange}
-                id="confirm-password"
-                label="비밀번호 확인"
-                type="password"
-                placeholder="**********"
-              >
-                {isDirty && !invalid && (
-                  <CheckIcon
-                    width={24}
-                    height={24}
-                    className="stroke-primary"
-                  />
+                {isEmailChecked && (
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-success">
+                    사용할 수 있는 이메일입니다.
+                  </p>
                 )}
-              </Input>
-              {invalid && (
-                <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
-                  {formState.errors.confirmPassword?.message}
-                </p>
-              )}
-            </div>
-          )}
-        />
+              </div>
+            )}
+          />
+          <Controller
+            name="nickname"
+            control={control}
+            rules={{
+              required: "닉네임은 필수 입력 항목입니다.",
+            }}
+            render={({
+              field: { onChange, value, name },
+              fieldState: { invalid },
+              formState,
+            }) => (
+              <div className="relative">
+                <Input
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  id="nickname"
+                  label="닉네임"
+                  placeholder="example"
+                />
+                {invalid && (
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                    {formState.errors.nickname?.message}
+                  </p>
+                )}
+              </div>
+            )}
+          />
+          <Controller
+            name="password"
+            control={control}
+            rules={{
+              required: "비밀번호는 필수 입력 항목입니다.",
+              pattern: {
+                value:
+                  /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
+                message: "영문, 숫자, 특수문자 포함 8 ~ 20자로 입력해주세요.",
+              },
+            }}
+            render={({
+              field: { onChange, value, name },
+              fieldState: { invalid, isDirty },
+              formState,
+            }) => (
+              <div className="relative">
+                <Input
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  id="password"
+                  label="비밀번호"
+                  type="password"
+                  placeholder="**********"
+                >
+                  {isDirty && !invalid && (
+                    <CheckIcon
+                      width={24}
+                      height={24}
+                      className="stroke-primary"
+                    />
+                  )}
+                </Input>
+                {invalid && (
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                    {formState.errors.password?.message}
+                  </p>
+                )}
+              </div>
+            )}
+          />
+          <Controller
+            name="confirmPassword"
+            control={control}
+            rules={{
+              required: "비밀번호 확인은 필수 입력 항목입니다.",
+              validate: {
+                matchPassword: (value) =>
+                  getValues().password === value ||
+                  "비밀번호가 일치하지 않습니다.",
+              },
+            }}
+            render={({
+              field: { onChange, value, name },
+              fieldState: { invalid, isDirty },
+              formState,
+            }) => (
+              <div className="relative">
+                <Input
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  id="confirm-password"
+                  label="비밀번호 확인"
+                  type="password"
+                  placeholder="**********"
+                >
+                  {isDirty && !invalid && (
+                    <CheckIcon
+                      width={24}
+                      height={24}
+                      className="stroke-primary"
+                    />
+                  )}
+                </Input>
+                {invalid && (
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                    {formState.errors.confirmPassword?.message}
+                  </p>
+                )}
+              </div>
+            )}
+          />
+        </div>
         <button
-          className="bg-primary w-full py-5 text-white font-bold absolute bottom-0 disabled:bg-primary/50 disabled:text-white/50 disabled:cursor-default"
+          className="bg-primary max-w-screen-md w-full py-5 text-white font-bold fixed bottom-0 disabled:bg-primary/50 disabled:text-white/50 disabled:cursor-default"
           disabled={!isEmailChecked || !isValid}
         >
           회원가입
