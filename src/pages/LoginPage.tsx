@@ -1,6 +1,7 @@
 import Input from "../components/Input.tsx";
 import { Controller, useForm } from "react-hook-form";
 import useFadeNavigate from "../hooks/useFadeNavigate.ts";
+import KakaoIcon from "../assets/images/kakao.svg?react";
 
 interface LoginFormData {
   email: string;
@@ -22,10 +23,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-black h-full flex flex-col justify-center items-center gap-10">
+    <div className="bg-black h-full flex flex-col justify-center items-center sm:gap-10">
       <p className="text-3xl font-point text-white py-8">로그인</p>
       <form
-        className="w-full flex flex-col gap-24 py-8"
+        className="w-full flex flex-col gap-24 py-4 sm:py-8"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-8">
@@ -99,8 +100,20 @@ export default function LoginPage() {
           />
         </div>
         <div className="flex flex-col justify-center items-center gap-4">
-          <button className="mb-4 bg-primary mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)] py-5 text-white rounded-lg font-bold">
+          <button className="bg-primary mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)] py-5 text-white rounded-lg font-bold">
             로그인
+          </button>
+          <p className="text-white text-xs py-2 line-text">또는</p>
+          <button
+            type="button"
+            className="mb-4 bg-kakao text-kakao-black mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)] py-5 rounded-lg font-bold relative"
+          >
+            <KakaoIcon
+              className="absolute left-4 top-1/2 -translate-y-1/2"
+              width={24}
+              height={24}
+            />
+            카카오 로그인
           </button>
           <p
             className="text-white cursor-pointer"

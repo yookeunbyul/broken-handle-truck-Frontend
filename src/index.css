@@ -52,3 +52,25 @@ body:has(.react-modal-sheet-container) .bottom-navbar {
 .input--password > input:placeholder-shown ~ label {
   display: block;
 }
+
+.line-text {
+  position: relative;
+}
+.line-text::before,
+.line-text::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: 100px;
+  height: 1px;
+  background-color: #ffffff;
+  opacity: 0.2;
+}
+.line-text::before {
+  right: calc(100% + 1rem);
+}
+.line-text::after {
+  left: calc(100% + 1rem);
+}
