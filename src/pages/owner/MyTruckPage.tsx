@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import useTitleStore from '../../store/titleStore';
-import { useNavigate } from 'react-router-dom';
 import Logo from '../../../public/logo.svg?react';
 import NoReview from '../../components/NoReview';
 import MessageSquare from '../../assets/images/messageSquare.svg?react';
 import Comment from '../../components/Comment';
+import useFadeNavigate from '../../hooks/useFadeNavigate';
 
 export default function MyTruckPage() {
     const setTitle = useTitleStore((state) => state.setTitle);
-    const navigate = useNavigate();
+    const navigate = useFadeNavigate();
 
     const size = 16;
 
