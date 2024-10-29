@@ -20,6 +20,7 @@ module.exports = {
                 count: '#525252', //card의 방문수 배경
                 review: '#F1F1F1',
                 comment: '#E0E0E0',
+                placeholder: '#A0A5BA',
             },
         },
         fontFamily: {
