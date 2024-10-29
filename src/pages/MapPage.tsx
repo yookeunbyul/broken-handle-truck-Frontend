@@ -18,6 +18,8 @@ export interface MockMarker {
   name: string;
   category: string;
   coordinates: Coordinates;
+  visited: number;
+  isContinue: boolean;
 }
 
 export default function MapPage() {
@@ -86,7 +88,11 @@ export default function MapPage() {
         <MyLocation setMapCenter={handleLocationChange} />
         {clickMarker ? (
           <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-5/6">
-            <Card isOpen={false} info={clickMarker} />
+            <Card
+              isOpen={clickMarker.isContinue}
+              info={clickMarker}
+              bg="black"
+            />
           </div>
         ) : null}
       </Map>

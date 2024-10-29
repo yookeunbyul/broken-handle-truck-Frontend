@@ -5,21 +5,39 @@ interface CardProps {
   info: {
     category: string;
     name: string;
+    visited: number;
   };
+  bg: string;
 }
-export default function Card({ isOpen = false, info }: CardProps) {
+export default function Card({
+  isOpen = false,
+  info,
+  bg = "black",
+}: CardProps) {
   const handleClick = () => {};
+
   return (
-    <div className="bg-black mx-auto w-[calc(100%-50px)] sm:w-full rounded-2xl p-6 flex flex-col gap-y-5">
+    <div
+      className={`bg-${bg} mx-auto w-[calc(100%-50px)] sm:w-full rounded-2xl p-6 flex flex-col gap-y-5 ${
+        bg === "white" ? "drop-shadow-lg" : null
+      }`}
+    >
       <div className="tracking-tight flex gap-x-3">
         <div className="flex-none flex items-center justify-center">
           <Menu width={90} height={90} />
         </div>
         <div className="flex flex-col justify-center gap-y-2">
           <div className="text-xs text-category">카테고리 {info.category}</div>
-          <div className="text-white font-bold text-base">이름 {info.name}</div>
+          <div
+            className={`${
+              bg === "white" ? "text-black" : "text-white"
+            } font-bold text-base`}
+          >
+            이름 {info.name}
+          </div>
           <div className="text-xs text-category bg-count px-2 py-1 rounded-2xl whitespace-nowrap">
-            최근 방문 <span className="text-white font-bold">0</span>명
+            최근 방문{" "}
+            <span className="text-white font-bold">{info.visited}</span>명
           </div>
         </div>
         <div className="flex-1 flex flex-col gap-y-2 pt-2">
@@ -36,7 +54,11 @@ export default function Card({ isOpen = false, info }: CardProps) {
                 isOpen ? "bg-success" : "bg-red-500"
               }`}
             ></div>
-            <div className="whitespace-nowrap">
+            <div
+              className={`whitespace-nowrap ${
+                bg === "white" ? "text-black" : "text-white"
+              }`}
+            >
               {isOpen ? "운영중" : "운영종료"}
             </div>
           </div>

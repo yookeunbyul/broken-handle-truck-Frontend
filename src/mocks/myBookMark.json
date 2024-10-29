@@ -5,7 +5,7 @@
     "category": "타코야끼",
     "coordinates": { "lat": 37.5665, "lng": 126.978 },
     "visited": 5,
-    "isContinue": false
+    "isContinue": true
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "category": "붕어빵",
     "coordinates": { "lat": 37.5704, "lng": 126.9862 },
     "visited": 2,
-    "isContinue": false
+    "isContinue": true
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "category": "떢볶이",
     "coordinates": { "lat": 37.5822, "lng": 126.9851 },
     "visited": 5,
-    "isContinue": true
+    "isContinue": false
   },
   {
     "id": 4,
@@ -29,7 +29,7 @@
     "category": "고구마",
     "coordinates": { "lat": 37.5345, "lng": 126.9937 },
     "visited": 4,
-    "isContinue": true
+    "isContinue": false
   },
   {
     "id": 5,
