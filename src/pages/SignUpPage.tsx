@@ -5,6 +5,7 @@ import { useState } from "react";
 
 interface SignUpFormData {
   email: string;
+  nickname: string;
   password: string;
   confirmPassword: string;
 }
