@@ -19,6 +19,7 @@ export default function SignUpPage() {
   } = useForm<SignUpFormData>({
     defaultValues: {
       email: "",
+      nickname: "",
       password: "",
       confirmPassword: "",
     },
@@ -39,7 +40,7 @@ export default function SignUpPage() {
           type: "registeredEmail",
           message: "이미 등록된 이메일입니다.",
         },
-        { shouldFocus: true }
+        { shouldFocus: true },
       );
       setIsEmailChecked(false);
     } else {
@@ -101,6 +102,34 @@ export default function SignUpPage() {
               {isEmailChecked && (
                 <p className="absolute top-full left-[50px] sm:left-[100px] text-success">
                   사용할 수 있는 이메일입니다.
+                </p>
+              )}
+            </div>
+          )}
+        />
+        <Controller
+          name="nickname"
+          control={control}
+          rules={{
+            required: "닉네임은 필수 입력 항목입니다.",
+          }}
+          render={({
+            field: { onChange, value, name },
+            fieldState: { invalid },
+            formState,
+          }) => (
+            <div className="relative">
+              <Input
+                name={name}
+                value={value}
+                onChange={onChange}
+                id="nickname"
+                label="닉네임"
+                placeholder="example"
+              />
+              {invalid && (
+                <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                  {formState.errors.nickname?.message}
                 </p>
               )}
             </div>
