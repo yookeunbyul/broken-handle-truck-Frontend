@@ -13,7 +13,7 @@ export default function MyTruckPage() {
     const size = 16;
 
     //우선 임시로 state 설정해놓겠습니다..
-    const [hasStore] = useState(false);
+    const [hasStore] = useState(true);
     const [hasComments] = useState(false);
 
     useEffect(() => {
@@ -21,11 +21,11 @@ export default function MyTruckPage() {
     }, []);
 
     return (
-        <div className="h-full relative w-[calc(100%-45px)] sm:w-[calc(100%-150px)] mx-auto text-center flex flex-col justify-center">
+        <div className="h-full w-[calc(100%-45px)] sm:w-[calc(100%-150px)] mx-auto text-center flex flex-col justify-center">
             {hasStore ? (
                 <>
-                    <div className="flex flex-col justify-between h-full py-11">
-                        <div>
+                    <div className="flex flex-col justify-between h-full">
+                        <div className="pt-11">
                             <div className="flex justify-center mb-5 pt-8">
                                 <Logo width={120} height={120} className="border-1 rounded-full border-category p-2" />
                             </div>
@@ -63,36 +63,41 @@ export default function MyTruckPage() {
                                 </div>
                             )}
                         </div>
-                        <div>
+                        <div className="pb-5">
                             <button className="text-category underline text-sm mt-10">탈퇴하기</button>
                         </div>
                     </div>
                 </>
             ) : (
-                <>
-                    <div className="flex justify-center mb-5">
-                        <Logo width={130} height={130} />
-                    </div>
-                    <div>
-                        <div className="font-point text-2xl sm:text-3xl tracking-tighter whitespace-nowrap">
-                            푸드트럭이 없습니다.
+                <div className="flex flex-col h-full">
+                    <div className="flex-1"></div>
+                    <div className="flex-1">
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                            <div className="flex justify-center mb-5">
+                                <Logo width={130} height={130} />
+                            </div>
+                            <div>
+                                <div className="font-point text-2xl sm:text-3xl tracking-tighter whitespace-nowrap">
+                                    푸드트럭이 없습니다.
+                                </div>
+                                <div className="font-point text-2xl sm:text-3xl tracking-tighter whitespace-nowrap">
+                                    사장님, 가게를 <span className="text-primary font-point">등록</span>해주세요!
+                                </div>
+                            </div>
+                            <div className="pt-8 w-full">
+                                <button
+                                    className="bg-primary text-xl text-white font-bold w-full py-5 rounded-lg"
+                                    onClick={() => navigate(`/register`)}
+                                >
+                                    내 가게 등록하기
+                                </button>
+                            </div>
                         </div>
-                        <div className="font-point text-2xl sm:text-3xl tracking-tighter whitespace-nowrap">
-                            사장님, 가게를 <span className="text-primary font-point">등록</span>해주세요!
-                        </div>
                     </div>
-                    <div className="pt-8 w-[calc(100%-100px)] sm:w-[calc(100%-300px)] mx-auto">
-                        <button
-                            className="bg-primary text-xl text-white font-bold w-full py-5 rounded-lg"
-                            onClick={() => navigate(`/register`)}
-                        >
-                            내 가게 등록하기
-                        </button>
+                    <div className="flex-1 flex items-end justify-center pb-5">
+                        <button className="text-category underline text-sm absolute bottom-24">탈퇴하기</button>
                     </div>
-                    <div className="absolute bottom-0 left-1/2 transform translate-x-[-50%] mb-5">
-                        <button className="text-category underline text-sm">탈퇴하기</button>
-                    </div>
-                </>
+                </div>
             )}
         </div>
     );
