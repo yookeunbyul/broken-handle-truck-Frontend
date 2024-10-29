@@ -13,7 +13,7 @@ export default function DetailPage() {
       <div className="pb-11 mb-5">
         <div className="bg-review h-64 rounded-b-3xl">
           <Map
-            className="w-full h-full"
+            className="w-full h-full rounded-b-3xl"
             center={{ lat: 37.5533, lng: 126.97381 }}
             level={5}
           />
