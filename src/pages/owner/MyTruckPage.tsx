@@ -13,7 +13,7 @@ export default function MyTruckPage() {
     const size = 16;
 
     //우선 임시로 state 설정해놓겠습니다..
-    const [hasStore] = useState(true);
+    const [hasStore] = useState(false);
     const [hasComments] = useState(false);
 
     useEffect(() => {
