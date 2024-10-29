@@ -14,10 +14,14 @@ interface Coordinates {
 }
 
 export interface MockMarker {
-    id: number;
-    name: string;
-    category: string;
-    coordinates: Coordinates;
+
+  id: number;
+  name: string;
+  category: string;
+  coordinates: Coordinates;
+  visited: number;
+  isContinue: boolean;
+
 }
 
 export default function MapPage() {
@@ -78,13 +82,13 @@ export default function MapPage() {
                     <MyLocation setMapCenter={handleLocationChange} />
                     <Toggle text={{ on: '영업중', off: '영업 종료' }} />
                 </div>
-
                 {clickMarker ? (
                     <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-9/12">
-                        <Card isOpen={false} info={clickMarker} />
+                        <Card isOpen={false} info={clickMarker} bg="black" />
                     </div>
                 ) : null}
             </Map>
         </>
     );
+
 }
