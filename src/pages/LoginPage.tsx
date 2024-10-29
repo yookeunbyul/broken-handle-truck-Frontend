@@ -26,7 +26,7 @@ export default function LoginPage() {
     <div className="bg-black h-full flex flex-col justify-center items-center sm:gap-10">
       <p className="text-3xl font-point text-white py-8">로그인</p>
       <form
-        className="w-full flex flex-col gap-24 py-4 sm:py-8"
+        className="w-full flex flex-col gap-16 sm:gap-24 py-8"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-8">
