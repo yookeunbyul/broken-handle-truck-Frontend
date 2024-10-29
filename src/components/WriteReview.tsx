@@ -5,7 +5,7 @@ export default function WriteReview() {
         <div className="border-t-1 bottom-0 w-full sticky z-2 bg-white border-comment">
             <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] mx-auto py-5">
                 <textarea
-                    className="w-full p-3 outline-none border-1 border-comment rounded-lg bg-form h-28 tracking-tighter"
+                    className="w-full p-3 outline-none border-1 border-comment rounded-lg bg-form h-28 tracking-tighter resize-none"
                     placeholder="리뷰를 작성해주세요"
                 />
                 <div className="flex justify-between">

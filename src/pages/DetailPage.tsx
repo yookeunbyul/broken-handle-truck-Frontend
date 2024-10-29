@@ -1,5 +1,4 @@
 import Button from '../components/button';
-import Select from '../components/Select';
 import MessageSquare from '../assets/images/messageSquare.svg?react';
 import { useState } from 'react';
 import Comment from '../components/Comment';
@@ -15,10 +14,13 @@ export default function DetailPage() {
                     <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] mx-auto h-full py-8 flex justify-end items-end"></div>
                 </div>
                 <div className="w-[calc(100%-45px)] flex flex-col gap-y-5 mx-auto my-10">
-                    <Select />
+                    <div className="w-[calc(100%-100px)] sm:w-[calc(100%-200px)] mx-auto">
+                        <label className="text-xs text-white/50 mix-blend-difference tracking-tight">카테고리</label>
+                        <div className="mt-2 w-full outline-none border-none rounded-lg bg-form p-3">붕어빵</div>
+                    </div>
                     <Button />
                 </div>
-                <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] flex justify-start items-center gap-x-1 text-base mx-auto mb-3">
+                <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] flex justify-start items-center gap-x-1 text-base mx-auto mb-3 pt-11">
                     <MessageSquare width={16} height={16} />
                     <span className="tracking-tight">
                         리뷰<strong className="text-primary"> 0</strong>개
