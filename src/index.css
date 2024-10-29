@@ -15,6 +15,15 @@
   font-family: "Noto Sans KR", sans-serif;
 }
 
+body:has(.react-modal-sheet-container) {
+  overflow: hidden !important;
+}
+body:has(.react-modal-sheet-container) .bottom-navbar {
+  position: fixed;
+  max-width: 768px !important;
+  width: 100%;
+}
+
 .react-modal-sheet-container {
   /* custom styles */
   position: relative !important;
@@ -35,4 +44,11 @@
 .react-modal-sheet-content {
   /* custom styles */
   background-color: #323232;
+}
+
+.input--password > label {
+  display: none;
+}
+.input--password > input:placeholder-shown ~ label {
+  display: block;
 }
