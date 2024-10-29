@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useTitleStore from '../../store/titleStore';
-import Logo from '../../../public/logo.svg?react';
+import Logo from '../../assets/images/pinkLogo.svg?react';
 import NoReview from '../../components/NoReview';
 import MessageSquare from '../../assets/images/messageSquare.svg?react';
 import Comment from '../../components/Comment';
@@ -13,7 +13,7 @@ export default function MyTruckPage() {
     const size = 16;
 
     //우선 임시로 state 설정해놓겠습니다..
-    const [hasStore] = useState(false);
+    const [hasStore] = useState(true);
     const [hasComments] = useState(false);
 
     useEffect(() => {
