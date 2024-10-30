@@ -1,4 +1,4 @@
-import { ICategory } from "../types/category.ts";
+import type { ICategory } from "../types/category.d.ts";
 
 import C1 from "../assets/images/category/category-1.svg?react";
 import C2 from "../assets/images/category/category-2.svg?react";
