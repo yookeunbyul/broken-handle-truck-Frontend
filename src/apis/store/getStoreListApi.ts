@@ -25,9 +25,14 @@ const getStoreList = async <T = { msg: string } & StoreListApiData>({
   category,
   storeName,
 }: StoreListApiParams): Promise<T> => {
-  const res = await apiClient.get<T>(
-    `/store/all?lat=${lat}&lon=${lon}${category ? `&category=${category}` : ""}${storeName ? `&storeName=${storeName}` : ""}`,
-  );
+  const res = await apiClient.get<T>(`/store/all`, {
+    params: {
+      lat,
+      lon,
+      category,
+      storeName,
+    },
+  });
   return res.data;
 };
 
