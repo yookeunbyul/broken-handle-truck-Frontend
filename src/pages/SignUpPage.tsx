@@ -57,7 +57,7 @@ export default function SignUpPage() {
     <div className="bg-black h-full flex flex-col justify-center items-center gap-10 relative">
       <p className="text-3xl font-point text-white pt-12 sm:py-8">회원가입</p>
       <form
-        className="w-full flex flex-col items-center mb-20"
+        className="w-full flex flex-col items-center mb-24"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="max-w-screen-sm w-full flex flex-col gap-8 pt-4 sm:py-8">
@@ -223,7 +223,7 @@ export default function SignUpPage() {
           />
         </div>
         <button
-          className="bg-primary max-w-screen-md w-full py-5 text-white font-bold fixed bottom-0 disabled:bg-primary/50 disabled:text-white/50 disabled:cursor-default"
+          className="bg-primary max-w-screen-md w-full pt-6 pb-8 sm:pb-12 text-white font-bold fixed bottom-0 disabled:bg-disabled disabled:text-white/50 disabled:cursor-default"
           disabled={!isEmailChecked || !isValid}
         >
           회원가입
