@@ -1,5 +1,6 @@
 import useFadeNavigate from "../hooks/useFadeNavigate.ts";
 import Logo from "../assets/images/pinkLogo.svg?react";
+import KakaoIcon from "../assets/images/kakao.svg?react";
 
 const MainPage = () => {
   const navigate = useFadeNavigate();
@@ -13,12 +14,20 @@ const MainPage = () => {
           <strong className="text-primary font-point">푸드트럭</strong>
         </p>
       </div>
-      <div className="flex-[2] flex flex-col justify-center items-center gap-4">
+      <div className="flex-[2] flex flex-col justify-center gap-4 text-center max-w-screen-sm w-full px-8 sm:px-20">
+        <button className="bg-kakao text-kakao-black text-base lg:text-lg mx-auto px-10 sm:px-24 py-5 rounded-lg font-bold relative w-full">
+          <KakaoIcon
+            className="absolute left-4 top-1/2 -translate-y-1/2"
+            width={24}
+            height={24}
+          />
+          카카오로 3초만에 시작하기
+        </button>
         <div
-          className="bg-primary text-lg mx-auto px-10 py-5 text-white rounded-lg font-bold sm:px-24 cursor-pointer"
+          className="bg-primary text-base lg:text-lg mx-auto px-10 py-5 text-white rounded-lg font-bold sm:px-24 cursor-pointer w-full"
           onClick={() => navigate("/login")}
         >
-          우리 동네 푸드트럭, 지금 바로 찾아보기
+          다른 방법으로 시작하기
         </div>
       </div>
     </div>

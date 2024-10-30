@@ -21,6 +21,7 @@ module.exports = {
         review: "#F1F1F1",
         comment: "#E0E0E0",
         placeholder: "#A0A5BA",
+        disabled: "#909090",
         kakao: { DEFAULT: "#FEE500", black: "#191919" },
       },
     },

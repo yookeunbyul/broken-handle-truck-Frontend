@@ -56,7 +56,7 @@ export default function LoginPage() {
                   placeholder="example@gmail.com"
                 />
                 {invalid && (
-                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1">
                     {formState.errors.email?.message}
                   </p>
                 )}
@@ -91,7 +91,7 @@ export default function LoginPage() {
                 />
 
                 {invalid && (
-                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1">
                     {formState.errors.password?.message}
                   </p>
                 )}
