@@ -10,4 +10,44 @@ interface IStore {
   updatedAt: string;
 }
 
-export type { IStore };
+// GET store/all
+interface StoreListApiParams {
+  lat: number;
+  lon: number;
+  category?: string;
+  storeName?: string;
+}
+
+interface StoreListApiResponse {
+  stores: IStore[];
+}
+
+// GET store/:storeId, GET store, POST store
+interface StoreApiResponse {
+  store: IStore;
+  comments: object[]; // CommentType 받은 이후 수정 필요
+}
+
+// POST store
+interface PostStoreApiParams {
+  name: string;
+  lon: number;
+  lat: number;
+  category: string;
+  paymentMethod: string[];
+  isOpen: boolean;
+}
+
+interface PostStoreApiRequest extends Omit<PostStoreApiParams, "lon" | "lat"> {
+  coordinates: [number, number];
+}
+
+export type {
+  IStore,
+  BaseResponse,
+  StoreListApiParams,
+  StoreListApiResponse,
+  StoreApiResponse,
+  PostStoreApiParams,
+  PostStoreApiRequest,
+};
