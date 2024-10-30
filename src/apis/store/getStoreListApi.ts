@@ -1,6 +1,5 @@
 import apiClient from "../apiClient.ts";
-import { IStore } from "../../types/store.ts";
-import { IStore } from "../../types/store.d.ts";
+import type { IStore } from "../../types/store.d.ts";
 
 interface StoreListApiParams {
   lat: number;
