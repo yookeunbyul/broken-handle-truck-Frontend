@@ -97,12 +97,12 @@ export default function SignUpPage() {
                   </button>
                 </Input>
                 {invalid && (
-                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1">
                     {formState.errors.email?.message}
                   </p>
                 )}
                 {isEmailChecked && (
-                  <p className="absolute top-full left-[50px] sm:left-[100px] text-success">
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-success text-xs py-1">
                     사용할 수 있는 이메일입니다.
                   </p>
                 )}
@@ -130,7 +130,7 @@ export default function SignUpPage() {
                   placeholder="example"
                 />
                 {invalid && (
-                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1">
                     {formState.errors.nickname?.message}
                   </p>
                 )}
@@ -172,7 +172,7 @@ export default function SignUpPage() {
                   )}
                 </Input>
                 {invalid && (
-                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1">
                     {formState.errors.password?.message}
                   </p>
                 )}
@@ -214,7 +214,7 @@ export default function SignUpPage() {
                   )}
                 </Input>
                 {invalid && (
-                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary">
+                  <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1">
                     {formState.errors.confirmPassword?.message}
                   </p>
                 )}
