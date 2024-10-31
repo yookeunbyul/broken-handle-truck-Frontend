@@ -1,8 +1,10 @@
+import type { BaseApiResponse } from "./response";
+
 interface IStore {
   _id: string;
   name: string;
   ownerId: string;
-  coordinates: number[];
+  coordinates: [number, number];
   isOpen: boolean;
   category: string;
   paymentMethod: string[];
@@ -18,12 +20,12 @@ interface StoreListApiParams {
   storeName?: string;
 }
 
-interface StoreListApiResponse {
+interface StoreListApiResponse extends BaseApiResponse {
   stores: IStore[];
 }
 
 // GET store/:storeId, GET store, POST store
-interface StoreApiResponse {
+interface StoreApiResponse extends BaseApiResponse {
   store: IStore;
   comments: object[]; // CommentType 받은 이후 수정 필요
 }
@@ -44,7 +46,6 @@ interface PostStoreApiRequest extends Omit<PostStoreApiParams, "lon" | "lat"> {
 
 export type {
   IStore,
-  BaseResponse,
   StoreListApiParams,
   StoreListApiResponse,
   StoreApiResponse,
