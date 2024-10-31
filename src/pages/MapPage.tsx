@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map } from "react-kakao-maps-sdk";
 import Toggle from "../components/Toggle";
 import Search from "../components/map/Search";
 import MyLocation from "../components/map/MyLocation";
@@ -7,6 +7,8 @@ import Card from "../components/Card";
 import { useMyLocation } from "../hooks/useMyLocation";
 import { IStore } from "../types/store";
 import { getStoreList } from "../apis/store.ts";
+import MapMarker from "../components/map/MapMarker.tsx";
+import { categories } from "../constants/categories.ts";
 
 type Coordinates = [number, number];
 
@@ -70,7 +72,11 @@ export default function MapPage() {
         {storeList.map((data) => (
           <MapMarker
             key={`${data.name}-${data._id}`}
-            position={{ lat: data.coordinates[1], lng: data.coordinates[0] }}
+            // 나중에 임시데이터 지우면 data.category로 변경
+            category={
+              categories.includes(data.category) ? data.category : "기타"
+            }
+            coordinates={data.coordinates}
             title={data.name}
             onClick={() => {
               setClickMarker(data);
