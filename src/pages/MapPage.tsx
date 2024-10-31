@@ -120,7 +120,7 @@ export default function MapPage() {
           <Toggle text={{ on: "영업중", off: "영업 종료" }} />
         </div>
         {clickMarker ? (
-          <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-full">
+          <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-full sm:w-9/12">
             <Card
               isOpen={clickMarker.isOpen}
               info={{
