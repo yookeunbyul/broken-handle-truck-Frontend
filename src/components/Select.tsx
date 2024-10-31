@@ -17,8 +17,8 @@ export default function Select() {
           카테고리
         </option>
         {categories.map((category, idx) => (
-          <option key={`option_${idx}`} value={category.title}>
-            {category.title}
+          <option key={`option_${idx}`} value={category}>
+            {category}
           </option>
         ))}
       </select>
