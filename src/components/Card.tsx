@@ -1,6 +1,7 @@
 import BookMarkButton from "./BookMarkButton";
-import Menu from "../assets/images/defaultMenu.svg?react";
 import useFadeNavigate from "../hooks/useFadeNavigate.ts";
+import { categoryImages } from "../assets/images/category";
+import { categories } from "../constants/categories.ts";
 
 interface CardProps {
   isOpen: boolean;
@@ -18,6 +19,10 @@ export default function Card({
   bg = "black",
 }: CardProps) {
   const navigate = useFadeNavigate();
+  const ImgComponent =
+    // 이후 categoryImages[info.category].component 로 수정 필요
+    categoryImages[categories.includes(info.category) ? info.category : "기타"]
+      .component;
 
   const handleClick = () => {};
 
@@ -29,14 +34,14 @@ export default function Card({
     >
       <div className="tracking-tight flex gap-x-3">
         <div className="flex-none flex items-center justify-center">
-          <Menu width={90} height={90} />
+          <ImgComponent width={90} height={90} />
         </div>
         <div className="flex flex-col justify-center gap-y-2">
-          <div className="text-xs text-category">카테고리 {info.category}</div>
+          <div className="text-xs text-category">{info.category}</div>
           <div
             className={`${bg === "white" ? "text-black" : "text-white"} font-bold text-base`}
           >
-            이름 {info.name}
+            {info.name}
           </div>
           <div className="gap-x-1 text-xs text-category bg-count px-2 py-1 rounded-2xl whitespace-nowrap inline-flex max-w-fit">
             <span>최근 방문</span>
@@ -65,7 +70,7 @@ export default function Card({
       </div>
       <div className="text-right">
         <button
-          className="text-right bg-primary text-base py-2 px-3 tracking-tight rounded-md text-white font-bold"
+          className="text-right bg-primary py-2 px-3 tracking-tight rounded-md text-white font-bold text-sm"
           onClick={() => navigate(`/detail/${info.id}`)}
         >
           자세히 보기
