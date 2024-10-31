@@ -82,7 +82,7 @@ export default function SignUpPage() {
 
     return (
         <div className="bg-black h-full flex flex-col justify-center items-center gap-10 relative">
-            <p className="text-3xl font-point text-white pt-12 sm:py-8">회원가입</p>
+            <p className="text-3xl font-point text-white pt-12 sm:py-8 tracking-tighter">회원가입</p>
             <form className="w-full flex flex-col items-center mb-24" onSubmit={handleSubmit(onSubmit)}>
                 <div className="max-w-screen-sm w-full flex flex-col gap-8 pt-4 sm:py-8">
                     <Controller
@@ -109,7 +109,7 @@ export default function SignUpPage() {
                                     placeholder="example@gmail.com"
                                 >
                                     <button
-                                        className="bg-primary text-xs text-white px-3 sm:px-4 py-2 rounded-lg"
+                                        className="bg-primary tracking-tighter text-xs text-white px-3 sm:px-4 py-2 rounded-lg"
                                         type="button"
                                         onClick={() => handleCheckEmail(value)}
                                     >
@@ -175,7 +175,7 @@ export default function SignUpPage() {
                                     placeholder="**********"
                                 >
                                     {isDirty && !invalid && (
-                                        <CheckIcon width={24} height={24} className="stroke-primary" />
+                                        <CheckIcon width={18} height={18} className="stroke-primary" />
                                     )}
                                 </Input>
                                 {invalid && (
@@ -221,7 +221,7 @@ export default function SignUpPage() {
                     />
                 </div>
                 <button
-                    className="bg-primary max-w-screen-md w-full pt-6 pb-8 sm:pb-12 text-white font-bold fixed bottom-0 disabled:bg-disabled disabled:text-white/50 disabled:cursor-default"
+                    className="bg-primary max-w-screen-md tracking-tighter w-full pt-6 pb-8 sm:pb-12 text-white font-bold fixed bottom-0 disabled:bg-disabled disabled:text-white/50 disabled:cursor-default"
                     disabled={!isEmailChecked || !isValid}
                 >
                     회원가입
