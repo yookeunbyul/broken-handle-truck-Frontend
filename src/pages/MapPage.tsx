@@ -9,6 +9,7 @@ import { IStore } from "../types/store";
 import { getStoreList } from "../apis/store.ts";
 import MapMarker from "../components/map/MapMarker.tsx";
 import { categories } from "../constants/categories.ts";
+import ReloadIcon from "../assets/reload.svg?react";
 
 type Coordinates = [number, number];
 
@@ -18,6 +19,9 @@ export interface Marker extends IStore {
 }
 
 export default function MapPage() {
+  // 맵 옮겼는지 여부
+  const [isMapMove, setIsMapMove] = useState(false);
+
   // 마커 클릭 여부
   const [clickMarker, setClickMarker] = useState<Marker | null>(null);
 
@@ -44,6 +48,17 @@ export default function MapPage() {
     getStoreList({ lat, lon }).then((data) => {
       setStoreList(data.stores);
     });
+    setIsMapMove(false);
+  };
+
+  const handleReloadStoreList = () => {
+    if (mapRef.current) {
+      const latlng = mapRef.current?.getCenter();
+      if (latlng) {
+        const { La: lon, Ma: lat } = latlng;
+        updateStoreList(lat, lon);
+      }
+    }
   };
 
   // 처음 로드될 때 내 위치로 이동
@@ -67,6 +82,7 @@ export default function MapPage() {
         ref={mapRef}
         className="w-full h-full relative"
         level={4}
+        onDragEnd={() => setIsMapMove(true)}
         onClick={() => setClickMarker(null)}
       >
         {storeList.map((data) => (
@@ -84,22 +100,17 @@ export default function MapPage() {
           />
         ))}
 
-                <Search />
-                {/* 영업 여부 토글은 로그인 여부에 따라서 달라짐 */}
-                <div className="absolute flex items-center justify-between bottom-24 z-10 w-9/12 left-1/2 -translate-x-1/2">
-                    <MyLocation setMapCenter={handleLocationChange} />
-                    <Toggle text={{ on: '영업중', off: '영업 종료' }} />
-                </div>
-                {clickMarker ? (
-                    <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-9/12">
-                        <Card isOpen={false} info={clickMarker} bg="black" />
-                    </div>
-                ) : null}
-            </Map>
-        </>
-    );
-
         <Search />
+        {/* 맵을 이동한 경우 활성화 */}
+        {isMapMove && (
+          <button
+            className="absolute top-24 left-1/2 -translate-x-1/2 z-10 bg-white text-primary border-1 border-primary rounded-full px-4 py-2 text-xs shadow flex items-center gap-1"
+            onClick={handleReloadStoreList}
+          >
+            <ReloadIcon width={16} height={16} />
+            <span>현 지도에서 검색</span>
+          </button>
+        )}
         {/* 영업 여부 토글은 로그인 여부에 따라서 달라짐 */}
         <div className="absolute flex items-center justify-between bottom-24 z-10 w-9/12 left-1/2 -translate-x-1/2">
           <MyLocation setMapCenter={handleLocationChange} />
