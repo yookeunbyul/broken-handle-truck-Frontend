@@ -70,7 +70,7 @@ export default function Card({
       </div>
       <div className="text-right">
         <button
-          className="text-right bg-primary text-base py-2 px-3 tracking-tight rounded-md text-white font-bold"
+          className="text-right bg-primary py-2 px-3 tracking-tight rounded-md text-white font-bold text-sm"
           onClick={() => navigate(`/detail/${info.id}`)}
         >
           자세히 보기
