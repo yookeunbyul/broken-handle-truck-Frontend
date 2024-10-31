@@ -55,7 +55,8 @@ export default function MapPage() {
     if (mapRef.current) {
       const latlng = mapRef.current?.getCenter();
       if (latlng) {
-        const { La: lon, Ma: lat } = latlng;
+        const lon = latlng.getLng();
+        const lat = latlng.getLat();
         updateStoreList(lat, lon);
       }
     }
