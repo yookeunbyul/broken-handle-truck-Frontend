@@ -18,8 +18,12 @@ export default function Input({
                 {label}
             </label>
             <div className="relative">
-                <input id={id} className="w-full outline-none border-none rounded-lg bg-form p-3" {...props} />
-                {children && <div className="absolute right-2 top-1/2 -translate-y-1/2">{children}</div>}
+                <input
+                    id={id}
+                    className="w-full outline-none border-none rounded-lg bg-form px-3 py-4 placeholder:text-sm"
+                    {...props}
+                />
+                {children && <div className="absolute right-3 top-1/2 -translate-y-1/2">{children}</div>}
             </div>
         </div>
     );
