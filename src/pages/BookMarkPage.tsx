@@ -15,9 +15,9 @@ export default function BookMarkPage() {
     }, []);
 
     return (
-        <div className="flex py-11 flex-col gap-y-8 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
+        <>
             {myBookMark.length >= 1 ? (
-                <>
+                <div className="flex py-11 flex-col gap-y-8 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
                     <p className="flex items-center">
                         <Heart width={18} height={18} />
                         <strong className="px-1 tracking-tight text-lg">나만의 푸드트럭</strong>
@@ -29,10 +29,12 @@ export default function BookMarkPage() {
                             <Card isOpen={data.isContinue} info={data} bg="white" />
                         </div>
                     ))}
-                </>
+                </div>
             ) : (
-                <NoBookMark />
+                <div className="h-full flex justify-center items-center mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
+                    <NoBookMark />
+                </div>
             )}
-        </div>
+        </>
     );
 }
