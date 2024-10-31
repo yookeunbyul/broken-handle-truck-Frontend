@@ -6,24 +6,24 @@ import Notification from '../assets/images/noti.svg?react';
 import Logout from '../assets/images/logout.svg?react';
 
 type TopBarProps = {
-    title?: string;
+  title?: string;
 };
 
 export default function TopBar({ title }: TopBarProps) {
-    const navigate = useFadeNavigate();
-    const { pathname } = useLocation();
+  const navigate = useFadeNavigate();
+  const { pathname: _pathname } = useLocation();
 
-    const onClickLeft = () => {
-        if (document.startViewTransition) {
-            document.startViewTransition(() => {
-                navigate(-1);
-            });
-        } else {
-            navigate(-1);
-        }
-    };
+  const pathname = useMemo(() => `/${_pathname.split("/")[1]}`, [_pathname]);
 
-    const onClickRight = () => {};
+  const onClickLeft = () => {
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        navigate(-1);
+      });
+    } else {
+      navigate(-1);
+    }
+  };
 
     return (
         <div className="flex w-full bg-primary justify-center items-center px-4 py-5 sticky top-0 z-10">
@@ -49,6 +49,29 @@ export default function TopBar({ title }: TopBarProps) {
                     {pathname === '/my-truck' && <Logout width={25} height={25} className="cursor-pointer" />}
                 </div>
             </div>
+          )}
         </div>
-    );
+        <p className="flex-1 text-center text-lg text-white font-bold">
+          {title}
+        </p>
+        <div className="flex-1 flex items-center justify-end">
+          {pathname === "/detail" && (
+            <BookMarkButton
+              isBookmarked={false}
+              onClick={onClickRight}
+              size={30}
+            />
+          )}
+          {pathname === "/bookmark" && (
+            <Notification
+              width={25}
+              height={25}
+              className="cursor-pointer"
+              onClick={() => navigate(`/notification`)}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
