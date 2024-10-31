@@ -13,6 +13,6 @@ const categories = [
   "계란빵",
   "땅콩빵",
   "기타",
-] as const;
+];
 
 export { categories };
