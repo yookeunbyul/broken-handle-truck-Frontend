@@ -6,6 +6,10 @@ const service = axios.create({
   timeout: 10000,
 });
 
+service.interceptors.response.use(null, (error) => {
+  return error.response;
+});
+
 export const http = {
   get: function get<T, P = undefined>(url: string, params?: P): Promise<T> {
     return service.get(url, { params }).then((res) => res.data);
