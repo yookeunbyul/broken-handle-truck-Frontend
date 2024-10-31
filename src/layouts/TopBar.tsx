@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import BookMarkButton from '../components/BookMarkButton';
 import useFadeNavigate from '../hooks/useFadeNavigate';
 import Notification from '../assets/images/noti.svg?react';
+import Logout from '../assets/images/logout.svg?react';
 
 type TopBarProps = {
     title?: string;
@@ -45,6 +46,7 @@ export default function TopBar({ title }: TopBarProps) {
                             onClick={() => navigate(`/notification`)}
                         />
                     )}
+                    {pathname === '/my-truck' && <Logout width={25} height={25} className="cursor-pointer" />}
                 </div>
             </div>
         </div>
