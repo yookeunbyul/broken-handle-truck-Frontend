@@ -35,7 +35,7 @@ export default function LoginPage() {
     return (
         <div className="bg-black h-full flex flex-col justify-center items-center py-11">
             <div className="w-full flex justify-center flex-col items-center flex-1">
-                <p className="text-3xl font-point text-white py-11">로그인</p>
+                <p className="text-3xl font-point text-white py-11 tracking-tighter">로그인</p>
                 <form className="max-w-screen-sm w-full flex flex-col gap-16 sm:gap-24 py-11">
                     <div className="flex flex-col gap-8">
                         <Controller
@@ -102,7 +102,7 @@ export default function LoginPage() {
             </div>
             <div className="flex flex-col justify-center gap-2 items-center mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-320px)] pb-11">
                 <button
-                    className="bg-primary py-5 text-white rounded-lg font-bold w-full"
+                    className="bg-primary py-5 text-white rounded-lg font-bold w-full tracking-tighter"
                     onClick={handleSubmit(onSubmit)}
                 >
                     로그인
@@ -110,14 +110,17 @@ export default function LoginPage() {
                 <p className="text-white text-xs py-2 line-text">또는</p>
                 <button
                     type="button"
-                    className="mb-4 bg-kakao text-kakao-black py-5 rounded-lg font-bold relative w-full"
+                    className="mb-4 bg-kakao tracking-tighter text-kakao-black py-5 rounded-lg font-bold relative w-full"
                 >
                     <KakaoIcon className="absolute left-4 top-1/2 -translate-y-1/2" width={24} height={24} />
                     카카오 로그인
                 </button>
-                <p className="text-white">
+                <p className="text-white tracking-tighter">
                     계정이 없으신가요?{' '}
-                    <strong className="text-primary font-bold cursor-pointer" onClick={() => navigate('/signup')}>
+                    <strong
+                        className="text-primary font-bold cursor-pointer tracking-tighter"
+                        onClick={() => navigate('/signup')}
+                    >
                         가입하기
                     </strong>
                 </p>
