@@ -39,28 +39,28 @@ import c13 from "./category-13.svg";
 import m13 from "./marker-13.svg";
 import DefaultMenu from "../defaultMenu.svg?react";
 import defaultMenu from "../defaultMenu.svg";
-import defaultMenuMaker from "./marker-default.svg";
+import defaultMenuMarker from "./marker-default.svg";
 import { ICategory } from "../../../types/category";
 
 export const categoryImages: {
   [key: string]: {
     component: ICategory["ImgComponent"];
     url: string;
-    maker: string;
+    marker: string;
   };
 } = {
-  붕어빵: { component: C1, url: c1, maker: m1 },
-  어묵: { component: C2, url: c2, maker: m2 },
-  군고구마: { component: C3, url: c3, maker: m3 },
-  호떡: { component: C4, url: c4, maker: m4 },
-  문어빵: { component: C5, url: c5, maker: m5 },
-  찐빵: { component: C6, url: c6, maker: m6 },
-  떡볶이: { component: C7, url: c7, maker: m7 },
-  와플: { component: C8, url: c8, maker: m8 },
-  토스트: { component: C9, url: c9, maker: m9 },
-  통닭: { component: C10, url: c10, maker: m10 },
-  풀빵: { component: C11, url: c11, maker: m11 },
-  계란빵: { component: C12, url: c12, maker: m12 },
-  땅콩빵: { component: C13, url: c13, maker: m13 },
-  기타: { component: DefaultMenu, url: defaultMenu, maker: defaultMenuMaker },
+  붕어빵: { component: C1, url: c1, marker: m1 },
+  어묵: { component: C2, url: c2, marker: m2 },
+  군고구마: { component: C3, url: c3, marker: m3 },
+  호떡: { component: C4, url: c4, marker: m4 },
+  문어빵: { component: C5, url: c5, marker: m5 },
+  찐빵: { component: C6, url: c6, marker: m6 },
+  떡볶이: { component: C7, url: c7, marker: m7 },
+  와플: { component: C8, url: c8, marker: m8 },
+  토스트: { component: C9, url: c9, marker: m9 },
+  통닭: { component: C10, url: c10, marker: m10 },
+  풀빵: { component: C11, url: c11, marker: m11 },
+  계란빵: { component: C12, url: c12, marker: m12 },
+  땅콩빵: { component: C13, url: c13, marker: m13 },
+  기타: { component: DefaultMenu, url: defaultMenu, marker: defaultMenuMarker },
 };
