@@ -2,6 +2,7 @@ import { Sheet } from "react-modal-sheet";
 import Menu from "./Menu.tsx";
 import useFadeNavigate from "../hooks/useFadeNavigate.ts";
 import { categories } from "../constants/categories.ts";
+import { categoryImages } from "../assets/images/category";
 
 interface CategoryProps {
   isOpen: boolean;
@@ -34,13 +35,16 @@ export default function Category({ isOpen, setOpen }: CategoryProps) {
             </p>
             <Sheet.Scroller>
               <div className="grid grid-cols-[repeat(auto-fit,75px)] gap-x-4 sm:gap-x-10 gap-y-8 justify-between">
-                {categories.map(({ title, ImgComponent }, idx) => (
+                {categories.map((category, idx) => (
                   <div
                     key={`category_${idx}`}
                     className="cursor-pointer"
-                    onClick={() => handleCategoryClick(title)}
+                    onClick={() => handleCategoryClick(category)}
                   >
-                    <Menu title={title} ImgComponent={ImgComponent} />
+                    <Menu
+                      title={category}
+                      ImgComponent={categoryImages[category].component}
+                    />
                   </div>
                 ))}
               </div>
