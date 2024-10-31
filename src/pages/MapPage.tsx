@@ -14,7 +14,7 @@ import { categories } from "../constants/categories.ts";
 type Coordinates = [number, number];
 
 export interface Marker extends IStore {
-  visited?: number;
+  commentCount: number;
   isContinue?: boolean;
 }
 
@@ -28,7 +28,9 @@ export default function MapPage() {
   // 초기 위치 설정
   const [mapCenter, setMapCenter] = useState<Coordinates>([126.99581, 37.5563]);
 
-  const [storeList, setStoreList] = useState<IStore[]>([]);
+  const [storeList, setStoreList] = useState<
+    (IStore & { commentCount: number })[]
+  >([]);
 
   const mapRef = useRef<kakao.maps.Map | null>(null);
 
@@ -96,7 +98,7 @@ export default function MapPage() {
             coordinates={data.coordinates}
             title={data.name}
             onClick={() => {
-              setClickMarker(data);
+              setClickMarker(data as Marker);
             }}
           />
         ))}
@@ -125,7 +127,7 @@ export default function MapPage() {
                 id: clickMarker._id,
                 category: clickMarker.category,
                 name: clickMarker.name,
-                visited: 0,
+                visited: clickMarker.commentCount,
               }}
               bg="black"
             />
