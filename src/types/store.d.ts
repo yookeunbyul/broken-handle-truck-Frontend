@@ -21,7 +21,7 @@ interface StoreListApiParams {
 }
 
 interface StoreListApiResponse extends BaseApiResponse {
-  stores: IStore[];
+  stores: (IStore & { commentCount: number })[];
 }
 
 // GET store/:storeId, GET store, POST store
