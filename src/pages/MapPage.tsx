@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
+import { getStoreList } from "../apis/store.ts";
+import { useMyLocation } from "../hooks/useMyLocation";
 import Toggle from "../components/Toggle";
 import Search from "../components/map/Search";
 import MyLocation from "../components/map/MyLocation";
 import Card from "../components/Card";
-import { useMyLocation } from "../hooks/useMyLocation";
-import { IStore } from "../types/store";
-import { getStoreList } from "../apis/store.ts";
 import MapMarker from "../components/map/MapMarker.tsx";
-import { categories } from "../constants/categories.ts";
 import ReloadIcon from "../assets/reload.svg?react";
+import { IStore } from "../types/store";
+import { categories } from "../constants/categories.ts";
 
 type Coordinates = [number, number];
 
