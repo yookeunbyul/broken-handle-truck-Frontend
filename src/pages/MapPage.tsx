@@ -122,6 +122,7 @@ export default function MapPage() {
             <Card
               isOpen={false}
               info={{
+                id: clickMarker._id,
                 category: clickMarker.category,
                 name: clickMarker.name,
                 visited: 0,
