@@ -14,6 +14,9 @@ module.exports = {
         gray: "#525252",
         primary: "#ef5e7a",
         secondary: "#fddb80",
+        logo: {
+          violet: "#9050C5",
+        },
         success: "#5ef263",
         form: "#f1f5f9", // input, select 배경색
         category: "#ADADAD", //card의 category
