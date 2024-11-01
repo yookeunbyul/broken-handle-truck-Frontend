@@ -34,7 +34,7 @@ export default function Card({
     >
       <div className="tracking-tight flex gap-x-3">
         <div className="flex-none flex items-center justify-center">
-          <ImgComponent width={90} height={90} />
+          {ImgComponent && <ImgComponent width={90} height={90} />}
         </div>
         <div className="flex flex-col justify-center gap-y-2">
           <div className="text-xs text-category">{info.category}</div>
