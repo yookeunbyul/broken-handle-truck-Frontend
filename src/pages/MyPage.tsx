@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useTitleStore from "../store/titleStore";
 import useFadeNavigate from "../hooks/useFadeNavigate";
 import Comment from "../components/Comment.tsx";
@@ -6,10 +6,12 @@ import NoReview from "../components/NoReview.tsx";
 import LogoIcon from "../assets/images/pinkLogo.svg?react";
 import MessageSquareIcon from "../assets/images/messageSquare.svg?react";
 import EditIcon from "../assets/images/edit2.svg?react";
+import CheckIcon from "../assets/images/check.svg?react";
 import type { IUser } from "../types/auth";
 import type { IComment } from "../types/comment";
 
 export default function MyPage() {
+  const nicknameRef = useRef<HTMLInputElement | null>(null);
   const setTitle = useTitleStore((state) => state.setTitle);
   const navigate = useFadeNavigate();
   const [userInfo] = useState<IUser>({
@@ -26,6 +28,8 @@ export default function MyPage() {
     //   authorId: { _id: "111", nickname: "닉네임" },
     // },
   ]);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [nickname, setNickname] = useState("");
 
   const handleLogoutClick = () => {
     // 로그아웃 버튼 클릭
@@ -35,14 +39,29 @@ export default function MyPage() {
   };
   const handleEditNickname = () => {
     // 닉네임 수정 버튼 클릭
+    if (isEditMode) {
+      // 저장 후 EditMode 종료
+      setIsEditMode(false);
+    } else {
+      // EditMode가 변경된 이후 focus (disabled 상태에서 focus 작동 안함)
+      new Promise((resolve) => {
+        setIsEditMode(true);
+        resolve(true);
+      }).then(() => {
+        if (nicknameRef.current) {
+          nicknameRef.current.focus();
+        }
+      });
+    }
   };
 
   useEffect(() => {
     setTitle("마이페이지");
+    setNickname(userInfo.nickname);
   }, []);
 
   return (
-    <div className="w-[calc(100%-45px)] sm:w-[calc(100%-150px)] mx-auto h-full flex flex-col gap-8 sm:gap-12 pt-[22.5px] sm:pt-[75px]">
+    <div className="px-8 sm:px-0 max-w-lg mx-auto h-full flex flex-col gap-8 sm:gap-12 pt-[22.5px] sm:pt-[75px]">
       <div className="flex justify-between items-center gap-4">
         <div className="flex justify-center">
           <LogoIcon
@@ -51,14 +70,26 @@ export default function MyPage() {
             className="border-1 rounded-full border-category p-2 fill-logo-violet"
           />
         </div>
-        <div className="flex-1 flex items-center gap-1">
-          <p>{userInfo.nickname}</p>
-          <button onClick={handleEditNickname}>
-            <EditIcon
-              className="duration-300 stroke-gray hover:stroke-primary"
-              width={16}
-              height={16}
-            />
+        <div className="flex-1 flex items-center gap-1 relative">
+          <span>{nickname}</span>
+          <input
+            ref={nicknameRef}
+            className="outline-none absolute left-0 bg-transparent w-full"
+            type="text"
+            value={nickname}
+            onChange={({ target }) => setNickname(target.value)}
+            disabled={!isEditMode}
+          />
+          <button className="relative" onClick={handleEditNickname}>
+            {isEditMode ? (
+              <CheckIcon width={16} height={16} />
+            ) : (
+              <EditIcon
+                className="duration-300 stroke-gray hover:stroke-primary"
+                width={16}
+                height={16}
+              />
+            )}
           </button>
         </div>
         <button
