@@ -13,19 +13,19 @@ import type {
  * @param lon 경도(longitude)
  * @param lat 위도(latitude)
  * @param category **optional** 카테고리
- * @param storeName **optional** 검색어(가게 이름)
+ * @param name **optional** 검색어(가게 이름)
  */
 export const getStoreList = async ({
   lat,
   lon,
   category,
-  storeName,
+  name,
 }: StoreListApiParams): Promise<StoreListApiResponse> =>
   await http.get<StoreListApiResponse, StoreListApiParams>(`/store/all`, {
     lat,
     lon,
     category,
-    storeName,
+    name,
   });
 
 /**

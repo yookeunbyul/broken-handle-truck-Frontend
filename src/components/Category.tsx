@@ -1,7 +1,8 @@
 import { Sheet } from "react-modal-sheet";
+import useStoresStore from "../store/storesStore";
+import useFadeNavigate from "../hooks/useFadeNavigate";
 import Menu from "./Menu.tsx";
-import useFadeNavigate from "../hooks/useFadeNavigate.ts";
-import { categories } from "../constants/categories.ts";
+import { categories } from "../constants/categories";
 import { categoryImages } from "../assets/images/category";
 
 interface CategoryProps {
@@ -11,11 +12,17 @@ interface CategoryProps {
 
 export default function Category({ isOpen, setOpen }: CategoryProps) {
   const navigate = useFadeNavigate();
+  const { category: selected, setCategory } = useStoresStore();
 
   const handleCategoryClick = (target: string) => {
     setOpen(false);
     // 카테고리 필터 적용 후 Map으로 이동
-    console.log(target);
+    if (selected === target) {
+      // 같은 카테고리를 선택했다면 선택 해제
+      setCategory("");
+    } else {
+      setCategory(target);
+    }
     navigate(`/map`);
   };
 
@@ -43,6 +50,7 @@ export default function Category({ isOpen, setOpen }: CategoryProps) {
                   >
                     <Menu
                       title={category}
+                      isSelected={selected === category}
                       ImgComponent={categoryImages[category].component}
                     />
                   </div>
