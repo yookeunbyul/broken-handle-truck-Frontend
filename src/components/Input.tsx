@@ -5,7 +5,7 @@ interface InputProps {
   label: string;
   children?: React.ReactNode;
   value?: string;
-  setValue: (value: string) => void;
+  setValue?: (value: string) => void;
 }
 
 export default function Input({
@@ -35,7 +35,7 @@ export default function Input({
           className="w-full outline-none border-none rounded-lg bg-form px-3 py-4 placeholder:text-sm"
           {...props}
           value={value}
-          onChange={onChange || ((e) => setValue(e.target.value))}
+          onChange={onChange || ((e) => setValue && setValue(e.target.value))}
           // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           //   setValue(e.target.value)
           // }
