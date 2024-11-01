@@ -1,4 +1,5 @@
 import type { BaseApiResponse } from "./response";
+import type { IComment } from "./comment";
 
 interface IStore {
   _id: string;
@@ -27,7 +28,7 @@ interface StoreListApiResponse extends BaseApiResponse {
 // GET store/:storeId, GET store, POST store
 interface StoreApiResponse extends BaseApiResponse {
   store: IStore;
-  comments: object[]; // CommentType 받은 이후 수정 필요
+  comments: IComment[]; // CommentType 받은 이후 수정 필요
 }
 
 // POST store

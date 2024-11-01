@@ -43,6 +43,7 @@ interface DeleteCommentApiParams {
 }
 
 export type {
+  IComment,
   ICommentPost,
   GetCommentApiParams,
   CommentApiResponse,
