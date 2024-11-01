@@ -30,7 +30,13 @@ export default function RegisterPage() {
   const getAddress = (lat: number, lng: number) => {
     const geocoder = new kakao.maps.services.Geocoder(); // 좌표 -> 주소로 변환해주는 객체
     const coord = new kakao.maps.LatLng(lat, lng); // 주소로 변환할 좌표 입력
-    const callback = function (result, status: kakao.maps.services.Status) {
+    const callback = function (
+      result: {
+        address: kakao.maps.services.Address;
+        road_address: kakao.maps.services.RoadAaddress | null;
+      }[],
+      status: kakao.maps.services.Status,
+    ) {
       if (status === kakao.maps.services.Status.OK) {
         setAddress(result[0].address.address_name);
       }
