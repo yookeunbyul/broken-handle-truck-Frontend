@@ -18,7 +18,7 @@ interface StoreListApiParams {
   lat: number;
   lon: number;
   category?: string;
-  storeName?: string;
+  name?: string;
 }
 
 interface StoreListApiResponse extends BaseApiResponse {
