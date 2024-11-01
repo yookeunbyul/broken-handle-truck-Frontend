@@ -31,11 +31,11 @@ export default function TopBar({ title }: TopBarProps) {
                     <div className="flex-1 flex items-center">
                         {(pathname === '/detail' || pathname === '/register' || pathname === `/my-truck`) && (
                             <div onClick={onClickLeft}>
-                                <LeftArrowIcon width={25} height={25} className="fill-white cursor-pointer" />
+                                <LeftArrowIcon width={19} height={19} className="fill-white cursor-pointer" />
                             </div>
                         )}
                     </div>
-                    <p className="flex-1 text-center text-lg text-white font-bold">{title}</p>
+                    <p className="flex-1 text-center text-lg text-white font-semibold tracking-tighter">{title}</p>
                     <div className="flex-1 flex items-center justify-end">
                         {pathname === '/detail' && <BookMarkButton isBookmarked={false} onClick={() => {}} size={30} />}
                     </div>
