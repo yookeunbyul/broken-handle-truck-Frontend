@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { useMyLocation } from "../hooks/useMyLocation";
+import useUserStore from "../store/userStore";
 import useStoresStore from "../store/storesStore";
 import useFetchStores from "../hooks/useFetchStores";
 import Toggle from "../components/Toggle";
@@ -29,6 +30,7 @@ export default function MapPage() {
   // 초기 위치 설정
   const [mapCenter, setMapCenter] = useState<Coordinates>([126.99581, 37.5563]);
 
+  const { user } = useUserStore();
   const { setLocation } = useStoresStore();
   const { data: storeList = [] } = useFetchStores();
 
@@ -115,7 +117,9 @@ export default function MapPage() {
         {/* 영업 여부 토글은 로그인 여부에 따라서 달라짐 */}
         <div className="absolute flex items-center justify-between bottom-24 z-10 w-9/12 left-1/2 -translate-x-1/2">
           <MyLocation setMapCenter={handleLocationChange} />
-          <Toggle text={{ on: "영업중", off: "영업 종료" }} />
+          {user?.role === "owner" && (
+            <Toggle text={{ on: "영업중", off: "영업 종료" }} />
+          )}
         </div>
         {clickMarker ? (
           <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-full sm:w-9/12">
