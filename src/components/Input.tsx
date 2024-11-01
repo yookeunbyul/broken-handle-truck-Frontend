@@ -14,6 +14,7 @@ export default function Input({
   children,
   value,
   setValue,
+  onChange,
   ...props
 }: InputProps &
   Omit<
@@ -34,9 +35,10 @@ export default function Input({
           className="w-full outline-none border-none rounded-lg bg-form px-3 py-4 placeholder:text-sm"
           {...props}
           value={value}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setValue(e.target.value)
-          }
+          onChange={onChange || ((e) => setValue(e.target.value))}
+          // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          //   setValue(e.target.value)
+          // }
         />
         {children && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
