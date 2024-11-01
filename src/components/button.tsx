@@ -19,7 +19,7 @@ export default function Button() {
     };
 
     return (
-        <div className="flex flex-col gap-1 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
+        <div className="flex flex-col gap-1 mx-auto w-[calc(100%-80px)] sm:w-[calc(100%-250px)] ">
             <p className="mb-2 text-xs text-white/50 mix-blend-difference tracking-tight">결제 방식</p>
             <div className="flex gap-x-4 text-2xl text-primary">
                 <button
