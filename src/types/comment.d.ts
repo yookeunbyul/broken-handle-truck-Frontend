@@ -10,7 +10,7 @@ interface IComment {
   storeId: string;
   content: string;
   createdAt: string;
-  authorld: IAuthor;
+  authorId: IAuthor;
 }
 
 interface ICommentPost {
@@ -18,7 +18,7 @@ interface ICommentPost {
   storeId: string;
   content: string;
   createdAt: string;
-  authorld: string;
+  authorId: string;
 }
 
 // Get /comment?storeId={}
