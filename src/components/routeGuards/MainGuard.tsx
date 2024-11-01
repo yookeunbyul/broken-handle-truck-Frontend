@@ -17,8 +17,12 @@ export default function MainGuard(): React.ReactElement {
 					navigate('/map');
 				}
 			}
+		} else {
+			navigate('map');
 		}
-	}, [isLoading, user, navigate, setUser, data?.user]);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isLoading, data?.user]);
 
 	return <MainPage />;
 }
