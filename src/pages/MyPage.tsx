@@ -17,7 +17,15 @@ export default function MyPage() {
     role: "",
     nickname: "닉네임",
   });
-  const [comments] = useState<IComment[]>([]);
+  const [comments] = useState<IComment[]>([
+    // {
+    //   _id: "1",
+    //   createdAt: "YYYY-MM-DD",
+    //   storeId: "222",
+    //   content: "test",
+    //   authorId: { _id: "111", nickname: "닉네임" },
+    // },
+  ]);
 
   const handleLogoutClick = () => {
     // 로그아웃 버튼 클릭
@@ -34,7 +42,7 @@ export default function MyPage() {
   }, []);
 
   return (
-    <div className="w-[calc(100%-45px)] sm:w-[calc(100%-150px)] mx-auto flex flex-col gap-8 sm:gap-12 pt-[22.5px] sm:pt-[75px]">
+    <div className="w-[calc(100%-45px)] sm:w-[calc(100%-150px)] mx-auto h-full flex flex-col gap-8 sm:gap-12 pt-[22.5px] sm:pt-[75px]">
       <div className="flex justify-between items-center gap-4">
         <div className="flex justify-center">
           <LogoIcon
@@ -66,7 +74,7 @@ export default function MyPage() {
       >
         내 가게 보기
       </button>
-      <div className="flex-1">
+      <div className="flex-1 ">
         <div className="flex justify-start items-center gap-x-1 text-base mb-3">
           <MessageSquareIcon width={16} height={16} />
           <span className="tracking-tight">
@@ -75,7 +83,7 @@ export default function MyPage() {
           </span>
         </div>
         {comments.length === 0 ? (
-          <div>
+          <div className="h-full">
             <NoReview />
           </div>
         ) : (
@@ -86,14 +94,12 @@ export default function MyPage() {
           </div>
         )}
       </div>
-      <div className="flex items-end justify-center pb-5">
-        <button
-          className="text-category underline text-sm absolute bottom-24"
-          onClick={handleAccountDeletion}
-        >
-          탈퇴하기
-        </button>
-      </div>
+      <button
+        className="self-center text-category underline text-sm py-4"
+        onClick={handleAccountDeletion}
+      >
+        탈퇴하기
+      </button>
     </div>
   );
 }
