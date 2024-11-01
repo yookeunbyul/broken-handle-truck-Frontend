@@ -3,7 +3,7 @@ import { IUser } from '../types/auth';
 
 interface UserState {
 	user: IUser | null;
-	setUser: (newUser: IUser) => void;
+	setUser: (newUser: IUser | null) => void;
 }
 
 const useUserStore = create<UserState>((set) => ({
