@@ -11,10 +11,12 @@ import type { IUser } from '../types/auth';
 import type { IComment } from '../types/comment';
 import Truck from '../assets/images/truck.svg?react';
 import { logout } from '../apis/auth.ts';
+import useUserStore from '../store/userStore.ts';
 
 export default function MyPage() {
     const nicknameRef = useRef<HTMLInputElement | null>(null);
     const setTitle = useTitleStore((state) => state.setTitle);
+    const { setUser } = useUserStore();
     const navigate = useFadeNavigate();
     const [userInfo] = useState<IUser>({
         _id: '111',
@@ -38,9 +40,8 @@ export default function MyPage() {
         const response = await logout();
 
         if (response.msg === 'ok') {
+            setUser(null);
             navigate('/');
-        } else {
-            //안되면 toast message를 띄워야할듯
         }
     };
     const handleAccountDeletion = () => {
