@@ -3,10 +3,15 @@ import { BaseApiResponse } from './response';
 interface INotification {
 	_id: string;
 	recipients: string[];
-	sender: string;
+	sender: ISender;
 	type: 'open' | 'close';
 	conetent: string;
 	createdAt: string;
+}
+
+interface ISender {
+	category: string;
+	name: string;
 }
 
 // GET Notification
@@ -19,4 +24,14 @@ interface PostNotificationApiResponse extends BaseApiResponse {
 	notification: INotification;
 }
 
-export type { INotification, NotificationListApiResponse, PostNotificationApiResponse };
+// POST NotificationAsRead
+interface PostNotificationAsReadApiParams {
+	notificationId: string;
+}
+
+export type {
+	INotification,
+	NotificationListApiResponse,
+	PostNotificationApiResponse,
+	PostNotificationAsReadApiParams,
+};
