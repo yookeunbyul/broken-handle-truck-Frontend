@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react";
 import BookMarkButton from "./BookMarkButton";
 import useFadeNavigate from "../hooks/useFadeNavigate.ts";
 import { categoryImages } from "../assets/images/category";
 import { categories } from "../constants/categories.ts";
+import { postBookmark, getBookmark } from "../apis/bookmark.ts";
 
 interface CardProps {
   isOpen: boolean;
@@ -13,6 +15,14 @@ interface CardProps {
   };
   bg: string;
 }
+
+interface BookmarkItem {
+  comments: number;
+  name: string;
+  isOpen: boolean;
+  category: string;
+}
+
 export default function Card({
   isOpen = false,
   info,
@@ -24,7 +34,43 @@ export default function Card({
     categoryImages[categories.includes(info.category) ? info.category : "기타"]
       .component;
 
-  const handleClick = () => {};
+  const [bookmark, setBookmark] = useState<BookmarkItem[]>();
+  const [isBookmarked, setIsBookMarked] = useState<boolean>(false);
+
+  // get 모든 북마크 데이터 저장
+  useEffect(() => {
+    const getBookmarkData = async () => {
+      const res = await getBookmark();
+
+      setBookmark(res.bookmarks);
+    };
+
+    getBookmarkData();
+  }, []);
+
+  useEffect(() => {
+    const checkIfBookmarked = () => {
+      if (bookmark) {
+        const matched = bookmark.some(
+          (place) =>
+            place.category === info.category &&
+            place.name === info.name &&
+            place.comments === info.visited
+        );
+
+        setIsBookMarked(matched);
+      }
+    };
+
+    checkIfBookmarked();
+  }, [bookmark, info]);
+
+  // 북마크 토글 함수
+  const handleBookmarkToggle = async (storeId: string) => {
+    await postBookmark({ storeId });
+    const updatedBookmarks = await getBookmark(); // 북마크 상태 최신화
+    setBookmark(updatedBookmarks.bookmarks); // bookmark 상태 업데이트
+  };
 
   return (
     <div
@@ -39,7 +85,9 @@ export default function Card({
         <div className="flex flex-col justify-center gap-y-2">
           <div className="text-xs text-category">{info.category}</div>
           <div
-            className={`${bg === "white" ? "text-black" : "text-white"} font-bold text-base`}
+            className={`${
+              bg === "white" ? "text-black" : "text-white"
+            } font-bold text-base`}
           >
             {info.name}
           </div>
@@ -51,17 +99,21 @@ export default function Card({
         <div className="flex-1 flex flex-col gap-y-2 pt-2">
           <div className="flex justify-end">
             <BookMarkButton
-              isBookmarked={true}
-              onClick={handleClick}
+              isBookmarked={isBookmarked}
+              onClick={() => handleBookmarkToggle(info.id)}
               size={30}
             />
           </div>
           <div className="flex justify-end text-xs gap-x-1 text-white items-center">
             <div
-              className={`w-1 h-1 rounded-full ${isOpen ? "bg-success" : "bg-red-500"}`}
+              className={`w-1 h-1 rounded-full ${
+                isOpen ? "bg-success" : "bg-red-500"
+              }`}
             ></div>
             <div
-              className={`whitespace-nowrap ${bg === "white" ? "text-black" : "text-white"}`}
+              className={`whitespace-nowrap ${
+                bg === "white" ? "text-black" : "text-white"
+              }`}
             >
               {isOpen ? "운영중" : "운영종료"}
             </div>
