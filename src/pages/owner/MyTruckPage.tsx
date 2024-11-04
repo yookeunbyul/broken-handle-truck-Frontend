@@ -81,7 +81,7 @@ export default function MyTruckPage() {
               {myStore.category}
             </div>
           </div>
-          <Button />
+          <Button defaultValue={myStore.paymentMethod} disabled />
 
           <div className="flex w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto items-center gap-x-1 pt-11 mb-3">
             <MessageSquare width={16} height={16} />

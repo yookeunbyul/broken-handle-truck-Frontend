@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import useTitleStore from "../../store/titleStore";
-import Toggle from "../../components/Toggle";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { getMyStore } from "../../apis/store.ts";
+import useTitleStore from "../../store/titleStore";
 import { useMyLocation } from "../../hooks/useMyLocation";
+import Toggle from "../../components/Toggle";
 import InputSection from "../../components/register/InputSection";
 import RegisterButton from "../../components/register/RegisterButton";
 
@@ -21,7 +22,7 @@ export default function RegisterPage() {
   const [address, setAddress] = useState<string>(""); // 주소
   const [name, setName] = useState<string>(""); // 가게 이름
   const [category, setCategory] = useState<string>(""); // 음식 카테고리
-  const [payment, setPayment] = useState<string[]>([""]); // 결제 방식
+  const [payment, setPayment] = useState<string[]>([]); // 결제 방식
 
   const { myLocation } = useMyLocation(({ latitude, longitude }) => {
     setMapCenter([longitude, latitude]);
@@ -48,6 +49,20 @@ export default function RegisterPage() {
   useEffect(() => {
     setTitle("가게 등록");
     myLocation();
+    getMyStore().then((data) => {
+      if (data.store) {
+        const { name, category, paymentMethod, isOpen, coordinates } =
+          data.store;
+        const [lon, lat] = coordinates;
+        setName(name);
+        setCategory(category);
+        setPayment(paymentMethod);
+        setIsOpen(isOpen);
+        setMapCenter(coordinates);
+        setPosition({ lat, lng: lon });
+        getAddress(lat, lon);
+      }
+    });
   }, []);
 
   return (
@@ -79,7 +94,9 @@ export default function RegisterPage() {
         address={address}
         name={name}
         setName={setName}
+        category={category}
         setCategory={setCategory}
+        payment={payment}
         setPayment={setPayment}
       />
       <RegisterButton

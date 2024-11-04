@@ -6,7 +6,9 @@ interface InputSectionProps {
   name: string;
   setName: (name: string) => void;
   address: string;
+  category: string;
   setCategory: (category: string) => void;
+  payment: string[];
   setPayment: (payment: string[]) => void;
 }
 
@@ -14,7 +16,9 @@ export default function InputSection({
   name,
   setName,
   address,
+  category,
   setCategory,
+  payment,
   setPayment,
 }: InputSectionProps) {
   return (
@@ -24,7 +28,6 @@ export default function InputSection({
         label="가게 위치"
         placeholder="가게 위치를 지도에서 클릭해주세요"
         value={address}
-        setValue={() => {}} // readOnly이므로 빈 함수 전달
         readOnly
       />
       <Input
@@ -34,8 +37,8 @@ export default function InputSection({
         setValue={setName}
         value={name}
       />
-      <Select setValue={setCategory} />
-      <Button setValue={setPayment} />
+      <Select defaultValue={category} setValue={setCategory} />
+      <Button defaultValue={payment} setValue={setPayment} />
     </div>
   );
 }
