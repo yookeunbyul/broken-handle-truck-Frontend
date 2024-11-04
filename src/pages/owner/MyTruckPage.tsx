@@ -38,15 +38,6 @@ export default function MyTruckPage() {
   }, [handleUpdateMapCenter]);
 
   useEffect(() => {
-    // getMyStore().then((data) => {
-    //   setMyStore(data.store);
-    //   if (data.store) {
-    //     setTitle(data.store.name);
-    //     setComments(data.comments);
-    //   } else {
-    //     setTitle("내 가게");
-    //   }
-    // });
     if (!isLoading) {
       console.log(data?.store);
       if (data) {
