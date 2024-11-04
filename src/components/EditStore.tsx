@@ -22,7 +22,7 @@ export default function EditStore() {
       <div className="w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto pt-5 pb-5 flex gap-x-5">
         <button
           className="bg-secondary flex-1 p-5 rounded-lg tracking-tighter font-semibold"
-          onClick={() => navigate(`/register`, { replace: true })}
+          onClick={() => navigate(`/register`)}
         >
           내 가게 수정하기
         </button>
