@@ -11,8 +11,8 @@ type Coordinates = [number, number];
 
 export default function RegisterPage() {
   const { kakao } = window;
-  const setTitle = useTitleStore((state) => state.setTitle);
   const { data, isLoading } = useMyStore();
+  const setTitle = useTitleStore((state) => state.setTitle);
 
   const [mapCenter, setMapCenter] = useState<Coordinates>([126.99581, 37.5563]); // 위치 설정
   const [position, setPosition] = useState<{ lat: number; lng: number }>({
