@@ -46,7 +46,7 @@ export default function Card({ isOpen = false, info, bg = 'black' }: CardProps) 
                         <BookMarkButton isBookmarked={true} onClick={handleClick} size={30} />
                     </div>
                     <div className="flex justify-end text-xs gap-x-1 text-white items-center">
-                        <div className={`w-1 h-1 rounded-full ${isOpen ? 'bg-success' : 'bg-red-500'}`}></div>
+                        <div className={`w-1 h-1 rounded-full ${isOpen ? 'bg-success' : 'bg-category'}`}></div>
                         <div className={`whitespace-nowrap ${bg === 'white' ? 'text-black' : 'text-white'}`}>
                             {isOpen ? '운영중' : '운영종료'}
                         </div>
