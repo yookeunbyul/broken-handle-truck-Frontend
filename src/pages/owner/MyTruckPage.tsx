@@ -94,7 +94,10 @@ export default function MyTruckPage() {
                 {data.comments.map((comment) => (
                   <Comment
                     key={`my-truck-comment_${comment._id}`}
-                    {...comment}
+                    name={comment.authorId.nickname}
+                    authorId={comment.authorId._id}
+                    createdAt={comment.createdAt}
+                    content={comment.content}
                   />
                 ))}
               </>
