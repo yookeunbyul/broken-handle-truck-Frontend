@@ -36,11 +36,6 @@ export default function MyPage() {
 			closeSocket();
 			setCategory('');
 			toast.success('로그아웃이 완료되었습니다.');
-
-			//상태 변화가 반영된 후에 navigate가 실행
-			setTimeout(() => {
-				navigate('/login');
-			}, 0);
 		}
 	};
 
@@ -53,11 +48,6 @@ export default function MyPage() {
 			closeSocket();
 			setCategory('');
 			toast.success('회원탈퇴가 완료되었습니다.');
-
-			//상태 변화가 반영된 후에 navigate가 실행
-			setTimeout(() => {
-				navigate('/');
-			}, 0);
 		}
 	};
 	const handleEditNickname = () => {
