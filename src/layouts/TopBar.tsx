@@ -35,7 +35,9 @@ export default function TopBar({ title }: TopBarProps) {
                             </div>
                         )}
                     </div>
-                    <p className="flex-1 text-center text-lg text-white font-semibold tracking-tighter">{title}</p>
+                    <p className="flex-1 text-center text-lg text-white font-semibold tracking-tighter whitespace-nowrap">
+                        {title}
+                    </p>
                     <div className="flex-1 flex items-center justify-end">
                         {pathname === '/detail' && <BookMarkButton isBookmarked={false} onClick={() => {}} size={30} />}
                     </div>
