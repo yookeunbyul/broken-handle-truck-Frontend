@@ -33,4 +33,4 @@ export const postNotificationAsRead = async ({
  * 모든 알림 읽음 등록
  */
 export const postNotificationAsReadAll = async (): Promise<BaseApiResponse> =>
-	await http.post<BaseApiResponse>('/readAll');
+	await http.post<BaseApiResponse>('/notification/readAll');

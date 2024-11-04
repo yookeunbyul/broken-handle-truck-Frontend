@@ -5,7 +5,6 @@ interface INotification {
 	recipients: string[];
 	sender: ISender;
 	type: 'open' | 'close';
-	conetent: string;
 	createdAt: string;
 }
 
@@ -16,7 +15,7 @@ interface ISender {
 
 // GET Notification
 interface NotificationListApiResponse extends BaseApiResponse {
-	notification: INotification[];
+	notifications: INotification[];
 }
 
 // POST Notification

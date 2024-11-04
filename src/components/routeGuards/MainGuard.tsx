@@ -22,7 +22,7 @@ export default function MainGuard(): React.ReactElement {
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isLoading, data?.user]);
+	}, [isLoading, data?.user, user]);
 
 	return <MainPage />;
 }
