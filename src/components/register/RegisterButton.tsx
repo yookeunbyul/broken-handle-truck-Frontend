@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { postStore } from "../../apis/store";
 import useFadeNavigate from "../../hooks/useFadeNavigate";
 import useMyStore from "../../hooks/useMyStore.ts";
@@ -40,7 +41,8 @@ export default function RegisterButton({
       !payment ||
       payment.length === 0
     ) {
-      alert("모든 입력 요소를 채워주세요");
+      toast.error("모든 입력 요소를 채워주세요");
+      // alert("모든 입력 요소를 채워주세요");
       return; // 값이 비어 있으면 함수 실행을 종료
     }
 
@@ -57,6 +59,7 @@ export default function RegisterButton({
     if (res.msg === "ok") {
       refetch().then(() => {
         navigate(`/my-truck`);
+        toast.success("저장되었습니다.");
       });
     }
   };
