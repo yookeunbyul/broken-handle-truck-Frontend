@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import useTitleStore from "../../store/titleStore";
 import { useMyLocation } from "../../hooks/useMyLocation";
@@ -10,6 +10,7 @@ import useMyStore from "../../hooks/useMyStore.ts";
 type Coordinates = [number, number];
 
 export default function RegisterPage() {
+  const mapRef = useRef<kakao.maps.Map | null>(null);
   const { kakao } = window;
   const setTitle = useTitleStore((state) => state.setTitle);
   const { data, isLoading } = useMyStore();
@@ -51,7 +52,6 @@ export default function RegisterPage() {
   useEffect(() => {
     if (!isLoading) {
       setTitle("가게 등록");
-      myLocation();
       if (data?.store) {
         const { name, category, paymentMethod, isOpen, coordinates } =
           data.store;
@@ -63,6 +63,8 @@ export default function RegisterPage() {
         setMapCenter(coordinates);
         setPosition({ lat, lng: lon });
         getAddress(lat, lon);
+      } else {
+        myLocation();
       }
       // getMyStore().then((data) => {
       //   if (data.store) {
