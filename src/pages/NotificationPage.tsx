@@ -12,13 +12,12 @@ export default function NotificationPage() {
 
 	useEffect(() => {
 		setTitle('알림');
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
 		<>
 			{notificationList.length > 0 ? (
-				<div className='flex flex-col gap-y-8 py-11 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]'>
+				<div className='flex flex-col gap-y-8 py-11 mx-auto w-[calc(100%-50px)] sm:w-[calc(100%-230px)]'>
 					<div className='flex justify-between items-center'>
 						<p className='flex items-center tracking-tighter'>
 							<PinkNoti width={18} height={18} />
@@ -35,8 +34,8 @@ export default function NotificationPage() {
 					</div>
 					{notificationList.map((notification, idx) => (
 						<Message
-							key={idx}
 							onClick={() => postNotificationAsRead(notification._id)}
+							key={idx}
 							data={notification}
 							ImgComponent={categoryImages[notification.sender.category].component}
 						/>
@@ -44,7 +43,7 @@ export default function NotificationPage() {
 				</div>
 			) : (
 				<div className='h-full flex justify-center items-center mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]'>
-					<div className='flex flex-col gap-y-2 justify-center items-center'>
+					<div className='flex flex-col gap-y-2 justify-center items-center tracking-tighter'>
 						<Logo width={130} height={130} />
 						<div className='text-center text-2xl sm:text-3xl font-point'>
 							받은 알림이 없습니다.

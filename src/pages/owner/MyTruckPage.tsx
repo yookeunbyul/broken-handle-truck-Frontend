@@ -16,7 +16,7 @@ export default function MyTruckPage() {
   const setTitle = useTitleStore((state) => state.setTitle);
   const navigate = useFadeNavigate();
 
-  const { data, isLoading } = useMyStore();
+  const { data, isLoading, refetch } = useMyStore();
 
   // resize될 때 marker를 가운데에 두기 위한 함수
   const handleUpdateMapCenter = useCallback(() => {
@@ -38,24 +38,12 @@ export default function MyTruckPage() {
   }, [handleUpdateMapCenter]);
 
   useEffect(() => {
-    // getMyStore().then((data) => {
-    //   setMyStore(data.store);
-    //   if (data.store) {
-    //     setTitle(data.store.name);
-    //     setComments(data.comments);
-    //   } else {
-    //     setTitle("내 가게");
-    //   }
-    // });
-    if (!isLoading) {
-      console.log(data?.store);
-      if (data) {
-        setTitle(data.store.name);
-      } else {
-        setTitle("내 가게");
-      }
+    if (data && data.store) {
+      setTitle(data.store.name);
+    } else {
+      setTitle("내 가게");
     }
-  }, [isLoading]);
+  }, [data]);
 
   if (isLoading) {
     return <div></div>;
@@ -95,7 +83,8 @@ export default function MyTruckPage() {
           <div className="flex w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto items-center gap-x-1 pt-11 mb-3">
             <MessageSquare width={16} height={16} />
             <span className="tracking-tighter pb-1">
-              고객님이 남겨준 리뷰(<strong className="text-primary">0</strong>)
+              고객님이 남겨준 리뷰(
+              <strong className="text-primary">{data.comments.length}</strong>)
             </span>
           </div>
           <div className="w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto pb-11">
@@ -104,7 +93,12 @@ export default function MyTruckPage() {
                 {data.comments.map((comment) => (
                   <Comment
                     key={`my-truck-comment_${comment._id}`}
-                    {...comment}
+                    id={comment._id}
+                    name={comment.authorId.nickname}
+                    authorId={comment.authorId._id}
+                    refetch={refetch}
+                    createdAt={comment.createdAt}
+                    content={comment.content}
                   />
                 ))}
               </>
@@ -121,11 +115,11 @@ export default function MyTruckPage() {
       ) : (
         <div className="h-full relative">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="flex justify-center mb-5">
+            <div className="flex justify-center mb-2">
               <Logo width={130} height={130} />
             </div>
             <div>
-              <div className="font-point text-2xl sm:text-3xl tracking-tighter whitespace-nowrap">
+              <div className="font-point text-2xl sm:text-3xl tracking-tighter whitespace-nowrap text-center">
                 푸드트럭이 없습니다.
               </div>
               <div className="font-point text-2xl sm:text-3xl tracking-tighter whitespace-nowrap">
@@ -133,7 +127,7 @@ export default function MyTruckPage() {
                 <span className="text-primary font-point">등록</span>해주세요!
               </div>
             </div>
-            <div className="pt-8 w-full">
+            <div className="pt-5 w-full">
               <button
                 className="bg-primary text-xl text-white font-bold w-full py-5 rounded-lg"
                 onClick={() => navigate(`/register`)}

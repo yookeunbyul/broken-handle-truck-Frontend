@@ -7,36 +7,25 @@ import LogoIcon from '../assets/images/pinkLogo.svg?react';
 import MessageSquareIcon from '../assets/images/messageSquare.svg?react';
 import EditIcon from '../assets/images/edit2.svg?react';
 import CheckIcon from '../assets/images/check.svg?react';
-import type { IUser } from '../types/auth';
-import type { IComment } from '../types/comment';
+import type { IMyComment } from '../types/comment';
 import Truck from '../assets/images/truck.svg?react';
-import { logout, withdraw } from '../apis/auth.ts';
+import { editNickname, logout, withdraw } from '../apis/auth.ts';
 import useUserStore from '../store/userStore.ts';
+import useNotificationStore from '../store/notificationStore.ts';
 import { toast } from 'react-toastify';
 import useStoresStore from '../store/storesStore.ts';
+import { getMyComment } from '../apis/comment.ts';
 
 export default function MyPage() {
 	const nicknameRef = useRef<HTMLInputElement | null>(null);
 	const setTitle = useTitleStore((state) => state.setTitle);
 	const { setCategory } = useStoresStore();
 	const navigate = useFadeNavigate();
-	const { setUser } = useUserStore();
-	const [userInfo] = useState<IUser>({
-		_id: '111',
-		role: '',
-		nickname: '닉네임',
-	});
-	const [comments] = useState<IComment[]>([
-		// {
-		//   _id: "1",
-		//   createdAt: "YYYY-MM-DD",
-		//   storeId: "222",
-		//   content: "test",
-		//   authorId: { _id: "111", nickname: "닉네임" },
-		// },
-	]);
+	const { user: userInfo, setUser } = useUserStore();
+	const [comments, setComments] = useState<IMyComment[]>([]);
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [nickname, setNickname] = useState('');
+	const { closeSocket } = useNotificationStore();
 
 	const handleLogoutClick = async () => {
 		// 로그아웃 버튼 클릭
@@ -44,9 +33,14 @@ export default function MyPage() {
 
 		if (response.msg === 'ok') {
 			setUser(null);
+			closeSocket();
 			setCategory('');
-
 			toast.success('로그아웃이 완료되었습니다.');
+
+			//상태 변화가 반영된 후에 navigate가 실행
+			setTimeout(() => {
+				navigate('/login');
+			}, 0);
 		}
 	};
 
@@ -56,16 +50,28 @@ export default function MyPage() {
 
 		if (response.msg === 'ok') {
 			setUser(null);
+			closeSocket();
 			setCategory('');
-
 			toast.success('회원탈퇴가 완료되었습니다.');
+
+			//상태 변화가 반영된 후에 navigate가 실행
+			setTimeout(() => {
+				navigate('/');
+			}, 0);
 		}
 	};
 	const handleEditNickname = () => {
 		// 닉네임 수정 버튼 클릭
 		if (isEditMode) {
 			// 저장 후 EditMode 종료
-			setIsEditMode(false);
+			if (nickname.trim() === '') {
+				toast.error('닉네임을 입력해주세요.');
+				return;
+			}
+			editNickname({ nickname }).then(() => {
+				toast.success('변경이 완료되었습니다.');
+				setIsEditMode(false);
+			});
 		} else {
 			// EditMode가 변경된 이후 focus (disabled 상태에서 focus 작동 안함)
 			new Promise((resolve) => {
@@ -81,8 +87,9 @@ export default function MyPage() {
 
 	useEffect(() => {
 		setTitle('마이페이지');
-		setNickname(userInfo.nickname);
-	}, []);
+		setNickname(userInfo?.nickname || '');
+		getMyComment().then((data) => setComments(data.comments));
+	}, [userInfo]);
 
 	return (
 		<div className='px-8 sm:px-0 max-w-lg mx-auto h-full flex flex-col gap-8 sm:gap-12 pt-[50px] sm:pt-[60px]'>
@@ -143,7 +150,13 @@ export default function MyPage() {
 				) : (
 					<div>
 						{comments.map((comment) => (
-							<Comment key={`my_comment_${comment._id}`} {...comment} />
+							<Comment
+								key={`my_comment_${comment._id}`}
+								content={comment.content}
+								name={comment.storeId.name}
+								authorId={comment.authorId}
+								createdAt={comment.createdAt}
+							/>
 						))}
 					</div>
 				)}
