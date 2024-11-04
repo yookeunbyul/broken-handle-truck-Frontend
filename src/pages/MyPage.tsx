@@ -10,9 +10,10 @@ import CheckIcon from '../assets/images/check.svg?react';
 import type { IUser } from '../types/auth';
 import type { IComment } from '../types/comment';
 import Truck from '../assets/images/truck.svg?react';
-import { logout } from '../apis/auth.ts';
+import { logout, withdraw } from '../apis/auth.ts';
 import useUserStore from '../store/userStore.ts';
 import useNotificationStore from '../store/notificationStore.ts';
+import { toast } from 'react-toastify';
 
 export default function MyPage() {
 	const nicknameRef = useRef<HTMLInputElement | null>(null);
@@ -44,13 +45,28 @@ export default function MyPage() {
 		if (response.msg === 'ok') {
 			setUser(null);
 			closeSocket();
-			setTimeout(() => navigate('/'), 0);
-		} else {
-			//안되면 toast message를 띄워야할듯
+			toast.success('로그아웃이 완료되었습니다.');
+
+			//상태 변화가 반영된 후에 navigate가 실행
+			setTimeout(() => {
+				navigate('/login');
+			}, 0);
 		}
 	};
-	const handleAccountDeletion = () => {
+
+	const handleAccountDeletion = async () => {
 		// 회원 탈퇴 버튼 클릭
+		const response = await withdraw();
+
+		if (response.msg === 'ok') {
+			setUser(null);
+			toast.success('회원탈퇴가 완료되었습니다.');
+
+			//상태 변화가 반영된 후에 navigate가 실행
+			setTimeout(() => {
+				navigate('/');
+			}, 0);
+		}
 	};
 	const handleEditNickname = () => {
 		// 닉네임 수정 버튼 클릭
