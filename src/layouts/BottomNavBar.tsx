@@ -34,7 +34,7 @@ const BottomNavBar = ({
   const isFocused = (path: string) => !isOpenCategory && pathname === path;
 
   return (
-    <div className="flex bg-black text-xs sticky bottom-0 z-[999999999] bottom-navbar">
+    <div className="flex bg-black text-xs sticky bottom-0 z-[9999] bottom-navbar">
       <div
         className={[
           "flex flex-col flex-1 py-4 gap-1 items-center justify-center cursor-pointer",
