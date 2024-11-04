@@ -11,13 +11,13 @@ service.interceptors.response.use(null, (error) => {
 });
 
 export const http = {
-  get: function get<T, P = undefined>(url: string, params?: P): Promise<T> {
-    return service.get(url, { params }).then((res) => res.data);
-  },
-  post: function post<T, D = undefined>(url: string, data?: D): Promise<T> {
-    return service.post(url, data && { ...data }).then((res) => res.data);
-  },
-  delete: function remove<T>(url: string): Promise<T> {
-    return service.delete(url).then((res) => res.data);
-  },
+    get: function get<T, P = undefined>(url: string, params?: P): Promise<T> {
+        return service.get(url, { params }).then((res) => res.data);
+    },
+    post: function post<T, D = undefined>(url: string, data?: D): Promise<T> {
+        return service.post(url, data && { ...data }).then((res) => res.data);
+    },
+    delete: function remove<T>(url: string): Promise<T> {
+        return service.delete(url).then((res) => res.data);
+    },
 };

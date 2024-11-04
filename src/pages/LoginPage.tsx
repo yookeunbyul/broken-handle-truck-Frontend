@@ -29,7 +29,9 @@ export default function LoginPage() {
             reset(); //form reset
             setUser(response.user);
             //map으로 이동
-            navigate(`/map`);
+            setTimeout(() => {
+                navigate('/map');
+            }, 0);
         } else if (response.msg === '잘못된 이메일 또는 패스워드 입니다.') {
             reset();
             toast.error(`${response.msg}`);
