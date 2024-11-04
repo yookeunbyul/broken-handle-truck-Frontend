@@ -86,7 +86,10 @@ export default function SignUpPage() {
     return (
         <div className="bg-black h-full flex flex-col justify-center items-center gap-10 relative">
             <p className="text-3xl font-point text-white pt-12 sm:py-8 tracking-tighter">회원가입</p>
-            <form className="w-full flex flex-col items-center mb-24" onSubmit={handleSubmit(onSubmit)}>
+            <form
+                className="mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-320px)] flex flex-col items-center mb-24"
+                onSubmit={handleSubmit(onSubmit)}
+            >
                 <div className="max-w-screen-sm w-full flex flex-col gap-8 pt-4 sm:py-8">
                     <Controller
                         name="email"
