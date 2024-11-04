@@ -16,7 +16,7 @@ export default function MyTruckPage() {
   const setTitle = useTitleStore((state) => state.setTitle);
   const navigate = useFadeNavigate();
 
-  const { data, isLoading } = useMyStore();
+  const { data, isLoading, refetch } = useMyStore();
 
   // resize될 때 marker를 가운데에 두기 위한 함수
   const handleUpdateMapCenter = useCallback(() => {
@@ -92,8 +92,10 @@ export default function MyTruckPage() {
                 {data.comments.map((comment) => (
                   <Comment
                     key={`my-truck-comment_${comment._id}`}
+                    id={comment._id}
                     name={comment.authorId.nickname}
                     authorId={comment.authorId._id}
+                    refetch={refetch}
                     createdAt={comment.createdAt}
                     content={comment.content}
                   />
