@@ -1,4 +1,9 @@
-import { NotificationListApiResponse, PostNotificationApiResponse } from '../types/notification';
+import {
+	NotificationListApiResponse,
+	PostNotificationApiResponse,
+	PostNotificationAsReadApiParams,
+} from '../types/notification';
+import { BaseApiResponse } from '../types/response';
 import { http } from './apiClient';
 
 /**
@@ -12,3 +17,20 @@ export const getNotificationList = async (): Promise<NotificationListApiResponse
  */
 export const postNotification = async (): Promise<PostNotificationApiResponse> =>
 	await http.post<PostNotificationApiResponse>('/notification');
+
+/**
+ * 알림 읽음 등록
+ * @param notificationId notificationId
+ */
+export const postNotificationAsRead = async ({
+	notificationId,
+}: PostNotificationAsReadApiParams): Promise<BaseApiResponse> =>
+	await http.post<BaseApiResponse, PostNotificationAsReadApiParams>('/notification/read', {
+		notificationId,
+	});
+
+/**
+ * 모든 알림 읽음 등록
+ */
+export const postNotificationAsReadAll = async (): Promise<BaseApiResponse> =>
+	await http.post<BaseApiResponse>('/notification/readAll');
