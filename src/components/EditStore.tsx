@@ -1,19 +1,18 @@
 import { toast } from "react-toastify";
-import useFadeNavigate from "../hooks/useFadeNavigate.ts";
 import { deleteStore } from "../apis/store.ts";
+import useFadeNavigate from "../hooks/useFadeNavigate.ts";
+import useMyStore from "../hooks/useMyStore.ts";
 
-interface EditStoreProps {
-  clearMyStore: () => void;
-}
-
-export default function EditStore({ clearMyStore }: EditStoreProps) {
+export default function EditStore() {
   const navigate = useFadeNavigate();
+  const { refetch } = useMyStore();
 
   const handleDeleteStore = () => {
     deleteStore().then((data) => {
       if (data.msg === "ok") {
-        clearMyStore();
-        toast.success("정상적으로 삭제되었습니다.");
+        refetch().then(() => {
+          toast.success("정상적으로 삭제되었습니다.");
+        });
       }
     });
   };

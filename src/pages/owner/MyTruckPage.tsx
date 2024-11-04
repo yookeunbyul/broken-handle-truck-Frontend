@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { Map } from "react-kakao-maps-sdk";
-import { getMyStore } from "../../apis/store";
 import useTitleStore from "../../store/titleStore";
 import useFadeNavigate from "../../hooks/useFadeNavigate";
+import useMyStore from "../../hooks/useMyStore.ts";
 import Button from "../../components/button";
 import NoReview from "../../components/NoReview";
 import EditStore from "../../components/EditStore";
@@ -10,28 +10,25 @@ import Comment from "../../components/Comment.tsx";
 import MapMarker from "../../components/map/MapMarker.tsx";
 import Logo from "../../assets/images/pinkLogo.svg?react";
 import MessageSquare from "../../assets/images/messageSquare.svg?react";
-import type { IStore } from "../../types/store";
-import type { IComment } from "../../types/comment";
 
 export default function MyTruckPage() {
   const mapRef = useRef<kakao.maps.Map | null>(null);
   const setTitle = useTitleStore((state) => state.setTitle);
   const navigate = useFadeNavigate();
 
-  const [myStore, setMyStore] = useState<IStore | null>(null);
-  const [comments, setComments] = useState<IComment[]>([]);
+  const { data, isLoading } = useMyStore();
 
   // resize될 때 marker를 가운데에 두기 위한 함수
   const handleUpdateMapCenter = useCallback(() => {
-    if (mapRef.current && myStore) {
+    if (mapRef.current && data?.store) {
       mapRef.current.setCenter(
         new window.kakao.maps.LatLng(
-          myStore.coordinates[1],
-          myStore.coordinates[0],
+          data.store.coordinates[1],
+          data.store.coordinates[0],
         ),
       );
     }
-  }, [myStore]);
+  }, [data?.store]);
 
   useEffect(() => {
     window.addEventListener("resize", handleUpdateMapCenter);
@@ -41,34 +38,46 @@ export default function MyTruckPage() {
   }, [handleUpdateMapCenter]);
 
   useEffect(() => {
-    getMyStore().then((data) => {
-      setMyStore(data.store);
-      if (data.store) {
+    // getMyStore().then((data) => {
+    //   setMyStore(data.store);
+    //   if (data.store) {
+    //     setTitle(data.store.name);
+    //     setComments(data.comments);
+    //   } else {
+    //     setTitle("내 가게");
+    //   }
+    // });
+    if (!isLoading) {
+      console.log(data?.store);
+      if (data) {
         setTitle(data.store.name);
-        setComments(data.comments);
       } else {
         setTitle("내 가게");
       }
-    });
-  }, []);
+    }
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <div></div>;
+  }
 
   return (
     <>
-      {myStore ? (
+      {data?.store ? (
         <div className="relative h-full flex flex-col">
           <div className="bg-review h-64 rounded-b-3xl">
             <Map
               className="w-full h-full rounded-b-3xl"
               center={{
-                lat: myStore.coordinates[1],
-                lng: myStore.coordinates[0],
+                lat: data.store.coordinates[1],
+                lng: data.store.coordinates[0],
               }}
               level={5}
             >
               <MapMarker
-                title={myStore.name}
-                category={myStore.category}
-                coordinates={myStore.coordinates}
+                title={data.store.name}
+                category={data.store.category}
+                coordinates={data.store.coordinates}
                 onClick={() => {}}
               />
             </Map>
@@ -78,10 +87,10 @@ export default function MyTruckPage() {
               카테고리
             </label>
             <div className="mt-2 w-full outline-none border-none rounded-lg bg-form p-3">
-              {myStore.category}
+              {data.store.category}
             </div>
           </div>
-          <Button defaultValue={myStore.paymentMethod} disabled />
+          <Button defaultValue={data.store.paymentMethod} disabled />
 
           <div className="flex w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto items-center gap-x-1 pt-11 mb-3">
             <MessageSquare width={16} height={16} />
@@ -90,9 +99,9 @@ export default function MyTruckPage() {
             </span>
           </div>
           <div className="w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto pb-11">
-            {comments.length !== 0 ? (
+            {data.comments.length !== 0 ? (
               <>
-                {comments.map((comment) => (
+                {data.comments.map((comment) => (
                   <Comment
                     key={`my-truck-comment_${comment._id}`}
                     {...comment}
@@ -106,7 +115,7 @@ export default function MyTruckPage() {
           <div className="sticky bottom-0 w-full bg-white z-10">
             {" "}
             {/* sticky로 변경 */}
-            <EditStore clearMyStore={() => setMyStore(null)} />
+            <EditStore />
           </div>
         </div>
       ) : (

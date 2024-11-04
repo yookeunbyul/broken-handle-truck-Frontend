@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { getMyStore } from "../../apis/store.ts";
 import useTitleStore from "../../store/titleStore";
 import { useMyLocation } from "../../hooks/useMyLocation";
 import Toggle from "../../components/Toggle";
 import InputSection from "../../components/register/InputSection";
 import RegisterButton from "../../components/register/RegisterButton";
+import useMyStore from "../../hooks/useMyStore.ts";
 
 type Coordinates = [number, number];
 
 export default function RegisterPage() {
   const { kakao } = window;
   const setTitle = useTitleStore((state) => state.setTitle);
+  const { data, isLoading } = useMyStore();
+
   const [mapCenter, setMapCenter] = useState<Coordinates>([126.99581, 37.5563]); // 위치 설정
   const [position, setPosition] = useState<{ lat: number; lng: number }>({
     lat: 0,
@@ -47,10 +49,10 @@ export default function RegisterPage() {
   };
 
   useEffect(() => {
-    setTitle("가게 등록");
-    myLocation();
-    getMyStore().then((data) => {
-      if (data.store) {
+    if (!isLoading) {
+      setTitle("가게 등록");
+      myLocation();
+      if (data?.store) {
         const { name, category, paymentMethod, isOpen, coordinates } =
           data.store;
         const [lon, lat] = coordinates;
@@ -62,8 +64,22 @@ export default function RegisterPage() {
         setPosition({ lat, lng: lon });
         getAddress(lat, lon);
       }
-    });
-  }, []);
+      // getMyStore().then((data) => {
+      //   if (data.store) {
+      //     const { name, category, paymentMethod, isOpen, coordinates } =
+      //       data.store;
+      //     const [lon, lat] = coordinates;
+      //     setName(name);
+      //     setCategory(category);
+      //     setPayment(paymentMethod);
+      //     setIsOpen(isOpen);
+      //     setMapCenter(coordinates);
+      //     setPosition({ lat, lng: lon });
+      //     getAddress(lat, lon);
+      //   }
+      // });
+    }
+  }, [isLoading]);
 
   return (
     <div>
