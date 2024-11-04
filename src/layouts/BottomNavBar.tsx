@@ -1,12 +1,13 @@
+import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
+import useFadeNavigate from "../hooks/useFadeNavigate.ts";
+import useNotificationStore from "../store/notificationStore.ts";
+import useStoresStore from "../store/storesStore.ts";
 import UserIcon from "../assets/images/user.svg?react";
 import StarIcon from "../assets/images/star.svg?react";
 import MapIcon from "../assets/images/map.svg?react";
 import DefaultCategoryIcon from "../assets/images/category.svg?react";
 import BellIcon from "../assets/images/bell.svg?react";
-import useFadeNavigate from "../hooks/useFadeNavigate.ts";
-import useStoresStore from "../store/storesStore.ts";
-import { useMemo } from "react";
 import { categoryImages } from "../assets/images/category";
 
 interface BottomNavBarProps {
@@ -21,6 +22,7 @@ const BottomNavBar = ({
   const navigate = useFadeNavigate();
   const { pathname } = useLocation();
   const { category } = useStoresStore();
+  const { isNewNotification } = useNotificationStore();
   const CategoryIcon = useMemo(
     () => (category ? categoryImages[category].component : DefaultCategoryIcon),
     [category],
@@ -56,7 +58,12 @@ const BottomNavBar = ({
         ].join(" ")}
         onClick={() => handleClick("/notification")}
       >
-        <BellIcon width={24} height={24} />
+        <div className="relative">
+          <BellIcon width={24} height={24} />
+          {isNewNotification && (
+            <div className="size-3 bg-primary rounded-full absolute -top-1.5 -right-1.5" />
+          )}
+        </div>
         <p>알림</p>
       </div>
       <div
