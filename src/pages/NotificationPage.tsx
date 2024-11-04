@@ -12,6 +12,7 @@ export default function NotificationPage() {
 
 	useEffect(() => {
 		setTitle('알림');
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -34,8 +35,8 @@ export default function NotificationPage() {
 					</div>
 					{notificationList.map((notification, idx) => (
 						<Message
-							onClick={() => postNotificationAsRead(notification._id)}
 							key={idx}
+							onClick={() => postNotificationAsRead(notification._id)}
 							data={notification}
 							ImgComponent={categoryImages[notification.sender.category].component}
 						/>
