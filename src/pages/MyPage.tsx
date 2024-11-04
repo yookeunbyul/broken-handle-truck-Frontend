@@ -7,7 +7,6 @@ import LogoIcon from "../assets/images/pinkLogo.svg?react";
 import MessageSquareIcon from "../assets/images/messageSquare.svg?react";
 import EditIcon from "../assets/images/edit2.svg?react";
 import CheckIcon from "../assets/images/check.svg?react";
-import type { IUser } from "../types/auth";
 import type { IMyComment } from "../types/comment";
 import Truck from "../assets/images/truck.svg?react";
 import { editNickname, logout, withdraw } from "../apis/auth.ts";
@@ -23,11 +22,6 @@ export default function MyPage() {
   const { setCategory } = useStoresStore();
   const navigate = useFadeNavigate();
   const { user: userInfo, setUser } = useUserStore();
-  // const [userInfo] = useState<IUser>({
-  //   _id: "111",
-  //   role: "",
-  //   nickname: "닉네임",
-  // });
   const [comments, setComments] = useState<IMyComment[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState("");
