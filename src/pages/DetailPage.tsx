@@ -93,7 +93,7 @@ export default function DetailPage() {
               {storeInfo.category}
             </div>
           </div>
-          <Button />
+          <Button defaultValue={storeInfo.paymentMethod} disabled />
         </div>
         <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] flex justify-start items-center gap-x-1 text-base mx-auto mb-3 pt-11">
           <MessageSquare width={16} height={16} />
