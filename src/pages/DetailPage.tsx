@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Map } from "react-kakao-maps-sdk";
 import { getStore } from "../apis/store.ts";
 import useTitleStore from "../store/titleStore.ts";
+import useComment from "../hooks/useComment.ts";
 import Button from "../components/button";
 import Comment from "../components/Comment";
 import NoReview from "../components/NoReview";
@@ -16,8 +17,8 @@ export default function DetailPage() {
   const mapRef = useRef<kakao.maps.Map | null>(null);
   const { id: storeId } = useParams<{ id: string }>();
   const { setTitle } = useTitleStore();
+  const { data, isLoading } = useComment<IComment>(storeId!);
   const [storeInfo, setStoreInfo] = useState<IStore | null>(null);
-  const [comments, setComments] = useState<IComment[]>([]);
 
   // resize될 때 marker를 가운데에 두기 위한 함수
   const handleUpdateMapCenter = useCallback(() => {
@@ -35,7 +36,7 @@ export default function DetailPage() {
     if (storeId) {
       getStore(storeId).then((data) => {
         setStoreInfo(data.store);
-        setComments(data.comments);
+        // setComments(data.comments);
         setTitle(data.store.name);
       });
     }
@@ -48,8 +49,13 @@ export default function DetailPage() {
     };
   }, [handleUpdateMapCenter]);
 
-  if (!storeInfo) {
+  if (!storeInfo || isLoading) {
     // 로딩
+    return <div></div>;
+  }
+
+  if (!data?.comments) {
+    // 404
     return <div></div>;
   }
 
@@ -92,21 +98,23 @@ export default function DetailPage() {
         <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] flex justify-start items-center gap-x-1 text-base mx-auto mb-3 pt-11">
           <MessageSquare width={16} height={16} />
           <span className="tracking-tight">
-            리뷰<strong className="text-primary"> {comments.length}</strong>개
+            리뷰
+            <strong className="text-primary"> {data.comments.length}</strong>개
           </span>
         </div>
-        {comments.length === 0 ? (
+        {data.comments.length === 0 ? (
           <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] mx-auto">
             <NoReview />
           </div>
         ) : (
           <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] mx-auto">
-            {comments.map((comment) => (
+            {data.comments.map((comment: IComment) => (
               <Comment
                 key={`comment_${comment._id}`}
                 id={comment._id}
                 name={comment.authorId.nickname}
                 authorId={comment.authorId._id}
+                targetId={storeId!}
                 createdAt={comment.createdAt}
                 content={comment.content}
               />

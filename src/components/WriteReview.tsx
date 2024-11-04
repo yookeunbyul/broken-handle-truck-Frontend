@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { postComment } from "../apis/comment.ts";
+import useComment from "../hooks/useComment.ts";
 import Edit from "../assets/images/edit.svg?react";
 
 export default function WriteReview() {
   const { id: storeId } = useParams<{ id: string }>();
+  const { refetch } = useComment(storeId!);
   const [content, setContent] = useState("");
 
   const handlePostComment = () => {
@@ -15,8 +17,10 @@ export default function WriteReview() {
     }
     if (storeId) {
       postComment({ content, storeId }).then(() => {
-        toast.success("리뷰가 등록되었습니다.");
-        setContent("");
+        refetch().then(() => {
+          toast.success("리뷰가 등록되었습니다.");
+          setContent("");
+        });
       });
     }
   };

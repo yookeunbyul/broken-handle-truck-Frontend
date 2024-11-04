@@ -1,11 +1,14 @@
 import { toast } from "react-toastify";
 import { deleteComment } from "../apis/comment.ts";
 import useUserStore from "../store/userStore.ts";
+import useComment from "../hooks/useComment.ts";
 import Delete from "../assets/images/delete.svg?react";
 
 interface CommentProps {
   id: string;
   authorId: string;
+  // 댓글 삭제 시 refetch를 보낼 target Id ({storeId} | 'me')
+  targetId: string;
   name: string;
   content: string;
   createdAt: string;
@@ -14,16 +17,20 @@ interface CommentProps {
 export default function Comment({
   id,
   authorId,
+  targetId,
   name,
   createdAt,
   content,
 }: CommentProps) {
   const { user } = useUserStore();
+  const { refetch } = useComment(targetId);
 
   const handleDeleteComment = () => {
     deleteComment({ commentId: id }).then((data) => {
       if (data.msg === "ok") {
-        toast.success("삭제되었습니다.");
+        refetch().then(() => {
+          toast.success("삭제되었습니다.");
+        });
       } else {
         toast.error(data.msg);
       }
