@@ -18,6 +18,6 @@ export const http = {
         return service.post(url, data && { ...data }).then((res) => res.data);
     },
     delete: function remove<T>(url: string): Promise<T> {
-        return service.delete(url);
+        return service.delete(url).then((res) => res.data);
     },
 };

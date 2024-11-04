@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { checkEmail, signup } from '../apis/auth.ts';
 import useFadeNavigate from '../hooks/useFadeNavigate.ts';
+import { toast } from 'react-toastify';
 
 interface SignUpFormData {
     email: string;
@@ -75,8 +76,10 @@ export default function SignUpPage() {
             setIsEmailChecked(false);
 
             //다시 login으로 이동
-            //회원가입이 완료되었습니다..toast 메세지가있으면 좋을듯?
-            navigate(`/login`);
+            toast.success('회원가입이 완료되었습니다.');
+            setTimeout(() => {
+                navigate('/login');
+            }, 0);
         }
     };
 
