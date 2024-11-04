@@ -83,7 +83,8 @@ export default function MyTruckPage() {
           <div className="flex w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto items-center gap-x-1 pt-11 mb-3">
             <MessageSquare width={16} height={16} />
             <span className="tracking-tighter pb-1">
-              고객님이 남겨준 리뷰(<strong className="text-primary">0</strong>)
+              고객님이 남겨준 리뷰(
+              <strong className="text-primary">{data.comments.length}</strong>)
             </span>
           </div>
           <div className="w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto pb-11">
