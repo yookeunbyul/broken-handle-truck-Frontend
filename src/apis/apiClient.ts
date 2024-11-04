@@ -1,13 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
 const service = axios.create({
-    baseURL: `${import.meta.env.VITE_API_URL}/api/`,
-    withCredentials: true,
-    timeout: 10000,
+  baseURL: `${import.meta.env.VITE_API_URL}/api/`,
+  withCredentials: true,
+  timeout: 10000,
 });
 
 service.interceptors.response.use(null, (error) => {
-    return error.response;
+  return error.response;
 });
 
 export const http = {

@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 
 interface SetData {
+  defaultValue?: string[];
   setValue?: (value: string[]) => void;
+  disabled?: boolean;
 }
 
-export default function Button({ setValue }: SetData) {
-  const defaultButton = `flex gap-x-4 hover:shadow-lg border rounded-lg text-base justify-center ease-in duration-300 py-1.5 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]`;
+export default function Button({
+  defaultValue,
+  setValue,
+  disabled = false,
+}: SetData) {
+  const defaultButton = `flex gap-x-4 hover:shadow-lg border rounded-lg text-base justify-center ease-in duration-300 py-1.5 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)] ${disabled ? "pointer-events-none" : ""}`;
 
   // 선택된 버튼들을 저장하는 배열
-  const [activeButtons, setActiveButtons] = useState<string[]>([]);
+  const [activeButtons, setActiveButtons] = useState<string[]>(
+    defaultValue || [],
+  );
 
   // 버튼 클릭 시 실행되는 함수
   const handleButtonClick = (button: string) => {
@@ -24,6 +32,10 @@ export default function Button({ setValue }: SetData) {
   useEffect(() => {
     if (setValue) setValue(activeButtons);
   }, [activeButtons, setValue]);
+
+  useEffect(() => {
+    setActiveButtons(defaultValue || []);
+  }, [defaultValue]);
 
   return (
     <div className="flex flex-col gap-1 mx-auto w-[calc(100%-80px)] sm:w-[calc(100%-250px)] ">

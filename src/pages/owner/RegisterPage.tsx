@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
-import useTitleStore from "../../store/titleStore";
-import Toggle from "../../components/Toggle";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import useTitleStore from "../../store/titleStore";
 import { useMyLocation } from "../../hooks/useMyLocation";
+import Toggle from "../../components/Toggle";
 import InputSection from "../../components/register/InputSection";
 import RegisterButton from "../../components/register/RegisterButton";
+import useMyStore from "../../hooks/useMyStore.ts";
 
 type Coordinates = [number, number];
 
 export default function RegisterPage() {
+  const mapRef = useRef<kakao.maps.Map | null>(null);
   const { kakao } = window;
   const setTitle = useTitleStore((state) => state.setTitle);
+  const { data, isLoading } = useMyStore();
+
   const [mapCenter, setMapCenter] = useState<Coordinates>([126.99581, 37.5563]); // 위치 설정
   const [position, setPosition] = useState<{ lat: number; lng: number }>({
     lat: 0,
@@ -21,7 +25,7 @@ export default function RegisterPage() {
   const [address, setAddress] = useState<string>(""); // 주소
   const [name, setName] = useState<string>(""); // 가게 이름
   const [category, setCategory] = useState<string>(""); // 음식 카테고리
-  const [payment, setPayment] = useState<string[]>([""]); // 결제 방식
+  const [payment, setPayment] = useState<string[]>([]); // 결제 방식
 
   const { myLocation } = useMyLocation(({ latitude, longitude }) => {
     setMapCenter([longitude, latitude]);
@@ -46,9 +50,38 @@ export default function RegisterPage() {
   };
 
   useEffect(() => {
-    setTitle("가게 등록");
-    myLocation();
-  }, []);
+    if (!isLoading) {
+      setTitle("가게 등록");
+      if (data?.store) {
+        const { name, category, paymentMethod, isOpen, coordinates } =
+          data.store;
+        const [lon, lat] = coordinates;
+        setName(name);
+        setCategory(category);
+        setPayment(paymentMethod);
+        setIsOpen(isOpen);
+        setMapCenter(coordinates);
+        setPosition({ lat, lng: lon });
+        getAddress(lat, lon);
+      } else {
+        myLocation();
+      }
+      // getMyStore().then((data) => {
+      //   if (data.store) {
+      //     const { name, category, paymentMethod, isOpen, coordinates } =
+      //       data.store;
+      //     const [lon, lat] = coordinates;
+      //     setName(name);
+      //     setCategory(category);
+      //     setPayment(paymentMethod);
+      //     setIsOpen(isOpen);
+      //     setMapCenter(coordinates);
+      //     setPosition({ lat, lng: lon });
+      //     getAddress(lat, lon);
+      //   }
+      // });
+    }
+  }, [isLoading]);
 
   return (
     <div>
@@ -79,7 +112,9 @@ export default function RegisterPage() {
         address={address}
         name={name}
         setName={setName}
+        category={category}
         setCategory={setCategory}
+        payment={payment}
         setPayment={setPayment}
       />
       <RegisterButton

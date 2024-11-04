@@ -1,5 +1,6 @@
 import { postStore } from "../../apis/store";
 import useFadeNavigate from "../../hooks/useFadeNavigate";
+import useMyStore from "../../hooks/useMyStore.ts";
 
 interface RegisterButtonProps {
   name: string;
@@ -20,6 +21,7 @@ export default function RegisterButton({
   isOpen,
 }: RegisterButtonProps) {
   const navigate = useFadeNavigate();
+  const { refetch } = useMyStore();
 
   const submitHandler = async () => {
     // console.log(category); // 카테고리
@@ -53,7 +55,9 @@ export default function RegisterButton({
     });
 
     if (res.msg === "ok") {
-      navigate(`/my-truck`);
+      refetch().then(() => {
+        navigate(`/my-truck`);
+      });
     }
   };
   return (
