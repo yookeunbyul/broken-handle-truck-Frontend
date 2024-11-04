@@ -78,7 +78,13 @@ export default function MyPage() {
 	useEffect(() => {
 		setTitle('마이페이지');
 		setNickname(userInfo?.nickname || '');
-		getMyComment().then((data) => setComments(data.comments));
+		getMyComment().then((data) => {
+			if (data.msg === 'ok') {
+				setComments(data.comments);
+			} else {
+				setComments([]);
+			}
+		});
 	}, [userInfo]);
 
 	return (
