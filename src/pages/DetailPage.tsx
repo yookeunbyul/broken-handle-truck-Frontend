@@ -104,6 +104,7 @@ export default function DetailPage() {
             {comments.map((comment) => (
               <Comment
                 key={`comment_${comment._id}`}
+                id={comment._id}
                 name={comment.authorId.nickname}
                 authorId={comment.authorId._id}
                 createdAt={comment.createdAt}

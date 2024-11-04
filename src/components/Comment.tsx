@@ -1,7 +1,10 @@
-import Delete from "../assets/images/delete.svg?react";
+import { toast } from "react-toastify";
+import { deleteComment } from "../apis/comment.ts";
 import useUserStore from "../store/userStore.ts";
+import Delete from "../assets/images/delete.svg?react";
 
 interface CommentProps {
+  id: string;
   authorId: string;
   name: string;
   content: string;
@@ -9,12 +12,23 @@ interface CommentProps {
 }
 
 export default function Comment({
+  id,
   authorId,
   name,
   createdAt,
   content,
 }: CommentProps) {
   const { user } = useUserStore();
+
+  const handleDeleteComment = () => {
+    deleteComment({ commentId: id }).then((data) => {
+      if (data.msg === "ok") {
+        toast.success("삭제되었습니다.");
+      } else {
+        toast.error(data.msg);
+      }
+    });
+  };
 
   return (
     <div className="bg-white tracking-tighter border-b-1 border-comment">
@@ -23,7 +37,7 @@ export default function Comment({
         <div className="flex gap-x-2 align-middle">
           <div className="text-category">{createdAt}</div>
           {user?._id === authorId && (
-            <button>
+            <button onClick={handleDeleteComment}>
               <Delete width={15} height={15} />
             </button>
           )}

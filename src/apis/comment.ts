@@ -32,6 +32,5 @@ export const postComment = async ({
   });
 
 // 댓글 삭제
-export const deleteComment = async ({ commentId }: DeleteCommentApiParams) => {
+export const deleteComment = async ({ commentId }: DeleteCommentApiParams) =>
   await http.delete<BaseApiResponse>(`/comment/${commentId}`);
-};
