@@ -1,6 +1,7 @@
 import { create, StateCreator } from 'zustand';
 import { INotification } from '../types/notification';
 import { getNotificationList, postNotificationAsRead, postNotificationAsReadAll } from '../apis/notification';
+import { toast } from 'react-toastify';
 
 interface Notification {
 	type: 'NEW_NOTIFICATION';
@@ -10,20 +11,20 @@ interface Notification {
 interface NotificationStore {
 	notificationList: INotification[];
 	isNewNotification: boolean;
+	isConnected: boolean;
+	manualClose: boolean;
 	initializeSocket: (userId: string) => void;
 	closeSocket: () => void;
-	addNotification: (notification: Notification) => void;
 	postAllAsRead: () => Promise<void>;
 	postNotificationAsRead: (notification: string) => void;
+	setManualClose: (value: boolean) => void;
 }
 
-const notificationStore: StateCreator<NotificationStore> = (set) => {
+const notificationStore: StateCreator<NotificationStore> = (set, get) => {
 	let socket: WebSocket | null = null;
-	let isConnected = false;
 
 	const connectSocket = (userId: string) => {
-		if (isConnected) {
-			console.log('이미 WebSocket이 연결되어있습니다.');
+		if (get().isConnected || get().manualClose) {
 			return;
 		}
 
@@ -32,56 +33,62 @@ const notificationStore: StateCreator<NotificationStore> = (set) => {
 		const wsURL = apiURL === 'product' ? `${apiURL}?userId=${userId}` : `ws${customURL}?userId=${userId}`;
 
 		socket = new WebSocket(wsURL);
-		isConnected = true;
+		set({ isConnected: true, manualClose: false });
 
 		socket.onopen = () => {
-			console.log('WebSocket이 연결되었습니다.');
+			console.log('Websocket이 연결되었습니다.');
 		};
 
 		socket.onmessage = (event) => {
 			const newNotification = JSON.parse(event.data) as Notification;
 
 			set((state) => ({
-				notificationList: [...state.notificationList, newNotification.data],
+				notificationList: [newNotification.data, ...state.notificationList],
 				isNewNotification: true,
 			}));
+
+			toast.success('알림이 도착했습니다.');
 		};
 
 		socket.onclose = () => {
-			console.log('Websocket 연결이 닫혔습니다. 재연결을 시도합니다.');
-			isConnected = false;
+			set({ isConnected: false });
 			socket = null;
-			setTimeout(() => connectSocket(userId), 1000);
+
+			if (!get().manualClose) {
+				setTimeout(() => connectSocket(userId), 1000);
+			}
 		};
 
 		socket.onerror = (error) => {
 			console.error('Websocket 오류 발생:', error);
-			isConnected = false;
+			set({ isConnected: false });
 			socket?.close();
 			socket = null;
-			setTimeout(() => connectSocket(userId), 1000);
+
+			if (!get().manualClose) {
+				setTimeout(() => connectSocket(userId), 1000);
+			}
 		};
 	};
 
 	return {
 		notificationList: [],
 		isNewNotification: false,
-
-		addNotification: (notification) => {
-			set((state) => ({
-				notificationList: [...state.notificationList, notification.data],
-				isNewNotification: true,
-			}));
-		},
+		isConnected: false,
+		manualClose: false,
 
 		initializeSocket: async (userId) => {
+			// 수동 종료 상태가 아닐 때만 소켓 초기화
+			if (get().manualClose || get().isConnected) return;
+
 			const data = await getNotificationList();
-			const unreadNotifications = data.notifications || [];
+			const unreadNotifications = (data.notifications || []).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 			set({
 				notificationList: unreadNotifications,
 				isNewNotification: unreadNotifications.length > 0,
 			});
 
+			// 기존에 열려 있는 소켓이 있다면 닫기
 			if (socket) {
 				socket.close();
 				socket = null;
@@ -92,11 +99,9 @@ const notificationStore: StateCreator<NotificationStore> = (set) => {
 
 		closeSocket: () => {
 			if (socket) {
+				set({ manualClose: true, isConnected: false });
 				socket.close();
 				socket = null;
-				isConnected = false;
-				console.log('WebSocket이 닫혔습니다.');
-				// Toast 메시지 추가
 			}
 		},
 
@@ -108,9 +113,9 @@ const notificationStore: StateCreator<NotificationStore> = (set) => {
 					notificationList: [],
 					isNewNotification: false,
 				});
-				// 성공 Toast 메시지 추가
+				toast.success('모든 알림을 읽음 처리 하였습니다.');
 			} else {
-				// 실패 Toast 메시지 추가
+				toast.error(`${res.msg}`);
 			}
 		},
 
@@ -119,15 +124,17 @@ const notificationStore: StateCreator<NotificationStore> = (set) => {
 
 			if (res.msg === 'ok') {
 				set((state) => ({
-					notificationList: state.notificationList.filter(
-						(notification) => notification._id !== notificationId // 읽은 알림 제거
-					),
+					notificationList: state.notificationList.filter((notification) => notification._id !== notificationId),
 					isNewNotification: state.notificationList.some((notification) => notification._id !== notificationId),
 				}));
-				// 성공 Toast 메시지 추가
+				toast.success('읽음 처리 되었습니다.');
 			} else {
-				// 실패 Toast 메시지 추가
+				toast.error(`${res.msg}`);
 			}
+		},
+
+		setManualClose: (value: boolean) => {
+			set({ manualClose: value });
 		},
 	};
 };
