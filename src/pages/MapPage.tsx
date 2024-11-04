@@ -114,14 +114,17 @@ export default function MapPage() {
                     </button>
                 )}
                 {/* 영업 여부 토글은 로그인 여부에 따라서 달라짐 */}
-                <div className="absolute flex items-center justify-between bottom-24 z-10 left-1/2 -translate-x-1/2 w-[calc(100%-50px)] sm:w-[calc(100%-200px)]">
-                    <MyLocation setMapCenter={handleLocationChange} />
-                    {user?.role === 'owner' && (
-                        <Toggle text={{ on: '영업중', off: '영업 종료' }} setValue={setIsOpen} />
-                    )}
-                </div>
+                {clickMarker ? null : (
+                    <div className="absolute flex items-center justify-between bottom-24 z-10 left-1/2 -translate-x-1/2 w-[calc(100%-50px)] sm:w-[calc(100%-200px)]">
+                        <MyLocation setMapCenter={handleLocationChange} />
+                        {user?.role === 'owner' && (
+                            <Toggle text={{ on: '영업중', off: '영업 종료' }} setValue={setIsOpen} />
+                        )}
+                    </div>
+                )}
+
                 {clickMarker ? (
-                    <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-[calc(100%-50px)] sm:w-[calc(100%-200px)] mx-auto ">
+                    <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-[calc(100%-50px)] sm:w-[calc(100%-280px)] mx-auto ">
                         <Card
                             isOpen={clickMarker.isOpen}
                             info={{

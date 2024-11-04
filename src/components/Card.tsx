@@ -23,20 +23,24 @@ export default function Card({ isOpen = false, info, bg = 'black' }: CardProps) 
 
     return (
         <div
-            className={`bg-${bg} w-full rounded-2xl px-6 pb-8 pt-5 flex flex-col gap-y-5 ${
+            className={`bg-${bg} w-full rounded-2xl px-6 pt-4 pb-7 flex flex-col gap-y-8 ${
                 bg === 'white' ? 'drop-shadow-lg' : null
             }`}
         >
             <div className="tracking-tight flex gap-x-3">
                 <div className="flex-none flex items-center justify-center">
-                    {ImgComponent && <ImgComponent width={75} height={75} />}
+                    {ImgComponent && <ImgComponent width={60} height={60} />}
                 </div>
-                <div className="flex flex-col justify-center gap-y-2">
-                    <div className="text-xs text-category">{info.category}</div>
-                    <div className={`${bg === 'white' ? 'text-black' : 'text-white'} font-bold text-base`}>
+                <div className="flex flex-col justify-center">
+                    <div className="text-xs text-category mb-1">{info.category}</div>
+                    <div
+                        className={`${
+                            bg === 'white' ? 'text-black' : 'text-white'
+                        } font-bold text-base whitespace-nowrap`}
+                    >
                         {info.name}
                     </div>
-                    <div className="gap-x-1 text-xs text-category bg-count px-2 py-1 rounded-2xl whitespace-nowrap inline-flex max-w-fit">
+                    <div className="gap-x-1 text-xs text-category bg-count px-2 py-1 rounded-2xl whitespace-nowrap inline-flex max-w-fit mt-2">
                         <span>최근 방문</span>
                         <span className="text-white">{info.visited}명</span>
                     </div>
