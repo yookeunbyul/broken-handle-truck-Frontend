@@ -77,7 +77,9 @@ export default function SignUpPage() {
 
             //다시 login으로 이동
             toast.success('회원가입이 완료되었습니다.');
-            navigate(`/login`);
+            setTimeout(() => {
+                navigate('/login');
+            }, 0);
         }
     };
 
