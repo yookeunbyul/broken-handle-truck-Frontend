@@ -4,13 +4,18 @@ import useFadeNavigate from "../../hooks/useFadeNavigate";
 import useMyStore from "../../hooks/useMyStore.ts";
 
 interface RegisterButtonProps {
+  // 식당(트럭_) 이름
   name: string;
+  // 카테고리
   category: string;
+  // 위도 경도
   position: {
     lat: number;
     lng: number;
   };
+  // 결제 방식
   payment: string[];
+  // 오픈 여부
   isOpen: boolean;
 }
 
@@ -25,12 +30,6 @@ export default function RegisterButton({
   const { refetch } = useMyStore();
 
   const submitHandler = async () => {
-    // console.log(category); // 카테고리
-    // console.log(name); // 식당(트럭_) 이름
-    // console.log(position); // 위도 경도
-    // console.log(payment); // 결제 방식
-    // console.log(isOpen); // 오픈 여부
-
     // 값이 비어 있는지 검사
     if (
       !name ||
@@ -42,7 +41,6 @@ export default function RegisterButton({
       payment.length === 0
     ) {
       toast.error("모든 입력 요소를 채워주세요");
-      // alert("모든 입력 요소를 채워주세요");
       return; // 값이 비어 있으면 함수 실행을 종료
     }
 
