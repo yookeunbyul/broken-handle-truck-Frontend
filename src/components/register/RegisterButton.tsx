@@ -56,7 +56,7 @@ export default function RegisterButton({
 
     if (res.msg === "ok") {
       refetch().then(() => {
-        navigate(`/my-truck`);
+        navigate(`/my-truck`, { replace: true });
         toast.success("저장되었습니다.");
       });
     }
