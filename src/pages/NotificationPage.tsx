@@ -43,7 +43,7 @@ export default function NotificationPage() {
                 </div>
             ) : (
                 <div className="h-full flex justify-center items-center mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
-                    <div className="flex flex-col gap-y-2 justify-center items-center">
+                    <div className="flex flex-col gap-y-2 justify-center items-center tracking-tighter">
                         <Logo width={130} height={130} />
                         <div className="text-center text-2xl sm:text-3xl font-point">
                             받은 알림이 없습니다.
