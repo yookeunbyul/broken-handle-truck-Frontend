@@ -65,20 +65,6 @@ export default function RegisterPage() {
       } else {
         myLocation();
       }
-      // getMyStore().then((data) => {
-      //   if (data.store) {
-      //     const { name, category, paymentMethod, isOpen, coordinates } =
-      //       data.store;
-      //     const [lon, lat] = coordinates;
-      //     setName(name);
-      //     setCategory(category);
-      //     setPayment(paymentMethod);
-      //     setIsOpen(isOpen);
-      //     setMapCenter(coordinates);
-      //     setPosition({ lat, lng: lon });
-      //     getAddress(lat, lon);
-      //   }
-      // });
     }
   }, [isLoading]);
 
