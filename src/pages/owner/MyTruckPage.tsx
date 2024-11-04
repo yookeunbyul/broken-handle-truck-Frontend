@@ -39,8 +39,7 @@ export default function MyTruckPage() {
 
   useEffect(() => {
     if (!isLoading) {
-      console.log(data?.store);
-      if (data) {
+      if (data && data.store) {
         setTitle(data.store.name);
       } else {
         setTitle("내 가게");
