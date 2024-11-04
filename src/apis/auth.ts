@@ -38,3 +38,8 @@ export const getAuthValidation = async (): Promise<AuthApiResonse> => await http
  * 로그아웃
  */
 export const logout = async (): Promise<BaseApiResponse> => await http.post<BaseApiResponse>('/auth/logout');
+
+/**
+ * 탈퇴하기
+ */
+export const withdraw = async (): Promise<BaseApiResponse> => await http.delete<BaseApiResponse>('/auth/delete');
