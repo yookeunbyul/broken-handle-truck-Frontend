@@ -102,7 +102,13 @@ export default function DetailPage() {
         ) : (
           <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] mx-auto">
             {comments.map((comment) => (
-              <Comment key={`comment_${comment._id}`} {...comment} />
+              <Comment
+                key={`comment_${comment._id}`}
+                name={comment.authorId.nickname}
+                authorId={comment.authorId._id}
+                createdAt={comment.createdAt}
+                content={comment.content}
+              />
             ))}
           </div>
         )}

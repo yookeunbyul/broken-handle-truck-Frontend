@@ -6,6 +6,7 @@ import type {
   CommentApiResponse,
   PostCommentApiParams,
   DeleteCommentApiParams,
+  MyCommentApiResponse,
 } from "../types/comment";
 
 // 댓글 조회
@@ -15,6 +16,10 @@ export const getComment = async ({
   await http.get<CommentApiResponse, GetCommentApiParams>(`/comment`, {
     storeId,
   });
+
+// 내가 쓴 댓글 조회
+export const getMyComment = async () =>
+  await http.get<MyCommentApiResponse>("/comment/myComments");
 
 // 댓글 등록(post)
 export const postComment = async ({

@@ -1,22 +1,32 @@
 import Delete from "../assets/images/delete.svg?react";
-import { IComment } from "../types/comment";
+import useUserStore from "../store/userStore.ts";
 
-type CommentProps = IComment;
+interface CommentProps {
+  authorId: string;
+  name: string;
+  content: string;
+  createdAt: string;
+}
 
 export default function Comment({
   authorId,
+  name,
   createdAt,
   content,
 }: CommentProps) {
+  const { user } = useUserStore();
+
   return (
     <div className="bg-white tracking-tighter border-b-1 border-comment">
       <div className="flex justify-between py-3 text-xs ">
-        <div className="font-bold text-black">{authorId.nickname}</div>
+        <div className="font-bold text-black">{name}</div>
         <div className="flex gap-x-2 align-middle">
           <div className="text-category">{createdAt}</div>
-          <button>
-            <Delete width={15} height={15} />
-          </button>
+          {user?._id === authorId && (
+            <button>
+              <Delete width={15} height={15} />
+            </button>
+          )}
         </div>
       </div>
       <div className="py-5 text-sm text-black text-left">{content}</div>
