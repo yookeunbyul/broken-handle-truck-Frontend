@@ -82,6 +82,8 @@ export default function MapPage() {
     }
   }, [mapCenter]);
 
+  console.log(clickMarker?._id);
+
   return (
     <>
       <Map
@@ -133,7 +135,7 @@ export default function MapPage() {
             <Card
               isOpen={clickMarker.isOpen}
               info={{
-                id: clickMarker._id,
+                storeId: clickMarker._id,
                 category: clickMarker.category,
                 name: clickMarker.name,
                 visited: clickMarker.commentCount,

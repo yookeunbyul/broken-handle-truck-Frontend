@@ -8,19 +8,22 @@ import { postBookmark, getBookmark } from "../apis/bookmark.ts";
 interface CardProps {
   isOpen: boolean;
   info: {
-    id: string;
+    storeId: string;
     category: string;
     name: string;
-    visited: number;
+    visited?: number;
+    comments?: number;
   };
   bg: string;
 }
 
 interface BookmarkItem {
+  id?: string;
   comments: number;
   name: string;
   isOpen: boolean;
   category: string;
+  storeId: string;
 }
 
 export default function Card({
@@ -28,34 +31,35 @@ export default function Card({
   info,
   bg = "black",
 }: CardProps) {
+  const visitOrComments = info.visited ?? info.comments ?? 0; // 방문자 수
   const navigate = useFadeNavigate();
   const ImgComponent =
     // 이후 categoryImages[info.category].component 로 수정 필요
     categoryImages[categories.includes(info.category) ? info.category : "기타"]
       .component;
 
-  const [bookmark, setBookmark] = useState<BookmarkItem[]>();
+  const [bookmark, setBookmark] = useState<BookmarkItem[]>([]);
   const [isBookmarked, setIsBookMarked] = useState<boolean>(false);
 
   // get 모든 북마크 데이터 저장
   useEffect(() => {
     const getBookmarkData = async () => {
       const res = await getBookmark();
+      console.log(res);
+      console.log(info);
 
-      setBookmark(res.bookmarks);
+      setBookmark(res.bookmarks as BookmarkItem[]);
     };
 
     getBookmarkData();
   }, []);
 
+  // 북마크 여부에 따라 별 반응 (색 채우고, 안 채우고)
   useEffect(() => {
     const checkIfBookmarked = () => {
       if (bookmark) {
         const matched = bookmark.some(
-          (place) =>
-            place.category === info.category &&
-            place.name === info.name &&
-            place.comments === info.visited
+          (place) => place.storeId === info.storeId
         );
 
         setIsBookMarked(matched);
@@ -65,11 +69,13 @@ export default function Card({
     checkIfBookmarked();
   }, [bookmark, info]);
 
-  // 북마크 토글 함수
+  console.log(isBookmarked);
+
+  // 북마크 post 함수 (등록/삭제)
   const handleBookmarkToggle = async (storeId: string) => {
     await postBookmark({ storeId });
     const updatedBookmarks = await getBookmark(); // 북마크 상태 최신화
-    setBookmark(updatedBookmarks.bookmarks); // bookmark 상태 업데이트
+    setBookmark(updatedBookmarks.bookmarks as BookmarkItem[]); // bookmark 상태 업데이트
   };
 
   return (
@@ -93,14 +99,14 @@ export default function Card({
           </div>
           <div className="gap-x-1 text-xs text-category bg-count px-2 py-1 rounded-2xl whitespace-nowrap inline-flex max-w-fit">
             <span>최근 방문</span>
-            <span className="text-white">{info.visited}명</span>
+            <span className="text-white">{visitOrComments}명</span>
           </div>
         </div>
         <div className="flex-1 flex flex-col gap-y-2 pt-2">
           <div className="flex justify-end">
             <BookMarkButton
               isBookmarked={isBookmarked}
-              onClick={() => handleBookmarkToggle(info.id)}
+              onClick={() => handleBookmarkToggle(info.storeId)}
               size={30}
             />
           </div>
@@ -123,7 +129,7 @@ export default function Card({
       <div className="text-right">
         <button
           className="text-right bg-primary py-2 px-3 tracking-tight rounded-md text-white font-bold text-sm"
-          onClick={() => navigate(`/detail/${info.id}`)}
+          onClick={() => navigate(`/detail/${info.storeId}`)}
         >
           자세히 보기
         </button>
