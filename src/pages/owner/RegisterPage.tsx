@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import useTitleStore from '../../store/titleStore';
 import { useMyLocation } from '../../hooks/useMyLocation';
-import Toggle from '../../components/Toggle';
 import InputSection from '../../components/register/InputSection';
 import RegisterButton from '../../components/register/RegisterButton';
 import useMyStore from '../../hooks/useMyStore.ts';
@@ -85,9 +84,6 @@ export default function RegisterPage() {
                 >
                     {position && <MapMarker position={position} />}
                 </Map>
-                <div className="flex justify-end absolute bottom-3 z-10 w-[calc(100%-80px)] sm:w-[calc(100%-240px)] left-1/2 -translate-x-1/2">
-                    <Toggle text={{ on: '영업중', off: '영업 종료' }} setValue={setIsOpen} />
-                </div>
             </div>
             <InputSection
                 address={address}

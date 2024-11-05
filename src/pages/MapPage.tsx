@@ -30,9 +30,6 @@ export default function MapPage() {
     // 초기 위치 설정
     const [mapCenter, setMapCenter] = useState<Coordinates>([126.99581, 37.5563]);
 
-    // 사장님의경우!!!!! 사장님가게 Open 여부
-    const [isOpen, setIsOpen] = useState(false);
-
     const { user } = useUserStore();
     const { setLocation } = useStoresStore();
     const { data: storeList = [] } = useFetchStores();
@@ -67,7 +64,6 @@ export default function MapPage() {
     // 처음 로드될 때 내 위치로 이동
     useEffect(() => {
         myLocation();
-        console.log(isOpen);
     }, []);
 
     // mapCenter가 업데이트될 때마다 지도 중심 이동
@@ -117,9 +113,7 @@ export default function MapPage() {
                 {clickMarker ? null : (
                     <div className="absolute flex items-center justify-between bottom-24 z-10 left-1/2 -translate-x-1/2 w-[calc(100%-50px)] sm:w-[calc(100%-200px)]">
                         <MyLocation setMapCenter={handleLocationChange} />
-                        {user?.role === 'owner' && (
-                            <Toggle text={{ on: '영업중', off: '영업 종료' }} setValue={setIsOpen} />
-                        )}
+                        {user?.role === 'owner' && <Toggle text={{ on: '영업중', off: '영업 종료' }} />}
                     </div>
                 )}
 
