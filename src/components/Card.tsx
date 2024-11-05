@@ -29,7 +29,7 @@ interface BookmarkItem {
 }
 
 export default function Card({ info, bg = 'black', onBookmarkToggle }: CardProps) {
-    // const visitOrComments = info.visited ?? info.comments ?? 0; // 방문자 수
+    const visitOrComments = info.visited ?? info.comments ?? 0; // 방문자 수
     const navigate = useFadeNavigate();
     const ImgComponent =
         // 이후 categoryImages[info.category].component 로 수정 필요
@@ -96,7 +96,7 @@ export default function Card({ info, bg = 'black', onBookmarkToggle }: CardProps
                     </div>
                     <div className="gap-x-1 text-xs text-category bg-count px-2 py-1 rounded-2xl whitespace-nowrap inline-flex max-w-fit mt-2">
                         <span>최근 방문</span>
-                        <span className="text-white">{info.visited}명</span>
+                        <span className="text-white">{visitOrComments}명</span>
                     </div>
                 </div>
                 <div className="flex-1 flex flex-col gap-y-2 pt-2">
