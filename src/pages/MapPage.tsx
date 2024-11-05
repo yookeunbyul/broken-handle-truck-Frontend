@@ -4,6 +4,7 @@ import { useMyLocation } from "../hooks/useMyLocation";
 import useUserStore from "../store/userStore";
 import useStoresStore from "../store/storesStore";
 import useMapLocationStore from "../store/mapLocationStore.ts";
+import useNotificationStore from "../store/notificationStore.ts";
 import useFetchStores from "../hooks/useFetchStores";
 import Toggle from "../components/Toggle";
 import Search from "../components/map/Search";
@@ -23,6 +24,7 @@ export interface Marker extends IStore {
 
 export default function MapPage() {
   const { lat, lon, setLocation: setMapLocation } = useMapLocationStore();
+  const { notificationList } = useNotificationStore();
 
   // 맵 옮겼는지 여부
   const [isMapMove, setIsMapMove] = useState(false);
@@ -35,7 +37,7 @@ export default function MapPage() {
 
   const { user } = useUserStore();
   const { setLocation } = useStoresStore();
-  const { data: storeList = [] } = useFetchStores();
+  const { data: storeList = [], refetch } = useFetchStores();
 
   const mapRef = useRef<kakao.maps.Map | null>(null);
 
@@ -92,6 +94,11 @@ export default function MapPage() {
   useEffect(() => {
     updateMapCenter();
   }, [mapCenter]);
+
+  // 알림이 발생하면 storeList 다시 불러오기
+  useEffect(() => {
+    refetch();
+  }, [notificationList]);
 
   return (
     <>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getBookmark } from "../apis/bookmark";
 import useTitleStore from "../store/titleStore";
+import useNotificationStore from "../store/notificationStore.ts";
 import Card from "../components/Card";
 import Heart from "../assets/images/heart.svg?react";
 import NoBookMark from "../components/bookmark/NoBookMark";
@@ -18,6 +19,7 @@ interface BookmarkItem {
 
 export default function BookMarkPage() {
   const setTitle = useTitleStore((state) => state.setTitle);
+  const { notificationList } = useNotificationStore();
   const [bookmark, setBookmark] = useState<BookmarkItem[]>([]);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export default function BookMarkPage() {
     };
 
     getBookmarkData();
-  }, []);
+  }, [notificationList]);
 
   // 북마크 상태 업데이트 함수
   const handleBookmarkToggle = (storeId: string) => {
