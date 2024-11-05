@@ -5,8 +5,8 @@ import Card from "../components/Card";
 import Heart from "../assets/images/heart.svg?react";
 import NoBookMark from "../components/bookmark/NoBookMark";
 
-// console.log(myBookMark);
-
+// _id는 북마크 아이디
+// storeId는 스토어 아이디
 interface BookmarkItem {
   id: string;
   storeId: string;
@@ -15,9 +15,6 @@ interface BookmarkItem {
   isOpen: boolean;
   category: string;
 }
-
-// _id는 북마크 아이디
-// storeId는 스토어 아이디
 
 export default function BookMarkPage() {
   const setTitle = useTitleStore((state) => state.setTitle);
@@ -32,14 +29,11 @@ export default function BookMarkPage() {
     const getBookmarkData = async () => {
       const res = await getBookmark();
 
-      console.log(res.bookmarks);
       setBookmark(res.bookmarks as BookmarkItem[]);
     };
 
     getBookmarkData();
   }, []);
-
-  console.log(bookmark);
 
   return (
     <>

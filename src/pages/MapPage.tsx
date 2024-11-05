@@ -82,8 +82,6 @@ export default function MapPage() {
     }
   }, [mapCenter]);
 
-  console.log(clickMarker?._id);
-
   return (
     <>
       <Map

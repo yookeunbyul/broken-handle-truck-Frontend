@@ -45,8 +45,6 @@ export default function Card({
   useEffect(() => {
     const getBookmarkData = async () => {
       const res = await getBookmark();
-      console.log(res);
-      console.log(info);
 
       setBookmark(res.bookmarks as BookmarkItem[]);
     };
@@ -68,8 +66,6 @@ export default function Card({
 
     checkIfBookmarked();
   }, [bookmark, info]);
-
-  console.log(isBookmarked);
 
   // 북마크 post 함수 (등록/삭제)
   const handleBookmarkToggle = async (storeId: string) => {
