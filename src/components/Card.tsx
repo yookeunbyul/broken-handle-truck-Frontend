@@ -15,6 +15,8 @@ interface CardProps {
     comments?: number;
   };
   bg: string;
+
+  onBookmarkToggle?: (storeId: string, isBookmarked: boolean) => void; // 토글 시 부모에게 알림
 }
 
 interface BookmarkItem {
@@ -30,6 +32,7 @@ export default function Card({
   isOpen = false,
   info,
   bg = "black",
+  onBookmarkToggle,
 }: CardProps) {
   const visitOrComments = info.visited ?? info.comments ?? 0; // 방문자 수
   const navigate = useFadeNavigate();
@@ -72,6 +75,11 @@ export default function Card({
     await postBookmark({ storeId });
     const updatedBookmarks = await getBookmark(); // 북마크 상태 최신화
     setBookmark(updatedBookmarks.bookmarks as BookmarkItem[]); // bookmark 상태 업데이트
+
+    setIsBookMarked((prev) => !prev); // 로컬 상태 업데이트
+    if (onBookmarkToggle) {
+      onBookmarkToggle(info.storeId, !isBookmarked); // onBookmarkToggle이 있을 때만 호출
+    }
   };
 
   return (

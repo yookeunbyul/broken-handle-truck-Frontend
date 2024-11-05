@@ -35,6 +35,13 @@ export default function BookMarkPage() {
     getBookmarkData();
   }, []);
 
+  // 북마크 상태 업데이트 함수
+  const handleBookmarkToggle = (storeId: string) => {
+    setBookmark((prev) => {
+      return prev.filter((item) => item.storeId !== storeId); // 기존 북마크 삭제
+    });
+  };
+
   return (
     <>
       {bookmark.length >= 1 ? (
@@ -49,7 +56,12 @@ export default function BookMarkPage() {
           </p>
           {bookmark.map((data) => (
             <div key={data.name} className="flex flex-col">
-              <Card isOpen={data.isOpen} info={data} bg="white" />
+              <Card
+                isOpen={data.isOpen}
+                info={data}
+                bg="white"
+                onBookmarkToggle={handleBookmarkToggle}
+              />
             </div>
           ))}
         </div>
