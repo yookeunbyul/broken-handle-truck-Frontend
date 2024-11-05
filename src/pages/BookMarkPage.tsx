@@ -45,7 +45,7 @@ export default function BookMarkPage() {
     return (
         <>
             {bookmark.length >= 1 ? (
-                <div className="flex py-11 flex-col gap-y-8 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
+                <div className="flex py-11 flex-col gap-y-8 mx-auto w-[calc(100%-50px)] sm:w-[calc(100%-230px)]">
                     <p className="flex items-center">
                         <Heart width={18} height={18} />
                         <strong className="px-1 tracking-tight text-lg">나만의 푸드트럭</strong>
@@ -59,7 +59,7 @@ export default function BookMarkPage() {
                     ))}
                 </div>
             ) : (
-                <div className="h-full flex justify-center items-center mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
+                <div className="h-full flex justify-center items-center mx-auto w-[calc(100%-50px)] sm:w-[calc(100%-230px)]">
                     <NoBookMark />
                 </div>
             )}
