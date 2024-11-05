@@ -17,11 +17,13 @@
 
 body:has(.react-modal-sheet-container) {
   overflow: hidden !important;
+  pointer-events: none;
 }
 body:has(.react-modal-sheet-container) .bottom-navbar {
   position: fixed;
   max-width: 768px !important;
   width: 100%;
+  pointer-events: auto;
 }
 
 /* 바텀시트 container를 담고있는 div의 z-index 변경 */

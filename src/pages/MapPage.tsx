@@ -3,6 +3,7 @@ import { Map } from "react-kakao-maps-sdk";
 import { useMyLocation } from "../hooks/useMyLocation";
 import useUserStore from "../store/userStore";
 import useStoresStore from "../store/storesStore";
+import useMapLocationStore from "../store/mapLocationStore.ts";
 import useFetchStores from "../hooks/useFetchStores";
 import Toggle from "../components/Toggle";
 import Search from "../components/map/Search";
@@ -13,7 +14,7 @@ import { categories } from "../constants/categories";
 import ReloadIcon from "../assets/images/reload.svg?react";
 import type { IStore } from "../types/store";
 
-type Coordinates = [number, number];
+type Coordinates = [longitude: number, latitude: number];
 
 export interface Marker extends IStore {
   commentCount: number;
@@ -21,6 +22,8 @@ export interface Marker extends IStore {
 }
 
 export default function MapPage() {
+  const { lat, lon, setLocation: setMapLocation } = useMapLocationStore();
+
   // 맵 옮겼는지 여부
   const [isMapMove, setIsMapMove] = useState(false);
 
@@ -29,9 +32,6 @@ export default function MapPage() {
 
   // 초기 위치 설정
   const [mapCenter, setMapCenter] = useState<Coordinates>([126.99581, 37.5563]);
-
-  // 사장님의경우!!!!! 사장님가게 Open 여부
-  const [isOpen, setIsOpen] = useState(false);
 
   const { user } = useUserStore();
   const { setLocation } = useStoresStore();
@@ -49,6 +49,7 @@ export default function MapPage() {
     longitude: number;
   }) => {
     setMapCenter([coords.longitude, coords.latitude]);
+    setMapLocation(coords.longitude, coords.latitude);
   };
 
   const updateStoreList = (lat: number, lon: number) => {
@@ -56,30 +57,40 @@ export default function MapPage() {
     setIsMapMove(false);
   };
 
+  const updateMapCenter = () => {
+    if (mapRef.current) {
+      const [longitude, latitude] = mapCenter;
+      mapRef.current.setCenter(
+        new window.kakao.maps.LatLng(latitude, longitude),
+      );
+      updateStoreList(latitude, longitude);
+    }
+  };
+
   const handleReloadStoreList = () => {
     if (mapRef.current) {
       const latlng = mapRef.current?.getCenter();
       if (latlng) {
-        const lon = latlng.getLng();
-        const lat = latlng.getLat();
-        updateStoreList(lat, lon);
+        const longitude = latlng.getLng();
+        const latitude = latlng.getLat();
+        updateStoreList(latitude, longitude);
+        setMapLocation(longitude, latitude);
       }
     }
   };
 
   // 처음 로드될 때 내 위치로 이동
   useEffect(() => {
-    myLocation();
-    console.log(isOpen);
+    if (!lon || !lat) {
+      myLocation();
+    } else {
+      setMapCenter([lon, lat]);
+    }
   }, []);
 
   // mapCenter가 업데이트될 때마다 지도 중심 이동
   useEffect(() => {
-    if (mapRef.current) {
-      const [lon, lat] = mapCenter;
-      mapRef.current.setCenter(new window.kakao.maps.LatLng(lat, lon));
-      updateStoreList(lat, lon);
-    }
+    updateMapCenter();
   }, [mapCenter]);
 
   return (
@@ -119,17 +130,17 @@ export default function MapPage() {
           </button>
         )}
         {/* 영업 여부 토글은 로그인 여부에 따라서 달라짐 */}
-        <div className="absolute flex items-center justify-between bottom-24 z-10 w-9/12 left-1/2 -translate-x-1/2">
-          <MyLocation setMapCenter={handleLocationChange} />
-          {user?.role === "owner" && (
-            <Toggle
-              text={{ on: "영업중", off: "영업 종료" }}
-              setValue={setIsOpen}
-            />
-          )}
-        </div>
+        {clickMarker ? null : (
+          <div className="absolute flex items-center justify-between bottom-24 z-10 left-1/2 -translate-x-1/2 w-[calc(100%-50px)] sm:w-[calc(100%-200px)]">
+            <MyLocation setMapCenter={handleLocationChange} />
+            {user?.role === "owner" && (
+              <Toggle text={{ on: "영업중", off: "영업 종료" }} />
+            )}
+          </div>
+        )}
+
         {clickMarker ? (
-          <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-full sm:w-9/12">
+          <div className="absolute inset-x-1/2 -translate-x-1/2 bottom-24 z-10 w-[calc(100%-50px)] sm:w-[calc(100%-280px)] mx-auto ">
             <Card
               isOpen={clickMarker.isOpen}
               info={{

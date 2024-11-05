@@ -28,17 +28,19 @@ export default function LoginPage() {
         if (response.msg === 'ok') {
             reset(); //form reset
             setUser(response.user);
-            //map으로 이동
-            navigate(`/map`);
         } else if (response.msg === '잘못된 이메일 또는 패스워드 입니다.') {
             reset();
             toast.error(`${response.msg}`);
         }
     };
 
+    const handleKakaoLogin = () => {
+        window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/kakao`;
+    };
+
     return (
         <div className="bg-black h-full flex flex-col justify-center items-center py-11">
-            <div className="w-full flex justify-center flex-col items-center flex-1">
+            <div className="flex justify-center flex-col items-center flex-1 mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-320px)]">
                 <p className="text-3xl font-point text-white py-11 tracking-tighter">로그인</p>
                 <form className="max-w-screen-sm w-full flex flex-col gap-16 sm:gap-24 py-11">
                     <div className="flex flex-col gap-8">
@@ -64,7 +66,7 @@ export default function LoginPage() {
                                         placeholder="example@gmail.com"
                                     />
                                     {invalid && (
-                                        <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1">
+                                        <p className="absolute top-full left-0 text-primary text-xs py-1">
                                             {formState.errors.email?.message}
                                         </p>
                                     )}
@@ -94,7 +96,7 @@ export default function LoginPage() {
                                     />
 
                                     {invalid && (
-                                        <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1">
+                                        <p className="absolute top-full left-0 text-primary text-xs py-1">
                                             {formState.errors.password?.message}
                                         </p>
                                     )}
@@ -115,6 +117,7 @@ export default function LoginPage() {
                 <button
                     type="button"
                     className="mb-4 bg-kakao tracking-tighter text-kakao-black py-5 rounded-lg font-bold relative w-full"
+                    onClick={handleKakaoLogin}
                 >
                     <KakaoIcon className="absolute left-4 top-1/2 -translate-y-1/2" width={24} height={24} />
                     카카오 로그인

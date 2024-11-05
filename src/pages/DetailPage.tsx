@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Map } from "react-kakao-maps-sdk";
 import { getStore } from "../apis/store.ts";
 import useTitleStore from "../store/titleStore.ts";
+import useComment from "../hooks/useComment.ts";
 import Button from "../components/button";
 import Comment from "../components/Comment";
 import NoReview from "../components/NoReview";
@@ -16,8 +17,8 @@ export default function DetailPage() {
   const mapRef = useRef<kakao.maps.Map | null>(null);
   const { id: storeId } = useParams<{ id: string }>();
   const { setTitle } = useTitleStore();
+  const { data, isLoading, refetch } = useComment<IComment>(storeId!);
   const [storeInfo, setStoreInfo] = useState<IStore | null>(null);
-  const [comments, setComments] = useState<IComment[]>([]);
 
   // resize될 때 marker를 가운데에 두기 위한 함수
   const handleUpdateMapCenter = useCallback(() => {
@@ -35,7 +36,6 @@ export default function DetailPage() {
     if (storeId) {
       getStore(storeId).then((data) => {
         setStoreInfo(data.store);
-        setComments(data.comments);
         setTitle(data.store.name);
       });
     }
@@ -48,8 +48,13 @@ export default function DetailPage() {
     };
   }, [handleUpdateMapCenter]);
 
-  if (!storeInfo) {
+  if (!storeInfo || isLoading) {
     // 로딩
+    return <div></div>;
+  }
+
+  if (!data?.comments) {
+    // 404
     return <div></div>;
   }
 
@@ -76,10 +81,10 @@ export default function DetailPage() {
               onClick={() => {}}
             />
           </Map>
-          <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] mx-auto h-full py-8 flex justify-end items-end"></div>
+          <div className="h-full py-8 flex justify-end items-end"></div>
         </div>
-        <div className="w-[calc(100%-45px)] flex flex-col gap-y-5 mx-auto my-10">
-          <div className="w-[calc(100%-100px)] sm:w-[calc(100%-200px)] mx-auto">
+        <div className="flex flex-col gap-y-5 mx-auto mt-10">
+          <div className="w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto">
             <label className="text-xs text-white/50 mix-blend-difference tracking-tight">
               카테고리
             </label>
@@ -87,22 +92,31 @@ export default function DetailPage() {
               {storeInfo.category}
             </div>
           </div>
-          <Button />
+          <Button defaultValue={storeInfo.paymentMethod} disabled />
         </div>
-        <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] flex justify-start items-center gap-x-1 text-base mx-auto mb-3 pt-11">
+        <div className="flex justify-start items-center gap-x-1 text-base mx-auto mb-3 pt-11 w-[calc(100%-80px)] sm:w-[calc(100%-250px)]">
           <MessageSquare width={16} height={16} />
           <span className="tracking-tight">
-            리뷰<strong className="text-primary"> {comments.length}</strong>개
+            리뷰
+            <strong className="text-primary"> {data.comments.length}</strong>개
           </span>
         </div>
-        {comments.length === 0 ? (
-          <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] mx-auto">
+        {data.comments.length === 0 ? (
+          <div className="w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto">
             <NoReview />
           </div>
         ) : (
-          <div className="w-[calc(100%-140px)] sm:w-[calc(100%-240px)] mx-auto">
-            {comments.map((comment) => (
-              <Comment key={`comment_${comment._id}`} {...comment} />
+          <div className="w-[calc(100%-80px)] sm:w-[calc(100%-250px)] mx-auto ">
+            {data.comments.map((comment: IComment) => (
+              <Comment
+                key={`comment_${comment._id}`}
+                id={comment._id}
+                name={comment.authorId.nickname}
+                authorId={comment.authorId._id}
+                refetch={refetch}
+                createdAt={comment.createdAt}
+                content={comment.content}
+              />
             ))}
           </div>
         )}

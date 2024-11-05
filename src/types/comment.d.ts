@@ -1,4 +1,5 @@
 import type { BaseApiResponse } from "./response";
+import type { IStore } from "./store";
 
 interface IAuthor {
   _id: string;
@@ -11,6 +12,14 @@ interface IComment {
   content: string;
   createdAt: string;
   authorId: IAuthor;
+}
+
+interface IMyComment {
+  _id: string;
+  authorId: string;
+  storeId: Pick<IStore, "category" | "name" | "_id">;
+  content: string;
+  createdAt: string;
 }
 
 interface ICommentPost {
@@ -30,6 +39,9 @@ interface GetCommentApiParams {
 interface CommentApiResponse extends BaseApiResponse {
   comments: IComment[];
 }
+interface MyCommentApiResponse extends BaseApiResponse {
+  comments: IMyComment[];
+}
 
 // Post /comment
 interface PostCommentApiParams {
@@ -44,9 +56,11 @@ interface DeleteCommentApiParams {
 
 export type {
   IComment,
+  IMyComment,
   ICommentPost,
   GetCommentApiParams,
   CommentApiResponse,
+  MyCommentApiResponse,
   PostCommentApiParams,
   DeleteCommentApiParams,
 };

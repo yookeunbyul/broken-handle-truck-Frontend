@@ -1,33 +1,45 @@
 import React, { useEffect } from 'react';
 import useUserStore from '../../store/userStore';
 import useFadeNavigate from '../../hooks/useFadeNavigate';
-import { Outlet, useLocation } from 'react-router-dom';
-import useAuthValidation from '../../hooks/useAuthValidation';
+import { Outlet } from 'react-router-dom';
+import useNotificationStore from '../../store/notificationStore';
+import { getAuthValidation } from '../../apis/auth';
 
 export default function AuthGaurd(): React.ReactElement {
 	const { setUser, user } = useUserStore();
 	const navigate = useFadeNavigate();
-	const location = useLocation();
-	const { data, isLoading } = useAuthValidation();
+	const { initializeSocket, closeSocket, manualClose, setManualClose } = useNotificationStore();
+
+	const validateAuth = async () => {
+		const data = await getAuthValidation();
+		if (data.msg === 'ok') {
+			setUser(data.user);
+		} else {
+			setUser(null);
+			navigate('/login');
+		}
+	};
 
 	useEffect(() => {
 		if (!user) {
-			if (!isLoading) {
-				if (data?.user) {
-					setUser(data.user);
-					if (location.pathname === '/login' || location.pathname === '/signup') {
-						navigate('/map');
-					}
-				} else {
-					if (!user) {
-						navigate('/login');
-					}
-				}
-			}
+			validateAuth();
 		}
-		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isLoading, data?.user]);
+	}, [user]);
+
+	useEffect(() => {
+		if (user) {
+			initializeSocket(user._id);
+		}
+	}, [user, manualClose, initializeSocket]);
+
+	useEffect(() => {
+		return () => {
+			closeSocket();
+			setManualClose(false);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return <Outlet />;
 }

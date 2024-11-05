@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { checkEmail, signup } from '../apis/auth.ts';
 import useFadeNavigate from '../hooks/useFadeNavigate.ts';
+import { toast } from 'react-toastify';
 
 interface SignUpFormData {
     email: string;
@@ -75,15 +76,20 @@ export default function SignUpPage() {
             setIsEmailChecked(false);
 
             //다시 login으로 이동
-            //회원가입이 완료되었습니다..toast 메세지가있으면 좋을듯?
-            navigate(`/login`);
+            toast.success('회원가입이 완료되었습니다.');
+            setTimeout(() => {
+                navigate('/login');
+            }, 0);
         }
     };
 
     return (
         <div className="bg-black h-full flex flex-col justify-center items-center gap-10 relative">
             <p className="text-3xl font-point text-white pt-12 sm:py-8 tracking-tighter">회원가입</p>
-            <form className="w-full flex flex-col items-center mb-24" onSubmit={handleSubmit(onSubmit)}>
+            <form
+                className="mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-320px)] flex flex-col items-center mb-24"
+                onSubmit={handleSubmit(onSubmit)}
+            >
                 <div className="max-w-screen-sm w-full flex flex-col gap-8 pt-4 sm:py-8">
                     <Controller
                         name="email"
@@ -117,12 +123,12 @@ export default function SignUpPage() {
                                     </button>
                                 </Input>
                                 {invalid && (
-                                    <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1 tracking-tighter">
+                                    <p className="absolute top-full left-0 text-primary text-xs py-1 tracking-tighter">
                                         {formState.errors.email?.message}
                                     </p>
                                 )}
                                 {isEmailChecked && (
-                                    <p className="absolute top-full left-[50px] sm:left-[100px] text-success text-xs py-1 tracking-tighter">
+                                    <p className="absolute top-full left-0 text-success text-xs py-1 tracking-tighter">
                                         사용할 수 있는 이메일입니다.
                                     </p>
                                 )}
@@ -146,7 +152,7 @@ export default function SignUpPage() {
                                     placeholder="example"
                                 />
                                 {invalid && (
-                                    <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1">
+                                    <p className="absolute top-full left-0 text-primary text-xs py-1">
                                         {formState.errors.nickname?.message}
                                     </p>
                                 )}
@@ -179,7 +185,7 @@ export default function SignUpPage() {
                                     )}
                                 </Input>
                                 {invalid && (
-                                    <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1 tracking-tighter">
+                                    <p className="absolute top-full left-0 text-primary text-xs py-1 tracking-tighter">
                                         {formState.errors.password?.message}
                                     </p>
                                 )}
@@ -212,7 +218,7 @@ export default function SignUpPage() {
                                     )}
                                 </Input>
                                 {invalid && (
-                                    <p className="absolute top-full left-[50px] sm:left-[100px] text-primary text-xs py-1 tracking-tighter">
+                                    <p className="absolute top-full left-0 text-primary text-xs py-1 tracking-tighter">
                                         {formState.errors.confirmPassword?.message}
                                     </p>
                                 )}
