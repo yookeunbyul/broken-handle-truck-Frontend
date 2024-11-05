@@ -62,16 +62,16 @@ export default function RegisterButton({
     }
   };
   return (
-    <div className="mx-auto w-[calc(100%-80px)] sm:w-[calc(100%-250px)] pt-3 my-10">
+    <div className="mx-auto w-[calc(100%-80px)] sm:w-[calc(100%-250px)] flex gap-x-5 py-5">
       <button
-        className="bg-primary text-lg py-5 w-full text-white rounded-lg font-bold text-center"
+        className="bg-primary text-white flex-1 py-5 rounded-lg tracking-tighter font-semibold"
         onClick={submitHandler}
         type="button"
       >
         내 가게 등록하기
       </button>
       <button
-        className="border-1 border-placeholder text-placeholder text-lg py-5 w-full rounded-lg font-bold text-center mt-3"
+        className="border-1 border-placeholder text-placeholder flex-1 py-5 rounded-lg tracking-tighter font-semibold"
         onClick={() => navigate("/my-truck", { replace: true })}
         type="button"
       >
