@@ -36,7 +36,6 @@ export default function DetailPage() {
     if (storeId) {
       getStore(storeId).then((data) => {
         setStoreInfo(data.store);
-        // setComments(data.comments);
         setTitle(data.store.name);
       });
     }
