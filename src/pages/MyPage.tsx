@@ -1,32 +1,32 @@
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import { editNickname, logout, withdraw } from "../apis/auth.ts";
 import useTitleStore from "../store/titleStore";
+import useUserStore from "../store/userStore.ts";
+import useNotificationStore from "../store/notificationStore.ts";
+import useStoresStore from "../store/storesStore.ts";
 import useFadeNavigate from "../hooks/useFadeNavigate";
+import useComment from "../hooks/useComment.ts";
+import Loading from "../components/Loading.tsx";
 import Comment from "../components/Comment.tsx";
 import NoReview from "../components/NoReview.tsx";
 import LogoIcon from "../assets/images/pinkLogo.svg?react";
 import MessageSquareIcon from "../assets/images/messageSquare.svg?react";
 import EditIcon from "../assets/images/edit2.svg?react";
 import CheckIcon from "../assets/images/check.svg?react";
-import type { IMyComment } from "../types/comment";
 import Truck from "../assets/images/truck.svg?react";
-import { editNickname, logout, withdraw } from "../apis/auth.ts";
-import useUserStore from "../store/userStore.ts";
-import useNotificationStore from "../store/notificationStore.ts";
-import { toast } from "react-toastify";
-import useStoresStore from "../store/storesStore.ts";
-import useComment from "../hooks/useComment.ts";
-import Loading from "../components/Loading.tsx";
+import type { IMyComment } from "../types/comment";
 
 export default function MyPage() {
+  const navigate = useFadeNavigate();
   const nicknameRef = useRef<HTMLInputElement | null>(null);
   const setTitle = useTitleStore((state) => state.setTitle);
-  const { setCategory } = useStoresStore();
-  const navigate = useFadeNavigate();
   const { user: userInfo, setUser } = useUserStore();
+  const { setCategory } = useStoresStore();
+  const { closeSocket } = useNotificationStore();
   const { data, isLoading, refetch } = useComment<IMyComment>("me");
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState("");
-  const { closeSocket } = useNotificationStore();
 
   const handleLogoutClick = async () => {
     // 로그아웃 버튼 클릭
