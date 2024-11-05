@@ -37,7 +37,7 @@ export default function MapPage() {
 
   const { user } = useUserStore();
   const { setLocation } = useStoresStore();
-  const { data: storeList = [], refetch } = useFetchStores();
+  const { stores, refetch } = useFetchStores();
 
   const mapRef = useRef<kakao.maps.Map | null>(null);
 
@@ -110,7 +110,7 @@ export default function MapPage() {
         onDragEnd={() => setIsMapMove(true)}
         onClick={() => setClickMarker(null)}
       >
-        {storeList.map((data) => (
+        {stores.map((data) => (
           <MapMarker
             key={`${data.name}-${data._id}`}
             // 나중에 임시데이터 지우면 data.category로 변경
