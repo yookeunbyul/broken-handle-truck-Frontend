@@ -14,7 +14,8 @@ import useUserStore from "../store/userStore.ts";
 import useNotificationStore from "../store/notificationStore.ts";
 import { toast } from "react-toastify";
 import useStoresStore from "../store/storesStore.ts";
-import { getMyComment } from "../apis/comment.ts";
+import useComment from "../hooks/useComment.ts";
+import Loading from "../components/Loading.tsx";
 
 export default function MyPage() {
   const nicknameRef = useRef<HTMLInputElement | null>(null);
@@ -22,7 +23,7 @@ export default function MyPage() {
   const { setCategory } = useStoresStore();
   const navigate = useFadeNavigate();
   const { user: userInfo, setUser } = useUserStore();
-  const [comments, setComments] = useState<IMyComment[]>([]);
+  const { data, isLoading, refetch } = useComment<IMyComment>("me");
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState("");
   const { closeSocket } = useNotificationStore();
@@ -78,13 +79,6 @@ export default function MyPage() {
   useEffect(() => {
     setTitle("마이페이지");
     setNickname(userInfo?.nickname || "");
-    getMyComment().then((data) => {
-      if (data.msg === "ok") {
-        setComments(data.comments);
-      } else {
-        setComments([]);
-      }
-    });
   }, [userInfo]);
 
   return (
@@ -149,26 +143,30 @@ export default function MyPage() {
           <MessageSquareIcon width={16} height={16} />
           <span className="tracking-tight">
             내가 남긴 리뷰 (
-            <strong className="text-primary">{comments.length}</strong>)
+            <strong className="text-primary">{data?.comments.length}</strong>)
           </span>
         </div>
-        {comments.length === 0 ? (
-          <div className="h-full">
-            <NoReview />
-          </div>
-        ) : (
-          <div>
-            {comments.map((comment) => (
-              <Comment
-                key={`my_comment_${comment._id}`}
-                content={comment.content}
-                name={comment.storeId.name}
-                authorId={comment.authorId}
-                createdAt={comment.createdAt}
-              />
-            ))}
-          </div>
-        )}
+        {(isLoading || !data?.comments) && <Loading />}
+        {data?.comments &&
+          (data.comments.length === 0 ? (
+            <div className="h-full">
+              <NoReview />
+            </div>
+          ) : (
+            <div>
+              {data.comments.map((comment) => (
+                <Comment
+                  key={`my_comment_${comment._id}`}
+                  id={comment._id}
+                  content={comment.content}
+                  name={comment.storeId.name}
+                  authorId={comment.authorId}
+                  createdAt={comment.createdAt}
+                  refetch={refetch}
+                />
+              ))}
+            </div>
+          ))}
       </div>
       <button
         className="self-center text-category underline text-sm pt-6 pb-4"
