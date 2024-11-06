@@ -1,4 +1,5 @@
-import { Sheet } from "react-modal-sheet";
+import { useRef } from "react";
+import { Sheet, SheetRef } from "react-modal-sheet";
 import useStoresStore from "../store/storesStore";
 import useFadeNavigate from "../hooks/useFadeNavigate";
 import Menu from "./Menu.tsx";
@@ -11,6 +12,7 @@ interface CategoryProps {
 }
 
 export default function Category({ isOpen, setOpen }: CategoryProps) {
+  const sheetRef = useRef<SheetRef>();
   const navigate = useFadeNavigate();
   const { category: selected, setCategory } = useStoresStore();
 
@@ -28,6 +30,7 @@ export default function Category({ isOpen, setOpen }: CategoryProps) {
 
   return (
     <Sheet
+      ref={sheetRef}
       isOpen={isOpen}
       onClose={() => setOpen(false)}
       snapPoints={[-50, 0.5, 100, 0]}
@@ -35,13 +38,16 @@ export default function Category({ isOpen, setOpen }: CategoryProps) {
     >
       <Sheet.Container>
         <Sheet.Header className="relative top-[1px]" />
-        <Sheet.Content className="overflow-auto">
+        <Sheet.Content
+          className="overflow-auto"
+          style={{ paddingBottom: sheetRef.current?.y }}
+        >
           <div className="mx-auto w-[calc(100%-100px)] sm:w-[calc(100%-200px)]">
             <p className="text-white font-bold text-lg sm:text-xl py-8">
               우리 동네 길거리음식, 찾아보세요!
             </p>
             <Sheet.Scroller>
-              <div className="grid grid-cols-[repeat(auto-fit,75px)] gap-x-4 sm:gap-x-10 gap-y-8 justify-between">
+              <div className="grid grid-cols-[repeat(auto-fit,75px)] gap-x-4 sm:gap-x-10 gap-y-8 justify-between pb-10">
                 {categories.map((category, idx) => (
                   <div
                     key={`category_${idx}`}
