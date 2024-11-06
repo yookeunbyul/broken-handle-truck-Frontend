@@ -17,9 +17,9 @@ export default function NotificationPage() {
     return (
         <>
             {notificationList.length > 0 ? (
-                <div className="flex flex-col gap-y-8 py-11 mx-auto w-[calc(100%-50px)] sm:w-[calc(100%-230px)]">
+                <div className="flex flex-col gap-y-5 py-11 mx-auto w-[calc(100%-50px)] sm:w-[calc(100%-230px)]">
                     <div className="flex justify-between items-center">
-                        <p className="flex items-center tracking-tighter">
+                        <p className="flex items-center tracking-tighter mb-2">
                             <PinkNoti width={18} height={18} />
                             <strong className="px-1 tracking-tight text-lg">알림</strong>
                             <strong className="text-primary text-lg">{notificationList.length}</strong>
