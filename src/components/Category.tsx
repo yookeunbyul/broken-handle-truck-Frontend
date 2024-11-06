@@ -3,6 +3,7 @@ import { Sheet, SheetRef } from "react-modal-sheet";
 import useStoresStore from "../store/storesStore";
 import useFadeNavigate from "../hooks/useFadeNavigate";
 import Menu from "./Menu.tsx";
+import AllCategoryIcon from "../assets/images/orangeLogo.svg?react";
 import { categories } from "../constants/categories";
 import { categoryImages } from "../assets/images/category";
 
@@ -48,6 +49,17 @@ export default function Category({ isOpen, setOpen }: CategoryProps) {
             </p>
             <Sheet.Scroller>
               <div className="grid grid-cols-[repeat(auto-fit,75px)] gap-x-4 sm:gap-x-10 gap-y-8 justify-between pb-10">
+                <div
+                  key={`category_all`}
+                  className="cursor-pointer"
+                  onClick={() => handleCategoryClick("")}
+                >
+                  <Menu
+                    title="전체"
+                    isSelected={selected === ""}
+                    ImgComponent={AllCategoryIcon}
+                  />
+                </div>
                 {categories.map((category, idx) => (
                   <div
                     key={`category_${idx}`}
