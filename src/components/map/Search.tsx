@@ -11,7 +11,7 @@ export default function Search() {
       <input
         className="w-full text-base border-none outline-none tracking-tighter"
         type="text"
-        placeholder="트럭 이름 입력 후 엔터 (전설의 붕어빵 -> 붕어빵(O), 붕어(O), 의 붕(O), 의붕(X))"
+        placeholder="이름 입력 후 엔터를 눌러주세요(ex: 붕어, 어빵,..)"
         value={searchTerm}
         onChange={inputHandler}
         onKeyDown={searchHandler}
