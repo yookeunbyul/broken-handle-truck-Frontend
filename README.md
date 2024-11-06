@@ -31,9 +31,11 @@
  
 #### 👋 팀원 소개
 
+<div align="center"></div>
+
 | 김현석 | 장원석 | 육은별 | 이예진 | 조준영 |
 |----------|----------|----------|----------|----------|
-| <img src="https://github.com/user-attachments/assets/4ab7f825-1905-4338-9094-dde78b5fb7b7" width="180" height="180" /> |<img src="https://github.com/user-attachments/assets/ef421f29-67ac-43c6-878a-a966c6cc5eee" width="180" height="180" /> |<img src="https://github.com/user-attachments/assets/f483c0f8-53ed-4c15-957b-e44ff4331102" width="180" height="180" /> |  <img src="https://github.com/user-attachments/assets/bc947593-936a-41e3-acf8-cf1c186a441b" width="180" height="180" />  | <img src="https://github.com/user-attachments/assets/6f3104ea-68d4-47be-8434-c8dacf4344d4" width="180" height="180" />|
+| <img src="https://github.com/user-attachments/assets/4ab7f825-1905-4338-9094-dde78b5fb7b7" width="150" height="150" /> |<img src="https://github.com/user-attachments/assets/ef421f29-67ac-43c6-878a-a966c6cc5eee" width="150" height="150" /> |<img src="https://github.com/user-attachments/assets/f483c0f8-53ed-4c15-957b-e44ff4331102" width="150" height="150" /> |  <img src="https://github.com/user-attachments/assets/bc947593-936a-41e3-acf8-cf1c186a441b" width="150" height="150" />  | <img src="https://github.com/user-attachments/assets/6f3104ea-68d4-47be-8434-c8dacf4344d4" width="150" height="150" />|
 | Frontend, Backend | Backend | Frontend | Frontend | Frontend |
 
 
