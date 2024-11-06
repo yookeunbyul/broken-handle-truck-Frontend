@@ -85,7 +85,7 @@ export default function MyPage() {
     return (
         <>
             {!userInfo ? null : (
-                <div className="px-8 sm:px-0 max-w-lg mx-auto h-full flex flex-col gap-8 sm:gap-12 pt-[50px] sm:pt-[60px]">
+                <div className="px-6 sm:px-0 max-w-lg mx-auto h-full flex flex-col gap-8 sm:gap-12 pt-[50px] sm:pt-[60px]">
                     <div className="flex justify-between items-center gap-4">
                         <div className="flex justify-center">
                             <div className="rounded-full w-24 h-24 bg-review">
@@ -106,10 +106,10 @@ export default function MyPage() {
                         <div className="flex-1 flex items-center gap-1 relative">
                             <div className="flex flex-col gap-y-1">
                                 <div className="">
-                                    <span className="tracking-tighter text-lg pl-1">{nickname}</span>
+                                    <span className="tracking-tighter text-lg pl-1 whitespace-nowrap">{nickname}</span>
                                     <input
                                         ref={nicknameRef}
-                                        className="outline-none absolute left-0 bg-transparent w-full tracking-tighter text-lg pl-1"
+                                        className="outline-none absolute left-0 bg-transparent whitespace-nowrap w-full tracking-tighter text-lg pl-1"
                                         type="text"
                                         value={nickname}
                                         onChange={({ target }) => setNickname(target.value)}
@@ -127,20 +127,20 @@ export default function MyPage() {
                                         )}
                                     </button>
                                 </div>
-                                <div className="text-base text-category tracking-tighter pl-1">
+                                <div className="text-sm text-category tracking-tighter pl-1 whitespace-nowrap">
                                     {userInfo?.role === 'owner' ? '푸드트럭 사장님' : '푸드트럭 발견가'}
                                 </div>
                             </div>
                         </div>
                         <button
-                            className="border-1 text-sm border-category text-category px-4 py-1.5 rounded-lg duration-300 hover:border-primary hover:text-primary"
+                            className="whitespace-nowrap border-1 text-sm border-category text-category px-4 py-1.5 rounded-lg duration-300 hover:border-primary hover:text-primary"
                             onClick={handleLogoutClick}
                         >
                             로그아웃
                         </button>
                     </div>
                     <button
-                        className="text-xl text-primary border-1 border-primary font-bold tracking-tight w-full py-6 rounded-lg drop-shadow-lg bg-white"
+                        className="text-lg text-primary border-1 border-primary font-bold tracking-tight w-full py-5 rounded-lg drop-shadow-lg bg-white"
                         onClick={() => navigate(`/my-truck`)}
                     >
                         <div className="flex gap-x-2 justify-center items-center">
@@ -148,7 +148,7 @@ export default function MyPage() {
                             <Truck width={23} height={23} className="pt-1" />
                         </div>
                     </button>
-                    <div className="flex-1">
+                    <div className="flex-1 pb-5">
                         <div className="flex justify-start items-center gap-x-1 text-base mb-3 pt-2">
                             <MessageSquareIcon width={16} height={16} />
                             <span className="tracking-tight">
