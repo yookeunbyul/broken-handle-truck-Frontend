@@ -36,8 +36,6 @@
 
 - **Backend**
     - `Express`, `Typescript`, `JWT`, `MongoDB`, `Websocket`, `Swagger`
- 
-#### 📚 배운 점
 
 <br />
 
