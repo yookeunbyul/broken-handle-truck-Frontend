@@ -20,7 +20,7 @@ export default function TopBar({ title }: TopBarProps) {
 
     return (
         <>
-            <div className="flex w-full bg-primary justify-center items-center px-4 py-5 sticky top-0 z-20">
+            <div className="flex w-full bg-primary justify-center items-center px-0 sm:px-4 py-5 sticky top-0 z-20">
                 <div className="w-[calc(100%-50px)] sm:w-[calc(100%-100px)] flex items-center">
                     <div className="flex-1 flex items-center">
                         {(pathname === '/detail' || pathname === `/my-truck`) && (
