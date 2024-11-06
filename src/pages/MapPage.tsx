@@ -14,6 +14,7 @@ import MapMarker from '../components/map/MapMarker';
 import { categories } from '../constants/categories';
 import ReloadIcon from '../assets/images/reload.svg?react';
 import type { IStore } from '../types/store';
+import { toast } from 'react-toastify';
 
 type Coordinates = [longitude: number, latitude: number];
 
@@ -34,7 +35,7 @@ export default function MapPage() {
 
     const { user } = useUserStore();
     const { setLocation } = useStoresStore();
-    const { stores, refetch } = useFetchStores();
+    const { stores, refetch, isLoading } = useFetchStores();
 
     const mapRef = useRef<kakao.maps.Map | null>(null);
 
@@ -102,6 +103,12 @@ export default function MapPage() {
     useEffect(() => {
         refetch();
     }, [notificationList]);
+
+    useEffect(() => {
+        if (!isLoading && stores.length === 0) {
+            toast.warn('주위에 검색 결과가 없습니다.');
+        }
+    }, [isLoading, stores]);
 
     return (
         <>
