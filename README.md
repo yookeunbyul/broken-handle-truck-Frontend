@@ -53,9 +53,9 @@
 
 ## 주요 기능
 
-- **회원가입 및 로그인**
+- **회원가입 및 로그인(카카오 로그인)**
 
-  ![Animation5](https://github.com/user-attachments/assets/59e8e355-c8b4-456f-a32c-79f94a8dbd5f)
+  <img src="https://github.com/user-attachments/assets/451baff6-e299-4a10-b436-bf1190a25b4f" width="500">
 
 - 지도에서 가게 정보 확인(카드, 상세페이지)
 
