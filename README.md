@@ -36,6 +36,12 @@
 
 - **Backend**
     - `Express`, `Typescript`, `JWT`, `MongoDB`, `Websocket`, `Swagger`
+ 
+<br />
+
+## 프로젝트 구조
+
+![다이어그램](https://github.com/user-attachments/assets/5b21157e-3bcb-40d6-921a-82390efd1b61)
 
 <br />
 
