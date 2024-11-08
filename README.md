@@ -1,9 +1,6 @@
 # 🚚 핸들이 고장난 푸드트럭(broken-handle-truck)
 
-<div align="center" style="display: flex;">
-  <img width="400" alt="화면 캡처 2024-11-06 163513" src="https://github.com/user-attachments/assets/f82d800e-7eb9-41fa-b653-817e4bc71ece">
-  <img width="400" alt="화면 캡처 2024-11-06 163620" src="https://github.com/user-attachments/assets/c7e64730-4f24-4439-9c91-1449f5da5fde">
-</div>
+![핸들이-고장난-푸드트럭-001](https://github.com/user-attachments/assets/dc3289eb-ee99-467a-a931-ee62ca465a75)
 
 ### 🔗 ["핸들이 고장난 푸드트럭" 배포 링크](https://broken-handle-truck.store/)
 
@@ -59,124 +56,67 @@
 
 - 지도에서 가게 정보 확인(카드, 상세페이지)
 
+  <img src="https://github.com/user-attachments/assets/b2cc1968-e2a9-405a-b19f-c94aa96f760f" width="500">
+
 - 검색, 카테고리 기능
+
+  <img src="https://github.com/user-attachments/assets/563f8424-fc9a-4829-9c30-e0f532751bf4" width="500">
 
 - 북마크
 
+  <img src="https://github.com/user-attachments/assets/ade3e74d-6734-4e17-9954-bbf3047ed770" width="500">
+  
 - 알림
 
 - 가게 등록 및 관리(수정, 삭제)
-
-- 반응형
 
 - 리뷰(댓글) 남기기
 
 <br />
 
-## 폴더 구조
-```
-src
-│  App.tsx
-│  index.css
-│  main.tsx
-│  map.svg
-│  vite-env.d.ts
-│
-├─apis
-│      apiClient.ts
-│      auth.ts
-│      bookmark.ts
-│      comment.ts
-│      notification.ts
-│      store.ts
-│
-├─assets
-│  └─images
-│
-├─components
-│  │  BookMarkButton.tsx
-│  │  button.tsx
-│  │  Card.tsx
-│  │  Category.tsx
-│  │  Comment.tsx
-│  │  EditStore.tsx
-│  │  Input.tsx
-│  │  Loading.tsx
-│  │  Menu.tsx
-│  │  Message.tsx
-│  │  NoReview.tsx
-│  │  Select.tsx
-│  │  Toggle.tsx
-│  │  WriteReview.tsx
-│  │
-│  ├─bookmark
-│  │      NoBookMark.tsx
-│  │
-│  ├─map
-│  │      MapMarker.tsx
-│  │      MyLocation.tsx
-│  │      Search.tsx
-│  │
-│  ├─register
-│  │      InputSection.tsx
-│  │      RegisterButton.tsx
-│  │
-│  └─routeGuards
-│          AuthGuard.tsx
-│          MainGuard.tsx
-│          PublicGuard.tsx
-│
-├─constants
-│      categories.ts
-│
-├─hooks
-│      useComment.ts
-│      useFadeNavigate.ts
-│      useFetchBookmark.ts
-│      useFetchStores.ts
-│      useMyLocation.ts
-│      useMyStore.ts
-│      useSearch.ts
-│      useToggle.ts
-│
-├─layouts
-│      BottomNavBar.tsx
-│      layout.tsx
-│      TopBar.tsx
-│
-├─mocks
-│      myBookMark.json
-│      truckDatas.json
-│
-├─pages
-│  │  BookMarkPage.tsx
-│  │  DetailPage.tsx
-│  │  LoginPage.tsx
-│  │  MainPage.tsx
-│  │  MapPage.tsx
-│  │  MyPage.tsx
-│  │  NotificationPage.tsx
-│  │  SignUpPage.tsx
-│  │
-│  └─owner
-│          index.tsx
-│          MyTruckPage.tsx
-│          RegisterPage.tsx
-│
-├─store
-│      mapLocationStore.ts
-│      notificationStore.ts
-│      storesStore.ts
-│      titleStore.ts
-│      userStore.ts
-│
-└─types
-        auth.d.ts
-        bookmark.d.ts
-        category.d.ts
-        comment.d.ts
-        notification.d.ts
-        response.d.ts
-        store.d.ts
-        user.d.ts
-```
+## 코드 컨벤션
+
+- 폴더 구조
+
+  ```
+  src
+  │
+  ├─apis     #API 관련 로직
+  ├─assets     #이미지 등 정적 파일
+  ├─components     #재사용 가능한 컴포넌트 모음
+  ├─constants     #데이터
+  ├─hooks     #커스텀 훅
+  ├─layouts     #페이지 레이아웃 컴포넌트
+  ├─mocks     #목업 데이터
+  ├─pages     #라우터 페이지
+  ├─store     #전역 상태 관리(zustand)
+  └─types     #타입 정의
+  ```
+
+- 파일 명명 규칙
+
+  ```
+  - 컴포넌트: PascalCase (예: `Button.jsx`, `UserProfile.jsx`)
+  - 유틸리티, 훅: camelCase (예: `useForm.js`, `formatDate.js`)
+  - customHook을 사용하는 경우 : use + 함수명
+  ```
+
+- axios instance 생성
+
+  ```js
+  const service = axios.create({
+     baseURL: `${import.meta.env.VITE_API_URL}/api/`,
+     withCredentials: true,
+     timeout: 10000,
+  });
+  ```
+
+<br />
+
+## 향후 계획
+
+  ```
+  1. 가게 제보하기(타인 등록 가능)
+  2. 고객 리뷰에 사장님의 답글
+  3. 스토어 등록 시 사장님 인증 (실제 운영하는 가게 사진)
+  ```
