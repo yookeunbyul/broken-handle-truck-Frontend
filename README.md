@@ -68,10 +68,16 @@
   
 - 알림
 
+  <img src="https://github.com/user-attachments/assets/ee067b90-5a26-4ee0-b39e-442dace1a1bb" width="500">
+
 - 가게 등록 및 관리(수정, 삭제)
 
+  <img src="https://github.com/user-attachments/assets/79193f58-79b8-498e-b335-697344f01c34" width="500">
+    
 - 리뷰(댓글) 남기기
 
+  <img src="https://github.com/user-attachments/assets/4e82f206-535b-47fb-b167-b7d7896ab086" width="500">
+  
 <br />
 
 ## 코드 컨벤션
