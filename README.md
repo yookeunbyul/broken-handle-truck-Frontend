@@ -1,6 +1,7 @@
 # 🚚 핸들이 고장난 푸드트럭(broken-handle-truck)
 
-![핸들이-고장난-푸드트럭-001 (1)](https://github.com/user-attachments/assets/7c816e25-69e6-4ea7-9ab5-3175fc32f86c)
+![Slide 16_9 - 3](https://github.com/user-attachments/assets/64271ab2-47c0-4362-8a2a-ecf4455bc530)
+
 
 ### 🔗 ["핸들이 고장난 푸드트럭" 배포 링크](https://broken-handle-truck.store/)
 
